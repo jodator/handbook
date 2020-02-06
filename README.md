@@ -1,2 +1,8 @@
-# handbook
-The Joystream Handbook
+---
+description: About the Joystream Handbook
+---
+
+# Introduction
+
+### 
+
