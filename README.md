@@ -1,0 +1,2 @@
+# handbook
+The Joystream Handbook
