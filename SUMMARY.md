@@ -4,10 +4,10 @@
 
 ## Key Concepts
 
-* [Keys and Addresses](key-concepts/keys-and-addresses.md)
+* [Keys, Addresses and Accounts](key-concepts/keys-and-addresses.md)
 * [Memberships](key-concepts/memberships/README.md)
   * [Channels](key-concepts/memberships/channels.md)
-* [Testnet Token \(testJOY\)](key-concepts/testnet-token-testjoy.md)
+* [Testnet Token \(tJOY\)](key-concepts/testnet-token-tjoy.md)
 * [The Council](key-concepts/the-council/README.md)
   * [Election Stages](key-concepts/the-council/election-stages.md)
   * [Proposals](key-concepts/the-council/proposals.md)
@@ -18,4 +18,9 @@
   * [Curation](key-concepts/multimedia-content/curation.md)
   * [Indexing](key-concepts/multimedia-content/indexing.md)
 * [Forum](key-concepts/forum.md)
+
+## Guides
+
+* [The Subkey Utility](guides/the-subkey-utility.md)
+* [Vanity Addresses](guides/vanity-addresses.md)
 
