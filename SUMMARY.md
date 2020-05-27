@@ -1,4 +1,4 @@
-# Table of contents
+# Table of Contents
 
 * [Introduction](INTRODUCTION.md)
 
@@ -13,16 +13,15 @@
 * [Working Groups](governance/working-groups.md)
 
 ## Subsystems
-* [Membership](key-concepts/memberships/README.md) 
-* [Content](subsystems/content-directory.md)
+* [Membership](subsystems/membership.md) 
+* [Content Directory](subsystems/content-directory.md)
 * [Storage](subsystems/storage.md)
+* [Forum](subsystems/forum.md)
+* [Query](subsystems/query.md)
 * [Bandwidth](subsystems/bandwidth.md)
-* [Livestreaming](subsystems/building.md)
-* [Query](subsystems/building.md)
+* [Livestreaming](subsystems/livestreaming.md)
 * [Advertising](subsystems/advertising.md)
 * [Building](subsystems/building.md)
-* [Building](subsystems/building.md)
-* [Forum](subsystems/forum.md)
 
 ## Guides
 * [The Subkey Utility](guides/the-subkey-utility.md)
