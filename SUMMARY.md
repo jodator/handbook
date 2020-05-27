@@ -1,9 +1,10 @@
 # Table of contents
 
-* [Introduction](README.md)
+* [Introduction](INTRODUCTION.md)
 
 ## Key Concepts
 
+* [Content Directory](key-concepts/content-directory.md)
 * [Keys, Addresses and Accounts](key-concepts/keys-and-addresses.md)
 * [Memberships](key-concepts/memberships/README.md)
   * [Channels](key-concepts/memberships/channels.md)
