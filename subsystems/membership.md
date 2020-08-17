@@ -4,8 +4,6 @@ description: Memberships allow participants to build up reputation on the platfo
 
 # Memberships
 
-_Note: Memberships should not be confused with_ [_accounts_](../keys-and-addresses.md#what-are-keys-addresses-and-accounts)_, which are a much more basic structure on the platform._ 
-
 ### What Is A Membership?
 
 A membership is essentially the consolidated representation of an actor's activities and resulting reputation on the platform. A membership is linked directly and indirectly to accounts \(keys\), each of which are used for specific purposes.
@@ -16,7 +14,7 @@ In past testnets, memberships were linked with just one root account \(key\) whe
 
 Directly, memberships have an associated root key and a membership role key. The root key is used to change the role key only, and it is meant to be used extremely rarely. The membership role key is for authenticating as a member, for example when applying for a new role.
 
-Indirectly, each role has at least one role key corresponding to that role \(which is always associated with a membership through the membership role key\). 
+Indirectly, each role has at least one role key corresponding to that role \(which is always associated with a membership through the membership role key\).
 
 For example, the member Bob, who has the role of `Storage Provider` with `id=52` and `Content Curator` with `id=19` will have a separate role key for both of those. They are used as the primary means of authenticating in each role. These role keys are bound to that role during entry into \(application for\) the role. Beyond this, there may be other use case specific keys for each role, if required.
 
@@ -34,7 +32,7 @@ All of the memberships from the Acropolis testnet have been migrated across to t
 
 ### Membership Profile
 
-Each member can set certain profile variables. The only "required" variable when registering is a `handle or nickname` which cannot currently be changed after registration. 
+Each member can set certain profile variables. The only "required" variable when registering is a `handle or nickname` which cannot currently be changed after registration.
 
 The Rome testnet also supports the setting of an `Avatar Image URL` and a short biography or description of a participant's testnet activities in the `About` section.
 
@@ -50,3 +48,10 @@ A membership \(as compared with an account\) is currently able to do things such
 * Make posts in the platform forum
 * Create a channel
 
+
+
+### Memberships And Accounts
+
+Memberships are a separate but linked concept to accounts \(keys\). While in some other contexts an account and membership might be referring the same thing \(in some web applications, for example\), in our testnets they must be understood as describing two distinct concepts.
+
+ Read more about memberships [here](memberships/).
