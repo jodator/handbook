@@ -28,7 +28,7 @@ Moreover, the blockchain history also includes a most recent value of the follow
 - **Avatar:** URI for an avatar image.
 - **About:** Human readable text description.
 - **Founding Member**: A signifier that this member holds some specific historical significance to the launch of the platform. This value will be stored in the chain state when mainnet launches, but for now, since we want to grant founding member status on an ongoing member through a SUDO call, this is in history.
-- **Rank/score**: Gamification of level? ()
+- **Verified:** A boolean indicator that reflects whether the implied real world identity in the profile corresponds to the true actor behind the membership.
 
 ### Membership Working Group
 
@@ -48,6 +48,7 @@ A designated member, who also would be the lead in the working group corres
 #### Screener
 
 ... gives out invites to others
+... verifies, deverifies
 
 
 ## State
