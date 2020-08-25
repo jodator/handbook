@@ -1,52 +1,101 @@
----
-description: Memberships allow participants to build up reputation on the platform.
----
 
-# Memberships
+# Membership
 
-_Note: Memberships should not be confused with_ [_accounts_](../keys-and-addresses.md#what-are-keys-addresses-and-accounts)_, which are a much more basic structure on the platform._ 
+## Introduction
 
-### What Is A Membership?
+A membership is a representation of an actor on the platform, and it they exist to serve the following purposes
 
-A membership is essentially the consolidated representation of an actor's activities and resulting reputation on the platform. A membership is linked directly and indirectly to accounts \(keys\), each of which are used for specific purposes.
+- **Profile:** A membership has an associated rich profile that includes information that support presenting the actor in a human friendly way in applications, much more so than raw accounts
+- **Reputation:** Facilitates the consolidation of all activity under one stable identifier, allowing an actor to invest in the reputation of a membership through prolonged participation with good conduct. This gives honest and competent actors a practical way to signal quality, and this quality signal is a key screening parameter allowing entry into more important and sensitive activities. While nothing technically prevents an actor from registering for multiple memberships, the value of doing a range of activities under one membership should be greater than having it fragmented, since reputation, in essence, increases with the length and scope of the history of consistent good conduct.
+- **Recovery:** By binding other roles and activities to a membership, it becomes possible to recover control of those roles even if accounts used to authenticate for those roles are lost.
 
-In past testnets, memberships were linked with just one root account \(key\) whereas in our Rome testnet, one membership can have multiple accounts \(keys\) directly and indirectly related to it.
+It's important to be aware that a membership is not an account, but a higher level concept that involves accounts for authentication.
 
-![Diagram to show the membership structure of a typical testnet participant](../../.gitbook/assets/diagram.jpeg)
+The membership subsystem is responsible for storing and managing all memberships on the platform, as well as enabling the creation of new memberships, and the terms under which this may happen.
 
-Directly, memberships have an associated root key and a membership role key. The root key is used to change the role key only, and it is meant to be used extremely rarely. The membership role key is for authenticating as a member, for example when applying for a new role.
+## Concepts
 
-Indirectly, each role has at least one role key corresponding to that role \(which is always associated with a membership through the membership role key\). 
+### Membership
 
-For example, the member Bob, who has the role of `Storage Provider` with `id=52` and `Content Curator` with `id=19` will have a separate role key for both of those. They are used as the primary means of authenticating in each role. These role keys are bound to that role during entry into \(application for\) the role. Beyond this, there may be other use case specific keys for each role, if required.
+A membership includes the following in the blockchain state:
 
-### Memberships And Reputation
+- **Id:** A unique immutable non-negative integer identifying the member, automatically assigned when membership is created.
+- **Root Account:** A required account that is used only to update the controller account. Need not be unique across members, but in practice probably will be.
+- **Controller Account:** A required account that is used to authenticate as the member, both in this and other parts of the platform. Need not be unique across members, but in practice probably will be.
+- **Handle:** Hash of a unique mutable string handle.
+- **Invites:** A non-negative integer that represents how many invitations this member has.
+- **Verified:** A boolean indicator that reflects whether the implied real world identity in the profile corresponds to the true actor behind the membership.
 
-Membership should be considered a valuable asset by platform actors. This is because by accumulating a positive reputation through performing helpful and responsible actions on the platform, a participant will earn greater rewards as a result of the increased likelihood of obtaining positions of greater responsibility within the platform's hierarchy.
+Moreover, the blockchain history also includes a most recent value of the following:
 
-For this reason it is encouraged for each testnet participant to maintain just one membership. While nothing technically prevents people from registering for multiple memberships, the value of doing a range of activities under one membership should be greater than having it fragmented, since reputation, in essence, increases with the length and scope of the history of consistent good conduct.
+- **Avatar:** URI for an avatar image.
+- **About:** Human readable text description.
+- **Founding Member**: A signifier that this member holds some specific historical significance to the launch of the platform. This value will be stored in the chain state when mainnet launches, but for now, since we want to grant founding member status on an ongoing member through a SUDO call, this is in history.
 
-### Obtaining A Platform Membership
+### Membership Working Group
 
-A platform membership can be obtained by registering for one. There is a small fee \(in tJOY\) associated with this to prevent spam registrations. This is currently `100 JOY`.
+The membership subsystem has a working group. The purpose of the group is to effectively distribute invitation quotas and verified status. The lead has the extra task of refreshing the quotas to workers, which they can in turn then distribute to other members. Workers are referred to as _membership evangelists_.
 
-All of the memberships from the Acropolis testnet have been migrated across to the Rome testnet and given a starting balance \(at the genesis block\) of `2000 JOY`.  For this reason, participants in Acropolis will not need to register again.
+## State
 
-### Membership Profile
+The system holds the following important on-chain state variables
 
-Each member can set certain profile variables. The only "required" variable when registering is a `handle or nickname` which cannot currently be changed after registration. 
+- All memberships.
+- The identifier value for the next membership to be created.
+- The price of a membership.
+- The referral cut of the membership price diverted to a referrer when buying a membership.
+- The default number of invitations set for a new bought membership.
+- The total invites budget from which the lead can distribute invitations to other members.
+- The next block where the total invites budget will be set to some new specific value.
 
-The Rome testnet also supports the setting of an `Avatar Image URL` and a short biography or description of a participant's testnet activities in the `About` section.
+## Constants
 
-### Current Abilities Of Platform Members
+**TBD.**
 
-A membership \(as compared with an account\) is currently able to do things such as:
+## Operation
 
-* Stand as a candidate for council elections
-* Vote in council elections
-* Make proposals to be voted on by the council
-* Upload multimedia content
-* Edit multimedia content
-* Make posts in the platform forum
-* Create a channel
+These are the operations possible in this subsystem.
 
+### Buying a Membership
+
+Buying a membership requires an account holder to provide
+
+- Root account
+- Controller account
+- Handle
+- Avatar URI
+- About field
+- An optional membership listed as the referrer.
+
+The originating account must have sufficient balance to cover the current membership price. The new membership will
+
+- not be verified
+- not be a founding member
+- get an id equal to the current next id value
+- get an invitation count equal to the current default value
+
+If a referrer is listed, then some share of the price is diverted into the controller account of that member. The remaining membership price is burned.
+
+### Invite Member
+
+A member, signing with the controller account, with a non-zero number of invites may create a new member, providing the same inputs as when a membership is bought, resulting in a reduction in the invites value if successful. The main difference to a bought membership is that the invitation count is zero.
+
+### Update Profile
+
+A member, signing with the controller account, may update one or more of the following
+
+- Handle
+- Avatar URI
+- About field
+
+### Transfer Invites
+
+A member can transfer part of invitation budget to another member.
+
+### Update Accounts
+
+A member, signing with the root account, can update the root or controller accounts, or both.
+
+### Update Verified Status
+
+A evangelist or lead can update the verified status of a member to a new value.

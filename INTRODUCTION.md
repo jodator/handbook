@@ -1,3 +1,13 @@
 # Introduction
 
-Introduction to Handbook.
+## Purpose
+
+WIP.
+
+## Scope
+
+WIP.
+
+## Contribute
+
+WIP.
