@@ -1,2 +1,63 @@
-# tJOY
-Also known as testJOY, this is the token currently used on our testnets.
+# Glossary
+
+WIP.
+
+## Runtime
+
+..
+
+## Runtime Module
+
+..
+
+## Rust
+
+..
+
+## Substrate
+
+..
+
+## Blockchain
+
+..
+
+## Blockchain State
+
+..
+
+## Blockchain History
+
+..
+
+## Account
+
+..
+
+## Address
+
+..
+
+## Keys
+
+..
+
+## Hash
+
+..
+
+## Extrinsic
+
+..
+
+## Testnet
+
+..
+
+## Mainnet
+
+..
+
+## Joystream Network
+
+..
