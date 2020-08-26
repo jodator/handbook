@@ -21,3 +21,4 @@ Session keys are specific to the validator role and have a variety of purposes l
 You can read more about `validators` and their `session keys` in our handbook section dedicated to them.
 
 ## Keys
+

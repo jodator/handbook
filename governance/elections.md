@@ -1,2 +1,2 @@
-# Election Stages
+# Elections
 

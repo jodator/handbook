@@ -4,9 +4,7 @@ description: Learn more about these fundamental components of our current testne
 
 # Keys
 
-
-
-### What Are Keys, Addresses and Accounts?
+## What Are Keys, Addresses and Accounts?
 
 Accounts are the most basic representation of actor\(s\) on the platform. They are formally represented by unique human-readable addresses, which are themselves generated from their respective private keys. Each account can only be represented by one address, and a single key from which this address is derived.
 
@@ -20,7 +18,7 @@ An account is currently limited to three basic functions:
 * Functions relating to being a `Validator` \(see below\)
 * Setting a memo for testnet compensation or some other defined purpose
 
-### Creating and Managing Keys
+## Creating and Managing Keys
 
 Our current testnet allows participants to generate keys from a mnemonic or raw seed. Users can choose between two encryption systems for generating the key from the seed. These are `Edwards (ed25519)` and `Schnorrkel/Ristretto x25519 (sr25519)`.
 
@@ -31,3 +29,4 @@ Our current testnet allows participants to generate keys from a mnemonic or raw 
 If you would like to validate, the `session` key needs to use `ed25519` cryptography.
 
 The private key, seed or mnemonic phrase should never be shared with anybody as these give access to your funds.
+

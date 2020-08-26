@@ -1,11 +1,11 @@
-# Table of Contents
-
+# Table of contents
 
 * [Introduction](INTRODUCTION.md)
 * [Overview](overview.md)
-* [Glossary](GLOSSARY.md)
+* [Glossary](glossary.md)
 
 ## Key Concepts
+
 * [Keys](key-concepts/keys.md)
 * [Account](key-concepts/account.md)
 * [Address](key-concepts/address.md)
@@ -13,6 +13,7 @@
 * [Extrinsics](key-concepts/extrinsics.md)
 
 ## Subsystems
+
 * [Validation](subsystems/validation.md)
 * [Membership](subsystems/membership.md)
 * [Content Directory](subsystems/content-directory.md)
@@ -27,11 +28,14 @@
 * [Content Financing](subsystems/content-financing.md)
 
 ## Governance
+
 * [Council](governance/council.md)
 * [Elections](governance/elections.md)
 * [Proposals](governance/proposals.md)
 * [Working Groups](governance/working-groups.md)
 
 ## Guides
+
 * [The Subkey Utility](guides/the-subkey-utility.md)
 * [Vanity Addresses](guides/vanity-addresses.md)
+

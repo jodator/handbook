@@ -4,9 +4,9 @@ description: Learn more about these fundamental components of our current testne
 
 # Account
 
-- balances
-- reservation
-- locking
+* balances
+* reservation
+* locking
 
 ## Balances
 
@@ -15,3 +15,4 @@ Participants should be aware that balances attached to addresses can be held in 
 * **`available`**: funds that are available for any transaction.
 * **`bonded`**: funds currently locked for validating or nominating
 * **`unbonding`**: funds that are being unbonded \(will be redeemable after the bonding period has passed\)
+
