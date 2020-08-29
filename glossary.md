@@ -28,6 +28,10 @@ WIP.
 
 ## Blockchain History
 
+...
+
+## Consensus System
+
 ..
 
 ## Account
@@ -61,4 +65,18 @@ WIP.
 ## Joystream Network
 
 ..
+
+## Staking
+
+...
+
+## Unstaking
+
+...
+
+## Slashing
+
+...
+
+## X
 

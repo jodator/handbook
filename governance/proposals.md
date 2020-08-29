@@ -16,7 +16,7 @@ A proposal is a motion to change the state or policy of the system in some way. 
 * barrier for getting accepted
 * delay to being put into motion when accepted
 
-The reason for this differentiation across types is because different proposals have very different effects, and carry very different risks of failure or abuse. The proposal system has the responsibility of coordinating the different actors involved in the litetime of a proposal, from submission to finalisation.
+The reason for this differentiation across types is because different proposals have very different effects, and carry very different risks of failure or abuse. The proposal system has the responsibility of coordinating the different actors involved in the lifetime of a proposal, from submission to finalization.
 
 ## Actors
 
@@ -27,15 +27,49 @@ The relevant actors in the proposal system are
 
 ## Concepts
 
-### Proposal Types
+### Proposal Type
 
-Th...
+A proposal type is a parametrized intention to have some effect on the platform. The set of proposal types will increase considerably in the future, and the current types are listed below. 
 
-#### General Proposals
+#### Constants
 
-#### \# Text/signal Proposal
+All proposal types have constant values for a shared set of parameters that are common across all types, thee are called _proposal constants._ The name and semantics of each constant is listed in the table below.
+
+| **Name** | Shorthand | Description |
+| :--- | :---: | :--- |
+| **Voting Period** | VP | Maximum number of blocks where one can vote. |
+| **Grace Period** | GP | Number of blocks after a proposal is approved until it has its effect. |
+| **Approval Quorum** | AQ | Number of votes required to be cast before a proposal can be approved, although this is not a sufficient condition for approval. |
+| **Approval Threshold** | AT | Minimum percentage of approval votes as a share of  all cast votes that result in approval. |
+| **Slashing Quorum** | SQ | Minimum votes required to be cast before a proposal can be slashed, lead to slashing the stake of the proposer. |
+| **Slashing Threshold** | ST | Minimum percentage of cast votes as share  that slash relative to those that vote approve, abstain or reject.  |
+| **Proposal Stake** | PS | Minimum stake required to create a proposal of this type. |
+
+#### Parameters
+
+All proposal types also require providing values for a set of parameters, called _general proposal parameters_, 
+
+* **Proposer:** Member identifier of the proposer.
+* **Title:** A human readable title.
+* **Description:** A human readable description text. It is expected that some social convention will emerge on the appropriate encoding of this text, for example markdown, that would facilitate consistent input and display across client applications.
+* **Stake:** The 
+* Signature: 
+
+Each type may further have a set of parameters that are specific to the given type, called _proposal param_e_ters_, and whenever a proposal of a given type is created, the proposer must provide values for these parameters. Each parameter will also have some constraint on the valid range of values. The list below describes each type in terms of its intended effect and these parameters.
+
+### General Proposals
+
+This section includes proposals that concern the platform as whole.
+
+#### Signal
 
 Although no action will happen if such a proposal is voted through, it provides a way for user to request changes, propose improvements, complaint about something, and in general voice their opinion on a matter. This will open a discussion, and Council Member can signal their approval or rejection through a vote. This can be used to notify the platform developers about key feature missing, highlight a topic of controversy, etc.
+
+| Name | Description | Limit |
+| :--- | :--- | :--- |
+| Text |  | None \(not true\) |
+
+values, constraints..
 
 #### Runtime Upgrade
 
@@ -109,16 +143,13 @@ To avoid the Lead paying themselves too much, or frivolous spending in general, 
 
 If the Lead, or anyone else, wants to replenish or drain the existing Mint, a proposal can be made. If voted in, the new Capacity proposed will be set immediately.
 
-### Proposal
+### Proposal Instance
 
 A proposal instance is defined by the following information
 
-* **Type:** Which type of proposal
-
-
-
-
-
+* **Type:** Which type of proposal this is.
+* General Parameters:
+* 
 
 
 **States and Outcomes**
@@ -158,15 +189,7 @@ x
 
 ## Constants
 
-For each proposal that exists, the following constants exist
 
-* **Voting Period \(VP\):** the maximum amount of blocks where voting is open before a proposal expires
-* **Grace Period \(GP\):** the amount of blocks after a proposal is approved until it as implemented on chain
-* **Approval Quorum \(AQ\)\[%\]** - the amount of votes required to be cast before a proposal _can_ be approved
-* **Approval Threshold \(AT\)\[%\]** - the required threshold ratio of cast votes for `approve`, relative to those that vote `abstain`, `reject` or `slash`
-* **Slashing Quorum \(SQ\)\[%\]** - the amount of votes required to be cast before a proposal _can_ lead to slashing the stake of the proposer
-* **Slashing Threshold \(ST\) \[%\]** - the required threshold ratio of cast votes that slash relative to those that vote approve, abstain or reject.
-* **Proposal Stake \(PS\):** the required stake to create a proposal of this type
 
 Here are the values of these parameters for each proposal
 
