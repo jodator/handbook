@@ -45,6 +45,8 @@ All proposal types have constant values for a shared set of parameters that are 
 | **Slashing Threshold** | ST | Minimum percentage of cast votes as share  that slash relative to those that vote approve, abstain or reject.  |
 | **Proposal Stake** | PS | Minimum stake required to create a proposal of this type. |
 
+For clarity its worth immediately noting that if both quorums, approval and slashing, are satisfied threshold satisfaction is evaluated in that order. This means that if approval threshold was satisfied, it does not matter if slashing was approved simultaneously.
+
 #### Parameters: General & Specific
 
 Whenever a proposal of a given type is created, the proposer must provide values for a set of parameters. The parameters fall into one of two categories: _general_ and _type-specific_. Each parameter will also have some constraint on the valid range of values. The general proposal parameters are
@@ -56,6 +58,14 @@ Whenever a proposal of a given type is created, the proposer must provide values
 
 The type-specific parameters for each proposal type are listed with the proposals below.
 
+#### Creation Conditions
+
+When a proposal is submitted, a set of conditions on the values of the input parameters \(only\) are evaluated, these are called _creation conditions_, and creating the proposal fails if they are not satisfied. These are things like for example respecting the upper bound on the amount of money you are asking for in a spending proposal. Importantly, these checks are _pure_, they only depend on parameters, not the state of the system. 
+
+#### Execution Conditions
+
+A proposal may be approved, and at some point the actual business logic that embodies its intended effect has to be executed. This is always much later than when the proposal was first created, and it may very well be possible to have a proposal which originally looked would have had its intended effect to no longer be applicable because the state of he system has changed in the intermediate. An example could be that a funding proposal requires more money than the council currently can spend due to other spending that may have occurred since the proposal was approved. These conditions are called _execution conditions_, and importantly, they are not checked at any time prior to execution of this business logic.
+
 ### Proposal
 
 A proposal is defined by the following information
@@ -63,26 +73,24 @@ A proposal is defined by the following information
 * **Type:** Which type of proposal this is.
 * **General Parameters:** Values for general proposal parameters.
 * **Type-Specific Parameters:** Values for type-specific proposal parameters.
-* **State:**  xxxx
-* **Discussion:** xxx
+* **Stage:**  The life-cycle stage of a proposal, as defined precisely in the next section.
+* **Discussion:** A single threaded discussion about the proposal, as defined in the discussion section.
 
-mmmmmm
+**Stage**
 
-**States and Outcomes**
+Below is a list of the stateges a proposal can be in, and what each of them means:
 
-Below is a list of the states a proposal can be in, and what each of them means:
-
-* `Active` - the proposal can be voted on, and no resolution has been made
-* `Grace Period` - the proposal has been approved, and is awaiting execution
-* `Executed` - the proposal was approved, and, after a potential `Grace Period`, executed on chain
-* `Execution Failed` - the proposal was approved, and, after a potential `Grace Period`, attempted to be executed on chain. For some reason, the execution failed
-* `Rejected` - the proposal was rejected by the council
-* `Slashed` - the proposal was rejected, and the stake of proposer was slashed by the council
-* `Expired` - the council members did not reach consensus and the proposal expired without any action. This can be the result of insufficient voter turnout, or disagreement between the council members
+* **Active:** The only stage where voting occurs,
+* **Grace Period:** the proposal has been approved, and is awaiting execution
+* **Execution Succeeded:** - the proposal was approved, and, after a potential Grace Period, executed on chain
+* **Execution Failed:**  the proposal was approved, and, after a potential Grace Period, attempted to be executed on chain. For some reason, the execution failed
+* **Rejected:**  the proposal was rejected by the council
+* **Slashed:**  the proposal was rejected, and the stake of proposer was slashed by the council
+* **Expired:**  the council members did not reach consensus and the proposal expired without any action. This can be the result of insufficient voter turnout, or disagreement between the council members
 
 ### Vote
 
-A voter can choose between the following outcomes:
+Each council member can submit at most one vote per proposal, of which there are four variations:
 
 * `Approve` - approving the proposed action
 * `Reject` - reject the proposed action
@@ -599,11 +607,7 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
 
 ## State
 
-x
-
-x
-
-x
+Do we actually need this???
 
 ## Constants
 
@@ -625,99 +629,27 @@ Max proposal at any given time.
 
 
 
-## Operation
+## Operations
 
 xxxddd
 
-### General
+### Submit Proposal
 
-discuss
+xxxx
 
-vote
+### Withdraw Proposal
 
-withdraw
+xxx
 
+### Vote
 
+xx
 
-### General Proposals
+### Post to Discussion
 
-#### Text/signal Proposal
+xx
 
-Although no action will happen if such a proposal is voted through, it provides a way for user to request changes, propose improvements, complaint about something, and in general voice their opinion on a matter. This will open a discussion, and Council Member can signal their approval or rejection through a vote. This can be used to notify the platform developers about key feature missing, highlight a topic of controversy, etc.
-
-#### Runtime Upgrade
-
-As before, upgrading the runtime can be proposed by any member, and voted in by the Council. This is a critical proposal that, if a "bad" runtime is proposed and voted in, can kill the blockchain.
-
-#### Funding Requests
-
-In general, this proposal will include an amount, and a beneficiary. This can be used in to fund development, pay winners of competitions, bonus payments for a role, or anything else that requires minting new tokens to a specific individual or group.
-
-#### Set Election Parameters
-
-As the Council will see a significantly increased workload, there may be need to change the some of the Election cycle parameters. This proposal allows the Council to vote on expanding the Council seats, increase or decrease the length of the Voting process, or the minimum stakes required to participate. If this proposal is voted through, a change of these parameters will not be activated until the next election cycle, to avoid the current Council making changes benefitting themselves.
-
-#### Add Working Group Leader Opening
-
-This proposal allows an opening for a Storage Lead to be created. When editing the "Opening schema", you must ensure your changes still returns a valid JSON schema. This determines what information is collected from candidates. Note that the reward specified is not binding, and is only determined when the Fill Working Group Leader Opening proposal is made \(and approved\).
-
-#### Begin Review Working Group Leader Application
-
-This simply sets the opening for Storage Lead to the "in review" status, meaning no further applications can be accepted. It is required to move on to the `Fill Working Group Leader Opening` proposal.
-
-#### Fill Working Group Leader Opening
-
-If the Opening is in the "Review Stage", use this proposal to propose a specific Lead. The Council can now vote, and, if approved, this will be the new Lead.
-
-Note that there can be multiple proposals of this type at the same time, so multiple candidates can be considered simultaneously. However, once one is approved, the others will fail.
-
-#### Set Working Group Mint Capacity
-
-This effectively acts as a budget for the working group \(currently referring to the Storage Working Group\). The Storage Lead will be unable to spend more than the limit established by this proposal.
-
-#### Slash Working Group Leader Stake
-
-To punish or warn the Storage Lead for not performing their job correctly, they can be slashed partially or fully without firing them using this proposal type.
-
-#### Decrease Working Group Leader Stake
-
-This proposal type allows decreasing the stake of the Storage Lead.
-
-#### Set Working Group Leader Reward
-
-This proposal allows for changing the reward for the Storage Lead if it appears too little or too much. Note that only the amount can be changed, not the frequency.
-
-#### Terminate Working Group Leader Role
-
-If for whatever reason the Storage Lead needs to be removed from their post \(and potentially slashed\), this is the proposal type which needs to be voted on.
-
-### Validation Proposals
-
-#### Set Max Validator Count
-
-The Validators are rewarded for producing blocks, and will share the rewards that are minted each era \(target 3600 blocks\). This reward is calculated based on the total issuance, and the amount of tJOY staked by the pool of Validators relative to the total issuance. A higher number means smaller rewards for each individual Validator, but set to low and the network grinds to a halt.
-
-### Content Directory Proposals
-
-#### Set Content Curator Lead
-
-The Content Curator Lead is the first implementation of the concept of Group Leads on the platform. These will in general be responsible for hiring, firing, rewarding and training the group they are leading. They are hired by the council, and will be given a budget to perform their role satisfactory, without inflating the supply more than necessary.
-
-This means they have to answer to the users if they fail in their task. In this particular case, all members can propose to:
-
-* Set a Lead if there are none currently occupying the role
-* Fire the existing Lead, without setting a new one
-* Replace the existing Lead, with a specified new member
-
-If the proposal is voted through, the change will occur immediately.
-
-#### Set Content Working Group Mint Capacity
-
-To avoid the Lead paying themselves too much, or frivolous spending in general, the Lead can only spend as much as the Mint Capacity. Effectively, a budget for their spending. Once the Mint runs out, recurring rewards for the Content Curators \(including themselves\) will be frozen.
-
-If the Lead, or anyone else, wants to replenish or drain the existing Mint, a proposal can be made. If voted in, the new Capacity proposed will be set immediately.
-
-## Examples
+## Example
 
 Suppose there are currently 20 members of the council. A proposal to set max validator count is made, where the parameters below apply:
 
