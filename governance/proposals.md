@@ -39,11 +39,13 @@ All proposal types have constant values for a shared set of parameters that are 
 | :--- | :---: | :--- |
 | **Voting Period** | VP | Maximum number of blocks where one can vote. |
 | **Grace Period** | GP | Number of blocks after a proposal is approved until it has its effect. |
-| **Approval Quorum** | AQ | Number of votes required to be cast before a proposal can be approved, although this is not a sufficient condition for approval. |
+| **Approval Quorum** | AQ | Number of votes casted below which the proposal cannot be approved. |
 | **Approval Threshold** | AT | Minimum percentage of approval votes as a share of  all cast votes that result in approval. |
-| **Slashing Quorum** | SQ | Minimum votes required to be cast before a proposal can be slashed, lead to slashing the stake of the proposer. |
+| **Slashing Quorum** | SQ | Number of votes casted below which the proposal cannot be slashed. |
 | **Slashing Threshold** | ST | Minimum percentage of cast votes as share  that slash relative to those that vote approve, abstain or reject.  |
 | **Proposal Stake** | PS | Minimum stake required to create a proposal of this type. |
+| fees? |  |  |
+|  |  |  |
 
 For clarity its worth immediately noting that if both quorums, approval and slashing, are satisfied threshold satisfaction is evaluated in that order. This means that if approval threshold was satisfied, it does not matter if slashing was approved simultaneously.
 
@@ -78,15 +80,37 @@ A proposal is defined by the following information
 
 **Stage**
 
-Below is a list of the stateges a proposal can be in, and what each of them means:
+Below is a list of the stages a proposal can be in, and what each of them means:
 
-* **Active:** The only stage where voting occurs,
-* **Grace Period:** the proposal has been approved, and is awaiting execution
-* **Execution Succeeded:** - the proposal was approved, and, after a potential Grace Period, executed on chain
-* **Execution Failed:**  the proposal was approved, and, after a potential Grace Period, attempted to be executed on chain. For some reason, the execution failed
-* **Rejected:**  the proposal was rejected by the council
-* **Slashed:**  the proposal was rejected, and the stake of proposer was slashed by the council
-* **Expired:**  the council members did not reach consensus and the proposal expired without any action. This can be the result of insufficient voter turnout, or disagreement between the council members
+* **Active:** The only stage where voting occurs, lasting the number of blocks defined by the VP. SUDO can initiate veto, which results in transition to vetoed stage. Submitter can withdraw proposal which results in stake being returned and the proposal transitioning to the withdrawn stage. If the end of this stage is reached, the following transition is made:
+  * If AQ is not satisfied, the proposal transitions to the expired stage.
+  * If AQ is satisfied and AT is satisfied, the proposal transitions to the gracing stage.
+  * if AQ is satisfied and AT is not satisfied, then proposal transitions to the slashed stage if both SQ and ST are satisfied - and some share of the proposal stake was slashed, if they are not, then the proposal transitions to the rejected.
+* **Withdrawn:** Submitter changed their mind, nothing further can happen.
+* **Gracing:** Is awaiting execution for GP duration. SUDO can initiate veto, which results in transition to vetoed stage. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
+* **Vetoed:** Was halted by SUDO, nothing further can happen. This is removed at mainnet.
+* **Execution Succeeded:** Execution succeeded, nothing further can happen.
+* **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
+* **Rejected:** Enough voters voted, but not enough voted specifically for approval or slashing, nothing further can happen.
+* **Slashed:** Insufficient number voted for approval, but sufficient number voted for slashing, nothing more can happen. 
+* **Expired:** Insufficient voted for approval, nothing more the council members did not reach consensus and the proposal expired without any action. This can be the result of insufficient voter turnout, or disagreement between the council members 
+
+**!!!This must be double checked against Rust code!!! &lt;== no, it must be changed profoundly  
+Change rust code above to be rational.**
+
+Different fees for different paths&lt; &lt;&lt;&lt;&lt; remember to check  
+  
+alterantive cancelation policy=&gt; Remove proposal before first vote.  
+  
+comment fixes upgrade relatively launhc with fixed voting period.... note.
+
+user picks runout vs not runout when submitting  
+  
+--
+
+The stages and transitions are summarised in the image below.
+
+&lt;image&gt;
 
 ### Vote
 
