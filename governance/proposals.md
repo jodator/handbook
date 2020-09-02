@@ -156,47 +156,36 @@ A proposal is defined by the following information
 * **Type-Specific Parameters:** Values for type-specific proposal parameters.
 * **Stage:**  The life-cycle stage of a proposal, as defined precisely in the next section.
 * **Votes:** The set of votes currently associated with the proposal.
-* **Approvals:** How many prior councils have approved the proposal.
+* **Approvals:** How many prior councils have approved the proposal, starts at 0.
 * **Discussion:** A single threaded discussion about the proposal, as defined in the discussion section.
 
 **Stage**
 
 Below is a list of the stages a proposal can be in, and what each of them means:
 
-* **Awaiting Stake:** A proposal was created where S &gt; 0. When proposer signs with the staking account successfully, the proposal transitions to the decision period. 
-* **Decision Stage:** This is the only stage where votes submitted can actually impact the outcome of the proposal. If a proposal was created S==0, then it begins in this stage. Lasts for up to VP blocks from when stage begins. When a vote is submitted it is evaluated
-  * If AQ and AT will be satisfied regardless of what additional votes will arrive, then transition to dormant stage if approvals counter is less than C, otherwise increment approvals counter and transition to gracing stage.
-  * If SQ and ST will be satisfied, and AQ and AT will not, regardless of what additional votes arrive, then slash the full proposal stake and transition to the rejected stage.  If VP blocks pass, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage.
-* **Dormant:** Passed, but requires further approvals to satisfy consitutionality requirement. If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome.
-* **Gracing:** Is awaiting execution for GP duration. 
+* **Awaiting Stake:** A proposal was created where S &gt; 0. When proposer signs with the staking account successfully, the proposal transitions to the decision stage. 
+* **Decision Stage:** This is the only stage where votes submitted can actually impact the outcome of the proposal. If a proposal was created S=0, then it begins in this stage. Lasts for up to VP blocks from when stage begins. When a vote is submitted it is evaluated as such:  
 
 
+  * If AQ and AT will be satisfied regardless of what additional votes will arrive, then increment approvals counter. If approvals counter now is C then transition to dormant stage, otherwise  transition to gracing stage.
+  * If SQ and ST will be satisfied, and AQ and AT will not, regardless of what additional votes arrive, then slash the full proposal stake and transition to the rejected stage.
 
-   When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage. If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome.
+  
+  If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage.
 
+* **Dormant:** Passed, but requires further approvals to satisfy constitutionality requirement. Transitions to decision stage when next council is elected.
+* **Gracing:** Is awaiting execution for until trigger block, or GL blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage. 
 * **Vetoed:** Was halted by SUDO, nothing further can happen. This is removed at mainnet.
 * **Execution Succeeded:** Execution succeeded, nothing further can happen.
 * **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
-* **Rejected:** Enough voters voted, but not enough voted specifically for approval or slashing, nothing further can happen..... &lt;slashed&gt;....state. 
+* **Rejected:** Was not approved, nothing further can happen.
 
 Two extra transition rules are worth bearing in mind
 
-* If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome.
+* If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome when outside of decision stage.
 * For a non-executed & non-rejected proposal, SUDO can initiate veto, which results in transition to vetoed stage.
 
-  
-
-
-  
-**Change rust code above to be rational.**
-
-Different fees for different paths&lt; &lt;&lt;&lt;&lt; remember to check  
-  
-comment fixes upgrade relatively launhc with fixed voting period.... note.  
-  
---
-
-The stages and transitions are summarised in the image below.
+The stages and transitions are summarized in the image below.
 
 &lt;image&gt;
 
