@@ -27,6 +27,10 @@ The relevant actors in the proposal system are
 
 ## Concepts
 
+### Creation and Execution
+
+There are two events in the life cycle of a proposed proposal. Firstly there is creation, where someone submits and possibly stakes for a proposal in two steps, and then there is the moment where the intended effect of the proposal is intended to occur by running some on-chain business logic.
+
 ### Proposal Type
 
 A proposal type is a parametrized intention to have some effect on the platform. The set of proposal types will increase considerably in the future, and the current types are listed below. 
@@ -35,19 +39,93 @@ A proposal type is a parametrized intention to have some effect on the platform.
 
 All proposal types have constant values for a shared set of parameters that are common across all types, thee are called _proposal constants._ The name and semantics of each constant is listed in the table below.
 
-| **Name** | Shorthand | Description |
-| :--- | :---: | :--- |
-| **Voting Period** | VP | Maximum number of blocks where one can vote. |
-| **Grace Period** | GP | Number of blocks after a proposal is approved until it has its effect. |
-| **Approval Quorum** | AQ | Number of votes casted below which the proposal cannot be approved. |
-| **Approval Threshold** | AT | Minimum percentage of approval votes as a share of  all cast votes that result in approval. |
-| **Slashing Quorum** | SQ | Number of votes casted below which the proposal cannot be slashed. |
-| **Slashing Threshold** | ST | Minimum percentage of cast votes as share  that slash relative to those that vote approve, abstain or reject.  |
-| **Proposal Stake** | PS | Minimum stake required to create a proposal of this type. |
-| fees? |  |  |
-|  |  |  |
-
-For clarity its worth immediately noting that if both quorums, approval and slashing, are satisfied threshold satisfaction is evaluated in that order. This means that if approval threshold was satisfied, it does not matter if slashing was approved simultaneously.
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Name</b>
+      </th>
+      <th style="text-align:center">Shorthand</th>
+      <th style="text-align:left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>Voting Period</b>
+      </td>
+      <td style="text-align:center">VP</td>
+      <td style="text-align:left">
+        <p>Maximum number of blocks where one can vote.</p>
+        <p>Integer no less than 1.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Gracing Limit</b>
+      </td>
+      <td style="text-align:center">GL</td>
+      <td style="text-align:left">
+        <p>Minimum number of blocks that must pass after a
+          <br />proposal is approved until it has its intended effect.</p>
+        <p>Integer no less than 0.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Approval Quorum</b>
+      </td>
+      <td style="text-align:center">AQ</td>
+      <td style="text-align:left">
+        <p>Number of votes cast below which the proposal cannot be approved.</p>
+        <p>Integer no less than 1.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Approval Threshold</b>
+      </td>
+      <td style="text-align:center">AT</td>
+      <td style="text-align:left">
+        <p>Minimum percentage of approval votes as a share of
+          <br />all cast votes that result in approval.</p>
+        <p>Integer in [0, 100].</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Slashing Quorum</b>
+      </td>
+      <td style="text-align:center">SQ</td>
+      <td style="text-align:left">
+        <p>Number of votes cast below which the proposal
+          <br />cannot be slashed.</p>
+        <p>Integer no less than 1.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Slashing Threshold</b>
+      </td>
+      <td style="text-align:center">ST</td>
+      <td style="text-align:left">
+        <p>Minimum percentage of cast votes as share that slash relative
+          <br />to those that vote approve, abstain or reject.</p>
+        <p>Integer in [0, 100].</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Stake</b>
+      </td>
+      <td style="text-align:center">S</td>
+      <td style="text-align:left">
+        <p>Exact stake required to create a proposal of this type.</p>
+        <p>Integer no less than 0.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Constitutionality</b>
+      </td>
+      <td style="text-align:center">C</td>
+      <td style="text-align:left">The number of councils in that must approve the proposal
+        <br />in a row before it has its intended effect.
+        <br />Integer no less than 1.</td>
+    </tr>
+  </tbody>
+</table>
 
 #### Parameters: General & Specific
 
@@ -56,13 +134,14 @@ Whenever a proposal of a given type is created, the proposer must provide values
 * **Proposer:** Member identifier of the proposer.
 * **Title:** A human readable title.
 * **Rationale:** A human readable description text that is intended to hold the rationale for the proposal should be accepted. It is expected that some social convention will emerge on the appropriate encoding of this text, for example markdown, that would facilitate consistent input and display across client applications.
+* **Trigger:** An optional block number where the proposal is to be executed.
 * **Staking Account:** The account that holds the funds that will be locked for staking, if required.
 
 The type-specific parameters for each proposal type are listed with the proposals below.
 
 #### Creation Conditions
 
-When a proposal is submitted, a set of conditions on the values of the input parameters \(only\) are evaluated, these are called _creation conditions_, and creating the proposal fails if they are not satisfied. These are things like for example respecting the upper bound on the amount of money you are asking for in a spending proposal. Importantly, these checks are _pure_, they only depend on parameters, not the state of the system. 
+When a proposal is submitted, a set of conditions on the values of the input parameters \(only\) are evaluated, these are called _creation conditions_, and creating the proposal fails if they are not satisfied. These are things like for example respecting the upper bound on the amount of money you are asking for in a spending proposal. Importantly, these checks are _pure_, they only depend on parameters, not the state of the system.
 
 #### Execution Conditions
 
@@ -76,35 +155,44 @@ A proposal is defined by the following information
 * **General Parameters:** Values for general proposal parameters.
 * **Type-Specific Parameters:** Values for type-specific proposal parameters.
 * **Stage:**  The life-cycle stage of a proposal, as defined precisely in the next section.
+* **Votes:** The set of votes currently associated with the proposal.
+* **Approvals:** How many prior councils have approved the proposal.
 * **Discussion:** A single threaded discussion about the proposal, as defined in the discussion section.
 
 **Stage**
 
 Below is a list of the stages a proposal can be in, and what each of them means:
 
-* **Active:** The only stage where voting occurs, lasting the number of blocks defined by the VP. SUDO can initiate veto, which results in transition to vetoed stage. Submitter can withdraw proposal which results in stake being returned and the proposal transitioning to the withdrawn stage. If the end of this stage is reached, the following transition is made:
-  * If AQ is not satisfied, the proposal transitions to the expired stage.
-  * If AQ is satisfied and AT is satisfied, the proposal transitions to the gracing stage.
-  * if AQ is satisfied and AT is not satisfied, then proposal transitions to the slashed stage if both SQ and ST are satisfied - and some share of the proposal stake was slashed, if they are not, then the proposal transitions to the rejected.
-* **Withdrawn:** Submitter changed their mind, nothing further can happen.
-* **Gracing:** Is awaiting execution for GP duration. SUDO can initiate veto, which results in transition to vetoed stage. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
+* **Awaiting Stake:** A proposal was created where S &gt; 0. When proposer signs with the staking account successfully, the proposal transitions to the decision period. 
+* **Decision Stage:** This is the only stage where votes submitted can actually impact the outcome of the proposal. If a proposal was created S==0, then it begins in this stage. Lasts for up to VP blocks from when stage begins. When a vote is submitted it is evaluated
+  * If AQ and AT will be satisfied regardless of what additional votes will arrive, then transition to dormant stage if approvals counter is less than C, otherwise increment approvals counter and transition to gracing stage.
+  * If SQ and ST will be satisfied, and AQ and AT will not, regardless of what additional votes arrive, then slash the full proposal stake and transition to the rejected stage.  If VP blocks pass, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage.
+* **Dormant:** Passed, but requires further approvals to satisfy consitutionality requirement. If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome.
+* **Gracing:** Is awaiting execution for GP duration. 
+
+
+
+   When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage. If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome.
+
 * **Vetoed:** Was halted by SUDO, nothing further can happen. This is removed at mainnet.
 * **Execution Succeeded:** Execution succeeded, nothing further can happen.
 * **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
-* **Rejected:** Enough voters voted, but not enough voted specifically for approval or slashing, nothing further can happen.
-* **Slashed:** Insufficient number voted for approval, but sufficient number voted for slashing, nothing more can happen. 
-* **Expired:** Insufficient voted for approval, nothing more the council members did not reach consensus and the proposal expired without any action. This can be the result of insufficient voter turnout, or disagreement between the council members 
+* **Rejected:** Enough voters voted, but not enough voted specifically for approval or slashing, nothing further can happen..... &lt;slashed&gt;....state. 
 
-**!!!This must be double checked against Rust code!!! &lt;== no, it must be changed profoundly  
-Change rust code above to be rational.**
+Two extra transition rules are worth bearing in mind
+
+* If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome.
+* For a non-executed & non-rejected proposal, SUDO can initiate veto, which results in transition to vetoed stage.
+
+  
+
+
+  
+**Change rust code above to be rational.**
 
 Different fees for different paths&lt; &lt;&lt;&lt;&lt; remember to check  
   
-alterantive cancelation policy=&gt; Remove proposal before first vote.  
-  
-comment fixes upgrade relatively launhc with fixed voting period.... note.
-
-user picks runout vs not runout when submitting  
+comment fixes upgrade relatively launhc with fixed voting period.... note.  
   
 --
 
@@ -120,6 +208,8 @@ Each council member can submit at most one vote per proposal, of which there are
 * `Reject` - reject the proposed action
 * `Slash` - reject the proposed action, and slash the stake of the proposer
 * `Abstain` - abstain from voting
+
+A vote also include a rationale, which is a human readable text explanining why they voted as they did.
 
 
 
@@ -152,6 +242,7 @@ Note that the distinction between this signal text parameter and the rationale p
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -167,6 +258,8 @@ There is no direct effect of this proposal, its utility is purely for social coo
 
 ### Runtime Upgrade
 
+NB!!! fix here to use new scheme from 1057.
+
 #### Parameters
 
 | Name | Description |
@@ -180,10 +273,11 @@ There is no direct effect of this proposal, its utility is purely for social coo
 | Voting Period |  |
 | Grace Period |  |
 | Approval Quorum |  |
-| Approvial Threshold |  |
+| Approval Threshold |  |
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -216,6 +310,7 @@ The block after this proposal is executed will follow the rules of the runtime c
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -248,6 +343,7 @@ In general, this proposal will include an amount, and a beneficiary. This can be
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -280,6 +376,7 @@ As the Council will see a significantly increased workload, there may be need to
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -312,6 +409,7 @@ This proposal allows an opening for a Storage Lead to be created. When editing t
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -344,6 +442,7 @@ This simply sets the opening for Storage Lead to the "in review" status, meaning
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -378,6 +477,7 @@ Note that there can be multiple proposals of this type at the same time, so mult
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -410,6 +510,7 @@ This effectively acts as a budget for the working group \(currently referring to
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -442,6 +543,7 @@ To punish or warn the Storage Lead for not performing their job correctly, they 
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -474,6 +576,7 @@ This proposal type allows decreasing the stake of the Storage Lead.
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -506,6 +609,7 @@ This proposal allows for changing the reward for the Storage Lead if it appears 
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -540,6 +644,7 @@ If for whatever reason the Storage Lead needs to be removed from their post \(an
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -574,6 +679,7 @@ The Validators are rewarded for producing blocks, and will share the rewards tha
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -614,6 +720,7 @@ If the proposal is voted through, the change will occur immediately.
 | Slashing Quorum |  |
 | Slashing Threshold |  |
 | Proposal Stake |  |
+| Constitutionality |  |
 
 #### Creation Conditions
 
@@ -629,25 +736,23 @@ To avoid the Lead paying themselves too much, or frivolous spending in general, 
 
 If the Lead, or anyone else, wants to replenish or drain the existing Mint, a proposal can be made. If voted in, the new Capacity proposed will be set immediately.
 
-## State
-
-Do we actually need this???
-
 ## Constants
 
-
+* Cancellation Fee: Amount of tokens slashed, 
+* Rejection Fee: xxxx
+* Max proposals in states x,y?
 
 Here are the values of these parameters for each proposal
 
-| Proposal | VP | GP | AQ | AT | SQ | ST | PS |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| Runtime Upgrade | 1230 | 12301 | 45 | 21 | 10 | 5 | 100,00,00 |
-| c |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
+| Proposal | VP | GP | AQ | AT | SQ | ST | PS | C |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Runtime Upgrade | 1230 | 12301 | 45 | 21 | 10 | 5 | 100,00,00 |  |
+| c |  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |  |
 
 Max proposal at any given time.
 
@@ -659,7 +764,18 @@ xxxddd
 
 ### Submit Proposal
 
+### Submit Proposal
+
 xxxx
+
+
+
+The conditions are
+
+1. Signer is controller account of referenced proposer.
+2. If trigger is provided, that block must be greater than the current block plus DP+GL.
+3. If S &gt; 0 then there must be provided a staking account, and it must be signed with, and it must have a free balance no less than S, and the only other lock which may exist on it is an election related lock.
+4. Creation conditions are satisified.
 
 ### Withdraw Proposal
 
@@ -669,9 +785,16 @@ xxx
 
 xx
 
+Add informatino here about how exactly the logic for doing premature state transitioning works.!!!!!
+
 ### Post to Discussion
 
 xx
+
+## Events
+
+New council elected...any non finalized has all stage & votes reset. All finalized for next period pending are reset.  
+what happens to cosnitutinality counter???? =&gt; reset, cause it failed
 
 ## Example
 
