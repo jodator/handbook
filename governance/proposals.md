@@ -191,16 +191,13 @@ The stages and transitions are summarized in the image below.
 
 ### Vote
 
-Each council member can submit at most one vote per proposal, of which there are four variations:
+Each council member can submit at most one vote per proposal, and it includes the following:
 
-* `Approve` - approving the proposed action
-* `Reject` - reject the proposed action
-* `Slash` - reject the proposed action, and slash the stake of the proposer
-* `Abstain` - abstain from voting
-
-A vote also include a rationale, which is a human readable text explanining why they voted as they did.
-
-
+* **Rationale:** A human readable description of why they are voting as they are.
+* **Type:** There three types
+  * **Approve:** Proposal should be approved.
+  * **Reject:** Proposal shoud be rejected. Additionally, it can be signalled whether it should be slashed as part of the rejection.
+  * **Abstain:** Voter has no position on outcome.
 
 ### Discussion
 
