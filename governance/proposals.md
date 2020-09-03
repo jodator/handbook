@@ -27,9 +27,15 @@ The relevant actors in the proposal system are
 
 ## Concepts
 
-### Creation and Execution
+### Vote
 
-There are two events in the life cycle of a proposed proposal. Firstly there is creation, where someone submits and possibly stakes for a proposal in two steps, and then there is the moment where the intended effect of the proposal is intended to occur by running some on-chain business logic.
+Each council member can submit at most one vote per proposal, and it includes the following:
+
+* **Rationale:** A human readable description of why they are voting as they are.
+* **Type:** There three types
+  * **Approve:** Proposal should be approved.
+  * **Reject:** Proposal should be rejected. Additionally, it can be expressed whether it should be slashed as part of the rejection.
+  * **Abstain:** Voter has no position on outcome.
 
 ### Proposal Type
 
@@ -167,10 +173,10 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 
 
   * If AQ and AT will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is C then transition to gracing stage, otherwise  transition to dormant stage.
-  * If SQ and ST will be satisfied, and AQ and AT will not, regardless of what additional votes arrive, then slash up to slashing fee \(see [Proposals](proposals.md#constants-1)\) stake and transition to the rejected stage.
+  * If SQ and ST will be satisfied, and AQ and AT will not, regardless of what additional votes arrive, then slash full stake and transition to the rejected stage.
 
   
-  If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage.
+  If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash rejection fee \(see [Proposals](proposals.md#constants-1)\).
 
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy constitutionality requirement. Transitions to deciding stage when next council is elected.
 * **Gracing:** Is awaiting execution for until trigger block, or GL blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage. 
@@ -179,28 +185,20 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 * **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
 * **Rejected:** Was not approved, nothing further can happen.
 
+It useful to designate any proposal in the stages deciding, dormant or gracing, as an _active proposal_, and any other proposal is said to be an _inactive proposal._
+
 Two extra transition rules are worth bearing in mind
 
 * If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome when outside of decision stage.
-* For a non-executed & non-rejected proposal, SUDO can initiate veto, which results in transition to vetoed stage.
+* For any active proposal, SUDO can initiate veto, which results in transition to vetoed stage.
 
-The stages and transitions are summarized in the image below.
+The stages and transitions, excluding SUDO dynamics, are summarized in the image below.
 
-![Stages and transitions in life-cycle of a proposal.](../.gitbook/assets/proposal_2.png)
-
-### Vote
-
-Each council member can submit at most one vote per proposal, and it includes the following:
-
-* **Rationale:** A human readable description of why they are voting as they are.
-* **Type:** There three types
-  * **Approve:** Proposal should be approved.
-  * **Reject:** Proposal shoud be rejected. Additionally, it can be signalled whether it should be slashed as part of the rejection.
-  * **Abstain:** Voter has no position on outcome.
+![Stages and transitions in life-cycle of a proposal.](../.gitbook/assets/proposal_2-1-.png)
 
 ### Discussion
 
-xxxxx
+A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be edited when a certain number of blocks \(see [Proposals](proposals.md#constants-1)\) have passed since being rejected or executed. Lastly, there is total cap on the number of posts that can be posted in a single thread \(see [Proposals](proposals.md#constants-1)\).
 
 ## General Proposals
 
@@ -723,9 +721,10 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
 
 ## Constants
 
-* Cancellation Fee: Amount of tokens slashed, 
-* Rejection Fee: xxxx
-* Max proposals in states x,y?
+* Rejection Fee: Up to number of tokens slashed if prosal rejected, but not with slashing.
+* Number of blocks after reject/execute a proposal discussion is closed.
+* Max posts per thread
+* Max active proposals allowed at any given time
 
 Here are the values of these parameters for each proposal
 
@@ -739,21 +738,13 @@ Here are the values of these parameters for each proposal
 |  |  |  |  |  |  |  |  |  |
 |  |  |  |  |  |  |  |  |  |
 
-Max proposal at any given time.
-
-
-
 ## Operations
 
-xxxddd
+xxxdd
 
 ### Submit Proposal
 
-### Submit Proposal
-
-xxxx
-
-
+The number of active proposals &lt; fixed number
 
 The conditions are
 
@@ -762,24 +753,40 @@ The conditions are
 3. If S &gt; 0 then there must be provided a staking account, and it must be signed with, and it must have a free balance no less than S, and the only other lock which may exist on it is an election related lock.
 4. Creation conditions are satisified.
 
-### Withdraw Proposal
-
-xxx
-
 ### Vote
 
 xx
 
 Add informatino here about how exactly the logic for doing premature state transitioning works.!!!!!
 
-### Post to Discussion
+### Post to Thread
 
 xx
+
+### Edit to Post
+
+xx
+
+### Change Thread Mode
+
+xx
+
+### Add to Thread Whitelist
+
+xx
+
+### Remove from Thread Whitelist
+
+xxx
 
 ## Events
 
 New council elected...any non finalized has all stage & votes reset. All finalized for next period pending are reset.  
 what happens to cosnitutinality counter???? =&gt; reset, cause it failed
+
+
+
+Close Thread
 
 ## Example
 

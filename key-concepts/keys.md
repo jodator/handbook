@@ -10,8 +10,6 @@ Accounts are the most basic representation of actor\(s\) on the platform. They a
 
 Accounts are essentially anonymous as they have no identifying information intrinsically attached to them. For this reason their permissions within the governance hierarchy of the platform are strictly limited. Keys play the role of "signing" for accounts when some action is performed on the network.
 
-![Diagram showing the link between accounts, addresses and keys](../.gitbook/assets/accounts.jpeg)
-
 An account is currently limited to three basic functions:
 
 * Sending and receiving tJOY funds
