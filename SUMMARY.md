@@ -11,6 +11,7 @@
 * [Address](key-concepts/address.md)
 * [Blockchain](key-concepts/blockchain.md)
 * [Extrinsics](key-concepts/extrinsics.md)
+* [Staking](key-concepts/staking.md)
 
 ## Subsystems
 

@@ -161,12 +161,18 @@ A proposal is defined by the following information
 
 Below is a list of the stages a proposal can be in, and what each of them mean:
 
-* **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. Lasts for up to `VOTING_PERIOD` blocks from when stage begins. When a vote is submitted it is evaluated as such:  
-* If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then transition to gracing stage, otherwise  transition to dormant stage.
-* If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` will be satisfied, and `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will not, regardless of what additional votes arrive, then slash full stake and transition to the rejected stage.
+* **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. If a new council is elected, any present stake is slashed by `REJECTION_FEE` , the staking lock is reduced by `PROPOSAL_STAKE`and the proposal transitions to the rejected stage. When a vote is submitted it is evaluated as such:    
 
-If a new council is elected during this stage, a transition is made to the rejected stage.  
-If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash up to `REJECTION_FEE` \(see [Proposals](proposals.md#constants-1)\).
+
+  * If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then reduce lock by `PROPOSAL_STAKE`
+
+    and transition to gracing stage, otherwise  transition to dormant stage.
+
+  * If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` will be satisfied, and `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will not, regardless of what additional votes arrive, then slash full stake, reduce the lock by `PROPOSAL_STAKE` and transition to the rejected stage.
+
+
+
+  If a new council is elected during this stage, a transition is made to the rejected stage. If `VOTING_PERIOD` blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, slash stake by up to `REJECTION_FEE`, reduce lock by `PROPOSAL_STAKE` and transition to rejected stage.  
 
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy `CONSTITUTIONALITY` requirement. Transitions to deciding stage when next council is elected.
 * **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
@@ -184,11 +190,11 @@ Two extra transition rules are worth bearing in mind
 
 The stages and transitions, excluding SUDO dynamics, are summarized in the image below.
 
-![Stages and transitions in life-cycle of a proposal.](../.gitbook/assets/proposal.png)
+![Stages of proposal life-cycle.](../.gitbook/assets/proposal_2.png)
 
 ### Discussion
 
-A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be updated in any way \(mode, posting, edits, etc.\) when `DISCUSSION_LINGERING_DURATION` \(see [Proposals](proposals.md#constants-1)\) have passed since being rejected or executed. Lastly, at most `MAX_POSTS_PER_THREAD` can be posted in a single thread \(see [Proposals](proposals.md#constants-1)\).
+A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be updated in any way \(mode, posting, edits, etc.\) when `DISCUSSION_LINGERING_DURATION` have passed since being rejected or executed. Lastly, at most `MAX_POSTS_PER_THREAD` can be posted in a single thread.
 
 ## General Proposals
 
@@ -769,20 +775,20 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
 | `title` | Title for proposal. |
 | `rationale` | Rationale for proposal. |
 | `trigger` | Optional trigger block for executing proposal. |
-| `account` | Staking account for proposal. |
+| `account` | Optional staking account for proposal. |
 | `type` | The of proposal and all associated type specific parameters. |
 
 #### Conditions
 
 * Signer matches controller account of `proposer`
 * Number of active proposals is no greater than `MAX_ACTIVE_PROPOSALS`.
-* If `STAKE` is greater than zero, then `account` must have a free balance no less than that. Also`account` is bound to `proposer`, and only has locks from the election & council subsystem.
+* If `PROPOSAL_STAKE` is greater than zero, then `account` must have a free balance no less than that. Also`account` is bound to `proposer`, and only has foreign locks from the election & council subsystem.
 * If `trigger` is provided, it must be no less than current block plus `GRACING LIMIT` + `VOTING_PERIOD`.
 * Creation conditions for `type` are satisfied.
 
 #### Effect
 
-A new proposal , of type `type` , is created in the deciding period stage, and a new discussion thread is opened in the open mode.
+A new proposal , of type `type` , is created in the deciding period stage, and a new discussion thread is opened in the open mode. Moreover, if `PROPOSAL_STAKE`is greater than zero, the following occurs. If there is an active proposal system lock on the given account, its size is simply increased by `PROPOSAL_STAKE`, otherwise a new lock is created with this amount.
 
 ### Vote
 
