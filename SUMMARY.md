@@ -31,7 +31,6 @@
 ## Governance
 
 * [Council](governance/council.md)
-* [Elections](governance/elections.md)
 * [Proposals](governance/proposals.md)
 * [Working Groups](governance/working-groups.md)
 
