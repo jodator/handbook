@@ -148,6 +148,7 @@ A proposal may be approved, and at some point the actual business logic that emb
 
 A proposal is defined by the following information
 
+* **Id:** A unique non-negative integer identifier.
 * **Type:** Which type of proposal this is.
 * **General Parameters:** Values for general proposal parameters.
 * **Type-Specific Parameters:** Values for type-specific proposal parameters.
@@ -160,17 +161,18 @@ A proposal is defined by the following information
 
 Below is a list of the stages a proposal can be in, and what each of them mean:
 
-* **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. Lasts for up to VP blocks from when stage begins. When a vote is submitted it is evaluated as such:  
+* **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. Lasts for up to `VOTING_PERIOD` blocks from when stage begins. When a vote is submitted it is evaluated as such:  
 
 
-  * If AQ and AT will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is C then transition to gracing stage, otherwise  transition to dormant stage.
-  * If SQ and ST will be satisfied, and AQ and AT will not, regardless of what additional votes arrive, then slash full stake and transition to the rejected stage.
+  * If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then transition to gracing stage, otherwise  transition to dormant stage.
+  * If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` will be satisfied, and `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will not, regardless of what additional votes arrive, then slash full stake and transition to the rejected stage.
 
   
-  If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash up to `REJECTION FEE` \(see [Proposals](proposals.md#constants-1)\).
+  If a new council is elected during this stage, a transition is made to the rejected stage.  
+  If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash up to `REJECTION_FEE` \(see [Proposals](proposals.md#constants-1)\).
 
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy constitutionality requirement. Transitions to deciding stage when next council is elected.
-* **Gracing:** Is awaiting execution for until trigger block, or GL blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage. 
+* **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage. 
 * **Vetoed:** Was halted by SUDO, nothing further can happen. This is removed at mainnet.
 * **Execution Succeeded:** Execution succeeded, nothing further can happen.
 * **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
@@ -180,12 +182,12 @@ It useful to designate any proposal in the stages deciding, dormant or gracing, 
 
 Two extra transition rules are worth bearing in mind
 
-* If number of blocks since decision stage starting is less than VP, then votes can still be submitted, but they have no impact on any outcome when outside of decision stage.
+* If number of blocks since decision stage starting is less than `VOTING_PERIOD`, then votes can still be submitted, but they have no impact on any outcome when outside of decision stage.
 * For any active proposal, SUDO can initiate veto, which results in transition to vetoed stage.
 
 The stages and transitions, excluding SUDO dynamics, are summarized in the image below.
 
-![Stages and transitions in life-cycle of a proposal.](../.gitbook/assets/proposal_2-1-.png)
+![Stages and transitions in life-cycle of a proposal.](../.gitbook/assets/proposal.png)
 
 ### Discussion
 
@@ -767,7 +769,7 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
 | Name | Description |
 | :--- | :--- |
 | `proposer` | Member identifier of proposer. |
-| `title` | Title for proposal. \(general parameter\) |
+| `title` | Title for proposal. |
 | `rationale` | Rationale for proposal. |
 | `trigger` | Optional trigger block for executing proposal. |
 | `account` | Staking account for proposal. |
@@ -791,16 +793,20 @@ A new proposal , of type `type` , is created in the deciding period stage, and a
 
 | Name | Description |
 | :--- | :--- |
-| `proposer` |  |
-| `title` |  |
+| `proposal` | Identifier for proposal. |
+| `vote_type` | The type of vote. |
+| `rationale` | The rationale for the vote. |
+| `councilor` | Identifier for council member. |
 
 #### Conditions
 
-* ....
+* `proposal` corresponds to an existing proposal in a stage where voting is valid.
+* Signer is role account of councilor identified by `councilor`.
+* Councilor has not yet voted on this proposal.
 
 #### Effect
 
-...
+See [Proposals](proposals.md#proposal-type).
 
 ### Post to Thread
 
@@ -808,16 +814,20 @@ A new proposal , of type `type` , is created in the deciding period stage, and a
 
 | Name | Description |
 | :--- | :--- |
-| `proposer` |  |
-| `title` |  |
+| `proposal` | Identifier for proposal. |
+| `text` | Post text. |
+| `author` | Either identifier of council member or of a member. |
 
 #### Conditions
 
-* ....
+* `proposal` corresponds to an existing proposal in where discussion is active, that is either the proposal is active, or no more than `DISCUSSION_LINGERING_DURATION` blocks have passed since it became inactive.
+* `author` corresponds to signer.
+* If `author` is a member,  either is the proposer, or the discussion mode is open,  or it is closed and the `author` is on the whitelist for this thread.
+* The current number of posts in this thread is less than `MAX_POSTS_PER_THREAD`.
 
 #### Effect
 
-...
+Post is added to thread.
 
 ### Edit to Post
 
@@ -825,12 +835,17 @@ A new proposal , of type `type` , is created in the deciding period stage, and a
 
 | Name | Description |
 | :--- | :--- |
-| `proposer` |  |
-| `title` |  |
+| `proposal` | Identifier for proposal. |
+| `post` | Identifier for post. |
+| `text` | New post text. |
+| `author` | Identifier for either council member |
 
 #### Conditions
 
 * ....
+* Note
+
+Note: its important to notice that a council member cannot edit the post of another council member in the same, or a prior, council.
 
 #### Effect
 
@@ -853,7 +868,7 @@ A new proposal , of type `type` , is created in the deciding period stage, and a
 
 ...
 
-### Add to Thread Whitelist
+### Add Member to Thread Whitelist
 
 **Parameters**
 
@@ -870,7 +885,7 @@ A new proposal , of type `type` , is created in the deciding period stage, and a
 
 ...
 
-### Remove from Thread Whitelist
+### Remove Member from Thread Whitelist
 
 **Parameters**
 
@@ -886,15 +901,6 @@ A new proposal , of type `type` , is created in the deciding period stage, and a
 #### Effect
 
 ...
-
-## Events
-
-New council elected...any non finalized has all stage & votes reset. All finalized for next period pending are reset.  
-what happens to cosnitutinality counter???? =&gt; reset, cause it failed
-
-
-
-Close Thread
 
 ## Example
 
