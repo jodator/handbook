@@ -28,6 +28,7 @@ A membership includes the following in the blockchain state:
 * **Avatar:** Hash of a mutable URI for an avatar image.
 * **About:** Hash of a mutable human readable text description.
 * **Founding Member**: A signifier that this member holds some specific historical significance to the launch of the platform. This value will be stored in the chain state when mainnet launches, but for now, since we want to grant founding member status on an ongoing member through a SUDO call, this is in history.
+* **Staking Accounts:** A set of accounts that have been bound to this membership for the purpose of holding staked funds. One account can only be used to stake for at most two separate purposes simultaneously, and one of them has to be an election related purpose, i.e. voting or council candidacy. One account can only be a staking account for a single member, and once associated in this way, it cannot be deassociated and associated with another member.
 
 ### Membership Working Group
 
@@ -98,4 +99,8 @@ A member, signing with the root account, can update the root or controller accou
 ### Update Verified Status
 
 A evangelist or lead can update the verified status of a member to a new value.
+
+### Bind Staking Account
+
+Binds a given account, which is signer, to a given membership, provided the account is not already bound to some other membership.
 

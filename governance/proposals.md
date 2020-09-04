@@ -162,14 +162,11 @@ A proposal is defined by the following information
 Below is a list of the stages a proposal can be in, and what each of them mean:
 
 * **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. Lasts for up to `VOTING_PERIOD` blocks from when stage begins. When a vote is submitted it is evaluated as such:  
+* If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then transition to gracing stage, otherwise  transition to dormant stage.
+* If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` will be satisfied, and `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will not, regardless of what additional votes arrive, then slash full stake and transition to the rejected stage.
 
-
-  * If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is ``CONSTITUTIONALITY`` then transition to gracing stage, otherwise  transition to dormant stage.
-  * If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` will be satisfied, and `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will not, regardless of what additional votes arrive, then slash full stake and transition to the rejected stage.
-
-
-  If a new council is elected during this stage, a transition is made to the rejected stage.  
-  If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash up to `REJECTION_FEE` \(see [Proposals](proposals.md#constants-1)\).
+If a new council is elected during this stage, a transition is made to the rejected stage.  
+If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash up to `REJECTION_FEE` \(see [Proposals](proposals.md#constants-1)\).
 
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy `CONSTITUTIONALITY` requirement. Transitions to deciding stage when next council is elected.
 * **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
@@ -195,7 +192,7 @@ A single threaded discussion is opened for each successfully created discussion.
 
 ## General Proposals
 
-This section includes proposals that concern the platform as whole in terms  intended effect and type-specific parameters.
+This section includes proposals that concern the platform as whole in terms intended effect and type-specific parameters.
 
 ### Signal
 
@@ -255,7 +252,7 @@ There is no direct effect of this proposal, its utility is purely for social coo
 
 #### Creation Conditions
 
-*  `blob` is non-empty.
+* `blob` is non-empty.
 * `blob` is no longer than `MAX_RUNTIME_UPGRADE_BYTES`
 
 #### Execution Conditions
@@ -927,7 +924,7 @@ The votes come in, until we have:
 * 0 `Slash`
 * 0 `Abstain`
 
-At this point, the ``APPROVAL_QUORUM`` parameter is fulfilled \(100%&gt;75% approval\), but there are still to few votes cast to fullfill the ``APPROVAL_THRESHOLD`` \(at 30%&lt;50%\).
+At this point, the `APPROVAL_QUORUM` parameter is fulfilled \(100%&gt;75% approval\), but there are still to few votes cast to fullfill the `APPROVAL_THRESHOLD` \(at 30%&lt;50%\).
 
 A few more votes are cast:
 
@@ -936,7 +933,7 @@ A few more votes are cast:
 * 1 `Slash`
 * 1 `Abstain`
 
-At this point, neither the ``APPROVAL_QUORUM`` parameter \(67%&lt;75% approval\), nor the ``APPROVAL_THRESHOLD`` \(at 45%&lt;50%\), is fulfilled.
+At this point, neither the `APPROVAL_QUORUM` parameter \(67%&lt;75% approval\), nor the `APPROVAL_THRESHOLD` \(at 45%&lt;50%\), is fulfilled.
 
 Another vote comes in:
 
@@ -945,7 +942,7 @@ Another vote comes in:
 * 1 `Slash`
 * 1 `Abstain`
 
-At this point, ``APPROVAL_QUORUM`` parameter \(60%&lt;75% approval\) is not fulfilled, whereas the ``APPROVAL_THRESHOLD`` \(50%\), is now fulfilled.
+At this point, `APPROVAL_QUORUM` parameter \(60%&lt;75% approval\) is not fulfilled, whereas the `APPROVAL_THRESHOLD` \(50%\), is now fulfilled.
 
 A few more votes are cast:
 
@@ -954,6 +951,7 @@ A few more votes are cast:
 * 1 `Slash`
 * 1 `Abstain`
 
-At this point, ``APPROVAL_QUORUM`` parameter \(67%&lt;75% approval\)\) is not fulfilled, whereas the ``APPROVAL_THRESHOLD`` \(50%\), is now fulfilled.
+At this point, `APPROVAL_QUORUM` parameter \(67%&lt;75% approval\)\) is not fulfilled, whereas the `APPROVAL_THRESHOLD` \(50%\), is now fulfilled.
 
 A final vote for `Approve` is cast, and the
+
