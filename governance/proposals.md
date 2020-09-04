@@ -50,24 +50,21 @@ All proposal types have constant values for a shared set of parameters that are 
     <tr>
       <th style="text-align:left"><b>Name</b>
       </th>
-      <th style="text-align:center">Shorthand</th>
       <th style="text-align:left">Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left"><b>Voting Period</b>
+      <td style="text-align:left"><code>VOTING_PERIOD</code>
       </td>
-      <td style="text-align:center">VP</td>
       <td style="text-align:left">
         <p>Maximum number of blocks where one can vote.</p>
         <p>Integer no less than 1.</p>
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b>Gracing Limit</b>
+      <td style="text-align:left"><code>GRACING_LIMIT</code>
       </td>
-      <td style="text-align:center">GL</td>
       <td style="text-align:left">
         <p>Minimum number of blocks that must pass after a
           <br />proposal is approved until it has its intended effect.</p>
@@ -75,18 +72,16 @@ All proposal types have constant values for a shared set of parameters that are 
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b>Approval Quorum</b>
+      <td style="text-align:left"><code>APPROVAL_QUORUM</code>
       </td>
-      <td style="text-align:center">AQ</td>
       <td style="text-align:left">
         <p>Number of votes cast below which the proposal cannot be approved.</p>
         <p>Integer no less than 1.</p>
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b>Approval Threshold</b>
+      <td style="text-align:left"><code>APPROVAL_THRESHOLD</code>
       </td>
-      <td style="text-align:center">AT</td>
       <td style="text-align:left">
         <p>Minimum percentage of approval votes as a share of
           <br />all cast votes that result in approval.</p>
@@ -94,9 +89,8 @@ All proposal types have constant values for a shared set of parameters that are 
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b>Slashing Quorum</b>
+      <td style="text-align:left"><code>SLASHING_QUORUM</code>
       </td>
-      <td style="text-align:center">SQ</td>
       <td style="text-align:left">
         <p>Number of votes cast below which the proposal
           <br />cannot be slashed.</p>
@@ -104,9 +98,8 @@ All proposal types have constant values for a shared set of parameters that are 
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b>Slashing Threshold</b>
+      <td style="text-align:left"><code>SLASHING_THRESHOLD</code>
       </td>
-      <td style="text-align:center">ST</td>
       <td style="text-align:left">
         <p>Minimum percentage of cast votes as share that slash relative
           <br />to those that vote approve, abstain or reject.</p>
@@ -114,18 +107,16 @@ All proposal types have constant values for a shared set of parameters that are 
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b>Stake</b>
+      <td style="text-align:left"><code>STAKE</code>
       </td>
-      <td style="text-align:center">S</td>
       <td style="text-align:left">
         <p>Exact stake required to create a proposal of this type.</p>
         <p>Integer no less than 0.</p>
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><b>Constitutionality</b>
+      <td style="text-align:left"><code>CONSTITUTIONALITY</code>
       </td>
-      <td style="text-align:center">C</td>
       <td style="text-align:left">The number of councils in that must approve the proposal
         <br />in a row before it has its intended effect.
         <br />Integer no less than 1.</td>
@@ -176,7 +167,7 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
   * If SQ and ST will be satisfied, and AQ and AT will not, regardless of what additional votes arrive, then slash full stake and transition to the rejected stage.
 
   
-  If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash rejection fee \(see [Proposals](proposals.md#constants-1)\).
+  If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash up to `REJECTION FEE` \(see [Proposals](proposals.md#constants-1)\).
 
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy constitutionality requirement. Transitions to deciding stage when next council is elected.
 * **Gracing:** Is awaiting execution for until trigger block, or GL blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage. 
@@ -198,7 +189,7 @@ The stages and transitions, excluding SUDO dynamics, are summarized in the image
 
 ### Discussion
 
-A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be edited when a certain number of blocks \(see [Proposals](proposals.md#constants-1)\) have passed since being rejected or executed. Lastly, there is total cap on the number of posts that can be posted in a single thread \(see [Proposals](proposals.md#constants-1)\).
+A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be updated in any way \(mode, posting, edits, etc.\) when `DISCUSSION_LINGERING_DURATION` \(see [Proposals](proposals.md#constants-1)\) have passed since being rejected or executed. Lastly, at most `MAX_POSTS_PER_THREAD` can be posted in a single thread \(see [Proposals](proposals.md#constants-1)\).
 
 ## General Proposals
 
@@ -210,30 +201,30 @@ This section includes proposals that concern the platform as whole in terms  int
 
 | Name | Description |
 | :--- | :--- |
-| Signal | The actual human readable signaling text. |
+| `signal` | The actual human readable signaling text. |
 
-Note that the distinction between this signal text parameter and the rationale parameter is that the rationale is the _why_ and this signal is the _what._
+Note that the distinction between `signal` and the rationale parameter is that the rationale is the _why_ and this is the _what._
 
 #### Constants
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approval Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
-_xxx_
+* `signal` is not empty.
 
 #### Execution Conditions
 
-_xxxx_
+None.
 
 #### Effect
 
@@ -241,34 +232,33 @@ There is no direct effect of this proposal, its utility is purely for social coo
 
 ### Runtime Upgrade
 
-NB!!! fix here to use new scheme from 1057.
-
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| `blob` | The raw WebAssembly object to be used as the new runtime. |
 
 #### Constants
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approval Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approval Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
-_xxx_
+*  `blob` is non-empty.
+* `blob` is no longer than `MAX_RUNTIME_UPGRADE_BYTES`
 
 #### Execution Conditions
 
-_xxxx_
+None.
 
 #### Effect
 
@@ -280,32 +270,34 @@ The block after this proposal is executed will follow the rules of the runtime c
 
 | Name | Description |
 | :--- | :--- |
-| Amount | The amount of tokens requested |
+| `amount` | The amount of tokens requested. |
+| `account` | Recipient of funds. |
 
 #### Constants
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approval Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
-_xxx_
+* `amount` is greater than zero.
+* `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
 
 #### Execution Conditions
 
-_xxxx_
+* Minting the `amount` is within the current budget constraint of the council.
 
 #### Effect
 
-In general, this proposal will include an amount, and a beneficiary. This can be used in to fund development, pay winners of competitions, bonus payments for a role, or anything else that requires minting new tokens to a specific individual or group.
+The council mints `amount` tokens out of current budget and credits `amount`.
 
 ### Set Election Parameters
 
@@ -313,20 +305,20 @@ In general, this proposal will include an amount, and a beneficiary. This can be
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+|  |  |
 
 #### Constants
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approval Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -352,14 +344,14 @@ As the Council will see a significantly increased workload, there may be need to
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approval Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -379,20 +371,20 @@ This proposal allows an opening for a Storage Lead to be created. When editing t
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| Wasm blob | The raw WebAssembly object to be used as the new runtime. |
 
 #### Constants
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -418,14 +410,14 @@ This simply sets the opening for Storage Lead to the "in review" status, meaning
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -453,14 +445,14 @@ Note that there can be multiple proposals of this type at the same time, so mult
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -486,14 +478,14 @@ This effectively acts as a budget for the working group \(currently referring to
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -519,14 +511,14 @@ To punish or warn the Storage Lead for not performing their job correctly, they 
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -552,14 +544,14 @@ This proposal type allows decreasing the stake of the Storage Lead.
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -585,14 +577,14 @@ This proposal allows for changing the reward for the Storage Lead if it appears 
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -620,14 +612,14 @@ If for whatever reason the Storage Lead needs to be removed from their post \(an
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -655,14 +647,14 @@ The Validators are rewarded for producing blocks, and will share the rewards tha
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approvial Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -696,14 +688,14 @@ If the proposal is voted through, the change will occur immediately.
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period |  |
-| Grace Period |  |
-| Approval Quorum |  |
-| Approvial Threshold |  |
-| Slashing Quorum |  |
-| Slashing Threshold |  |
-| Proposal Stake |  |
-| Constitutionality |  |
+| Voting Period | `FILL IN` |
+| Grace Period | `FILL IN` |
+| Approval Quorum | `FILL IN` |
+| Approval Threshold | `FILL IN` |
+| Slashing Quorum | `FILL IN` |
+| Slashing Threshold | `FILL IN` |
+| Proposal Stake | `FILL IN` |
+| Constitutionality | `FILL IN` |
 
 #### Creation Conditions
 
@@ -721,63 +713,179 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
 
 ## Constants
 
-* Rejection Fee: Up to number of tokens slashed if prosal rejected, but not with slashing.
-* Number of blocks after reject/execute a proposal discussion is closed.
-* Max posts per thread
-* Max active proposals allowed at any given time
-
-Here are the values of these parameters for each proposal
-
-| Proposal | VP | GP | AQ | AT | SQ | ST | PS | C |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Runtime Upgrade | 1230 | 12301 | 45 | 21 | 10 | 5 | 100,00,00 |  |
-| c |  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |  |
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><code>MAX_RUNTIME_UPGRADE_BYTES</code> 
+      </td>
+      <td style="text-align:left">
+        <p>Maximum allowed number of bytes in a runtime upgrade Wasm</p>
+        <p>blob.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>REJECTION_FEE</code>
+      </td>
+      <td style="text-align:left">Up to number of tokens slashed if proposal rejected, but not with slashing.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>DISCUSSION_LINGERING_DURATION</code>
+      </td>
+      <td style="text-align:left">Number of blocks after proposal inactivation a proposal discussion is
+        closed.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MAX_POSTS_PER_THREAD</code>
+      </td>
+      <td style="text-align:left">Max posts per thread.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MAX_ACTIVE_PROPOSALS</code>
+      </td>
+      <td style="text-align:left">Max active proposals allowed at any given time.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MAX_SPENDING_PROPOSAL_VALUE</code>
+      </td>
+      <td style="text-align:left">Max value requestable in a funding request.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Operations
 
-xxxdd
-
 ### Submit Proposal
 
-The number of active proposals &lt; fixed number
+**Parameters**
 
-The conditions are
+| Name | Description |
+| :--- | :--- |
+| `proposer` | Member identifier of proposer. |
+| `title` | Title for proposal. \(general parameter\) |
+| `rationale` | Rationale for proposal. |
+| `trigger` | Optional trigger block for executing proposal. |
+| `account` | Staking account for proposal. |
+| `type` | The of proposal and all associated type specific parameters. |
 
-1. Signer is controller account of referenced proposer.
-2. If trigger is provided, that block must be greater than the current block plus DP+GL.
-3. If S &gt; 0 then there must be provided a staking account, and it must be signed with, and it must have a free balance no less than S, and the only other lock which may exist on it is an election related lock.
-4. Creation conditions are satisified.
+#### Conditions
+
+* Signer matches controller account of `proposer`
+* Number of active proposals is no greater than `MAX_ACTIVE_PROPOSALS`.
+* If `STAKE` is greater than zero, then `account` must have a free balance no less than that. Also`account` is bound to `proposer`, and only has locks from the election & council subsystem.
+* If `trigger` is provided, it must be no less than current block plus `GRACING LIMIT` + `VOTING_PERIOD`.
+* Creation conditions for `type` are satisfied.
+
+#### Effect
+
+A new proposal , of type `type` , is created in the deciding period stage, and a new discussion thread is opened in the open mode.
 
 ### Vote
 
-xx
+**Parameters**
 
-Add informatino here about how exactly the logic for doing premature state transitioning works.!!!!!
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
 
 ### Post to Thread
 
-xx
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
 
 ### Edit to Post
 
-xx
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
 
 ### Change Thread Mode
 
-xx
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
 
 ### Add to Thread Whitelist
 
-xx
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
 
 ### Remove from Thread Whitelist
 
-xxx
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
 
 ## Events
 
