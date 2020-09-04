@@ -39,7 +39,7 @@ Each council member can submit at most one vote per proposal, and it includes th
 
 ### Proposal Type
 
-A proposal type is a parametrized intention to have some effect on the platform. The set of proposal types will increase considerably in the future, and the current types are listed below. 
+A proposal type is a parametrized intention to have some effect on the platform. The set of proposal types will increase considerably in the future, and the current types are listed below.
 
 #### Constants
 
@@ -115,7 +115,7 @@ All proposal types have constant values for a shared set of parameters that are 
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>CONSTITUTIONALITY</code>
+      <td style="text-align:left"><code>`CONSTITUTIONALITY`</code>
       </td>
       <td style="text-align:left">The number of councils in that must approve the proposal
         <br />in a row before it has its intended effect.
@@ -164,15 +164,15 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 * **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. Lasts for up to `VOTING_PERIOD` blocks from when stage begins. When a vote is submitted it is evaluated as such:  
 
 
-  * If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then transition to gracing stage, otherwise  transition to dormant stage.
+  * If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is ``CONSTITUTIONALITY`` then transition to gracing stage, otherwise  transition to dormant stage.
   * If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` will be satisfied, and `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will not, regardless of what additional votes arrive, then slash full stake and transition to the rejected stage.
 
-  
+
   If a new council is elected during this stage, a transition is made to the rejected stage.  
   If VP blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, transition to rejected stage and slash up to `REJECTION_FEE` \(see [Proposals](proposals.md#constants-1)\).
 
-* **Dormant:** Was approved by current council, but requires further approvals to satisfy constitutionality requirement. Transitions to deciding stage when next council is elected.
-* **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage. 
+* **Dormant:** Was approved by current council, but requires further approvals to satisfy `CONSTITUTIONALITY` requirement. Transitions to deciding stage when next council is elected.
+* **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
 * **Vetoed:** Was halted by SUDO, nothing further can happen. This is removed at mainnet.
 * **Execution Succeeded:** Execution succeeded, nothing further can happen.
 * **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
@@ -211,14 +211,14 @@ Note that the distinction between `signal` and the rationale parameter is that t
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approval Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -244,14 +244,14 @@ There is no direct effect of this proposal, its utility is purely for social coo
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approval Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -279,14 +279,14 @@ The block after this proposal is executed will follow the rules of the runtime c
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approval Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -313,14 +313,14 @@ The council mints `amount` tokens out of current budget and credits `amount`.
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approval Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -346,14 +346,14 @@ As the Council will see a significantly increased workload, there may be need to
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approval Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -379,14 +379,14 @@ This proposal allows an opening for a Storage Lead to be created. When editing t
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -412,14 +412,14 @@ This simply sets the opening for Storage Lead to the "in review" status, meaning
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -447,14 +447,14 @@ Note that there can be multiple proposals of this type at the same time, so mult
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -480,14 +480,14 @@ This effectively acts as a budget for the working group \(currently referring to
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -513,14 +513,14 @@ To punish or warn the Storage Lead for not performing their job correctly, they 
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -546,14 +546,14 @@ This proposal type allows decreasing the stake of the Storage Lead.
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -579,14 +579,14 @@ This proposal allows for changing the reward for the Storage Lead if it appears 
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -614,14 +614,14 @@ If for whatever reason the Storage Lead needs to be removed from their post \(an
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -649,14 +649,14 @@ The Validators are rewarded for producing blocks, and will share the rewards tha
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approvial Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| Approvial Threshold | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -690,14 +690,14 @@ If the proposal is voted through, the change will occur immediately.
 
 | Constant | Value |
 | :--- | :--- |
-| Voting Period | `FILL IN` |
-| Grace Period | `FILL IN` |
-| Approval Quorum | `FILL IN` |
-| Approval Threshold | `FILL IN` |
-| Slashing Quorum | `FILL IN` |
-| Slashing Threshold | `FILL IN` |
-| Proposal Stake | `FILL IN` |
-| Constitutionality | `FILL IN` |
+| `VOTING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
 #### Creation Conditions
 
@@ -724,7 +724,7 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left"><code>MAX_RUNTIME_UPGRADE_BYTES</code> 
+      <td style="text-align:left"><code>MAX_RUNTIME_UPGRADE_BYTES</code>
       </td>
       <td style="text-align:left">
         <p>Maximum allowed number of bytes in a runtime upgrade Wasm</p>
@@ -927,7 +927,7 @@ The votes come in, until we have:
 * 0 `Slash`
 * 0 `Abstain`
 
-At this point, the `Approval Quorum` parameter is fulfilled \(100%&gt;75% approval\), but there are still to few votes cast to fullfill the `Approval Threshold` \(at 30%&lt;50%\).
+At this point, the ``APPROVAL_QUORUM`` parameter is fulfilled \(100%&gt;75% approval\), but there are still to few votes cast to fullfill the ``APPROVAL_THRESHOLD`` \(at 30%&lt;50%\).
 
 A few more votes are cast:
 
@@ -936,7 +936,7 @@ A few more votes are cast:
 * 1 `Slash`
 * 1 `Abstain`
 
-At this point, neither the `Approval Quorum` parameter \(67%&lt;75% approval\), nor the `Approval Threshold` \(at 45%&lt;50%\), is fulfilled.
+At this point, neither the ``APPROVAL_QUORUM`` parameter \(67%&lt;75% approval\), nor the ``APPROVAL_THRESHOLD`` \(at 45%&lt;50%\), is fulfilled.
 
 Another vote comes in:
 
@@ -945,7 +945,7 @@ Another vote comes in:
 * 1 `Slash`
 * 1 `Abstain`
 
-At this point, `Approval Quorum` parameter \(60%&lt;75% approval\) is not fulfilled, whereas the `Approval Threshold` \(50%\), is now fulfilled.
+At this point, ``APPROVAL_QUORUM`` parameter \(60%&lt;75% approval\) is not fulfilled, whereas the ``APPROVAL_THRESHOLD`` \(50%\), is now fulfilled.
 
 A few more votes are cast:
 
@@ -954,7 +954,6 @@ A few more votes are cast:
 * 1 `Slash`
 * 1 `Abstain`
 
-At this point, `Approval Quorum` parameter \(67%&lt;75% approval\)\) is not fulfilled, whereas the `Approval Threshold` \(50%\), is now fulfilled.
+At this point, ``APPROVAL_QUORUM`` parameter \(67%&lt;75% approval\)\) is not fulfilled, whereas the ``APPROVAL_THRESHOLD`` \(50%\), is now fulfilled.
 
 A final vote for `Approve` is cast, and the
-
