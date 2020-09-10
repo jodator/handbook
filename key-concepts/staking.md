@@ -47,33 +47,34 @@ Reusability does imply that if there is a slashing event in the context of one o
   
 The table below summarizes the current reusability relationships, changing them currently requires a runtime upgrade.
 
-|  | Voting | Council/O | Council/E | Validation | Nomination | Proposals | Worker |
+|  | Voting | Council/E | Council/O | Validation | Nomination | Proposals | Worker |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | Voting | No | Yes | Yes | Yes | Yes | Yes | Yes |
-| Council/O | - | No | Yes | No | No | No | No |
-| Council/E |  |  | No | No | No | No | No |
-| Validation | - | - |  | No | No | No | No |
-| Nomination | - | - |  | - | No | No | No |
-| Proposals | - | - |  | - | - | No | No |
-| Worker | - | - |  | - | - | - | No |
+| Council/E | - | No | Yes | No | No | No | No |
+| Council/O | - | - | No | No | No | No | No |
+| Validation | - | - | - | No | No | No | No |
+| Nomination | - | - | - | - | No | No | No |
+| Proposals | - | - | - | - | - | No | No |
+| Worker | - | - | - | - | - | - | No |
 
 The table is symmetric, as all reuse relationships are symmetric, hence cells are omitted beyond the diagonal to ignore duplicate specification.
 
-**Notice two new voting purposes: Council/O and Council/E. These represent voting for council candidacy and membership in odd and even eletion cycles respectively. These are separate activties from the perspective of reuse, as their stake is reusable. This means that a current council member can use the stake for their current reign in the next election.**
+**Notice two new voting purposes: Council/O and Council/E. These represent voting for council candidacy and membership in odd and even election cycles respectively. These are separate activties from the perspective of reuse, as their stake is reusable. This means that a current council member can use the stake for their current reign in the next election.**
 
 ## Locks and Binding
 
-In what follows we attempt to briefly summarises the what locks exist for what purposes, and on what accounts they are applied.
+In what follows we attempt to briefly summarizes the what locks exist for what purposes, and on what accounts they are applied.
 
 | Purpose | Binding | ID |
 | :--- | :---: | :---: |
 | Voting | No | 0 |
 | Council/E | Yes | 1 |
-| Council/E | Yes | 2 |
+| Council/O | Yes | 2 |
 | Validation | No | 3 |
 | Nomination | No | 4 |
 | Proposals | Yes | 5 |
-| Worker | Yes | 6 |
+| Storage Worker | Yes | 6 |
+| Content Directory Worker | Yes | 7 |
 
 
 
