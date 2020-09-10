@@ -38,6 +38,10 @@ xxx
 
 xxx
 
+* recall that failure is both in too fe candidates and in not enough votes reveald...
+* voters only locked in until election starts
+* candidacy is locked in until loss or next council elected.
+
 ## Examples
 
 xxx

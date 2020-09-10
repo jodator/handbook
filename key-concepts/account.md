@@ -16,3 +16,7 @@ Participants should be aware that balances attached to addresses can be held in 
 * **`bonded`**: funds currently locked for validating or nominating
 * **`unbonding`**: funds that are being unbonded \(will be redeemable after the bonding period has passed\)
 
+## Locks
+
+explain lock ids
+
