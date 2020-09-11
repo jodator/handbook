@@ -190,11 +190,15 @@ Two extra transition rules are worth bearing in mind
 
 The stages and transitions, excluding SUDO dynamics, are summarized in the image below.
 
-![Stages of proposal life-cycle.](../.gitbook/assets/proposal_2.png)
+![ ](../.gitbook/assets/proposal_2.png)
 
 ### Discussion
 
 A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be updated in any way \(mode, posting, edits, etc.\) when `DISCUSSION_LINGERING_DURATION` have passed since being rejected or executed. Lastly, at most `MAX_POSTS_PER_THREAD` can be posted in a single thread.
+
+### Staking
+
+As described, proposals may require staking to be submitted. A single account must be used to provide the stake for a proposal, and it cannot be used to hold stake for any other proposals or purpose, except voting, at the same time. The staking is implemented as a lock with id `PROPOSAL_LOCK_ID`. 
 
 ## General Proposals
 
@@ -385,7 +389,7 @@ This proposal allows an opening for a Storage Lead to be created. When editing t
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -418,7 +422,7 @@ This simply sets the opening for Storage Lead to the "in review" status, meaning
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -453,7 +457,7 @@ Note that there can be multiple proposals of this type at the same time, so mult
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -486,7 +490,7 @@ This effectively acts as a budget for the working group \(currently referring to
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -519,7 +523,7 @@ To punish or warn the Storage Lead for not performing their job correctly, they 
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -552,7 +556,7 @@ This proposal type allows decreasing the stake of the Storage Lead.
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -585,7 +589,7 @@ This proposal allows for changing the reward for the Storage Lead if it appears 
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -620,7 +624,7 @@ If for whatever reason the Storage Lead needs to be removed from their post \(an
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -655,7 +659,7 @@ The Validators are rewarded for producing blocks, and will share the rewards tha
 | `VOTING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
-| Approvial Threshold | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
 | `SLASHING_QUORUM` | `fill-in` |
 | `SLASHING_THRESHOLD` | `fill-in` |
 | `PROPOSAL_STAKE` | `fill-in` |
@@ -760,6 +764,11 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
       </td>
       <td style="text-align:left">Max value requestable in a funding request.</td>
     </tr>
+    <tr>
+      <td style="text-align:left"><code>PROPOSAL_LOCK_ID</code>
+      </td>
+      <td style="text-align:left">The lock id used for proposal staking locks.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -782,13 +791,13 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
 
 * Signer matches controller account of `proposer`
 * Number of active proposals is no greater than `MAX_ACTIVE_PROPOSALS`.
-* If `PROPOSAL_STAKE` is greater than zero, then `account` must have a free balance no less than that. Also`account` is bound to `proposer`, and only has foreign locks from the election & council subsystem.
+* If `PROPOSAL_STAKE` is greater than zero, then `account` must have a free balance no less than that. Also`account` is bound to `proposer`, and only has a voting lock if anything.
 * If `trigger` is provided, it must be no less than current block plus `GRACING LIMIT` + `VOTING_PERIOD`.
 * Creation conditions for `type` are satisfied.
 
 #### Effect
 
-A new proposal , of type `type` , is created in the deciding period stage, and a new discussion thread is opened in the open mode. Moreover, if `PROPOSAL_STAKE`is greater than zero, the following occurs. If there is an active proposal system lock on the given account, its size is simply increased by `PROPOSAL_STAKE`, otherwise a new lock is created with this amount.
+A new proposal , of type `type` , is created in the deciding period stage, and a new discussion thread is opened in the open mode. Moreover, if `PROPOSAL_STAKE`is greater than zero, a new lock with id `PROPOSAL_LOCK_ID` and amount `PROPOSAL_STAKE` is set.
 
 ### Vote
 
