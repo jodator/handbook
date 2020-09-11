@@ -23,17 +23,51 @@ The relevant actors in the council system are
 
 ## Concepts
 
+### Staking
+
+xxvoting locks, even odd council locks.
+
 ### Candidate
 
-xxx
+xxx  
+- entry text  
+- exit text
 
 ### Council Member
 
-xxx
+xxx  
+- 
+
+### Vote
+
+xx
 
 ### Election
 
-xxx
+An election is the periodic process by which a new council is selected by voters among candidates running for a seat on the next council. Elections occur periodically, and each one has a sequence of stages referred to as the election cycle. An election will begin while the current council is active, and the sitting council is only relieved once a new one has been successfully elected. As will become clear, this process can go on for a unknown amount of time.
+
+State
+
+* candidates: member -&gt; candidate
+* Announcing Block: when we started:
+* whether cylce is odd or even!!!
+
+constants
+
+* idle period length
+* announcing period length
+* voting period length
+* revealing period length
+
+
+
+* **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council.  When time wxpired.... enough people or not? reset everyone and start over.
+* **Voting Period:** This is the stage where voters can submit votes in favour of candidates.
+* **Revealing Period:** ...
+
+### **Council**
+
+xx
 
 ## Constants
 
