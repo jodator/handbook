@@ -67,9 +67,37 @@ constants
 
 ### **Council**
 
-xx
+The council has a fixed number of seats `NUMBER_OF_COUNCIL_POSITIONS` occupied by members. The seats are always occupied, allowing the platform to dispose of all proposals thay may come in at any time. The council body has two high level states described as follows.
+
+* **Idle:** During this stage nothing 
+* **Election:** During this stage an election is being conducted.
 
 ## Constants
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><code>NUMBER_OF_COUNCIL_POSITIONS</code>
+      </td>
+      <td style="text-align:left">
+        <p>The number of council seats.</p>
+        <p>Integer no less than 1.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## 
 
 xxx
 
