@@ -162,7 +162,7 @@ A proposal is defined by the following information
 
 Below is a list of the stages a proposal can be in, and what each of them mean:
 
-* **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. If a new council is elected, any present stake is slashed by `REJECTION_FEE` , the staking lock is reduced by `PROPOSAL_STAKE`and the proposal transitions to the rejected stage. When a vote is submitted it is evaluated as such:    
+* **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. If a new council is elected, any present stake is slashed by `REJECTION_FEE` , the staking lock is removed and the proposal transitions to the rejected stage. When a vote is submitted it is evaluated as such:    
 
 
   * If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` will be satisfied regardless of what additional votes will arrive, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then remove staking lock and transition to gracing stage, otherwise  transition to dormant stage.
@@ -170,7 +170,7 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 
 
 
-  If a new council is elected during this stage, a transition is made to the rejected stage. If `DECIDING_PERIOD` blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, slash stake by up to `REJECTION_FEE`, remove lock and transition to rejected stage.  
+  If `DECIDING_PERIOD` blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, slash stake by up to `REJECTION_FEE`, remove lock and transition to rejected stage.  
 
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy `CONSTITUTIONALITY` requirement. Transitions to deciding stage when next council is elected.
 * **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
@@ -911,38 +911,6 @@ Note: its important to notice that a council member cannot edit the post of anot
 #### Effect
 
 ...
-
-## Events
-
-### Deciding Period Over
-
-#### Condition
-
-The current block is `DECIDING_PERIOD` blocks away from the starting block on a given proposal.
-
-#### Effect
-
-xxx
-
-### Council Elected
-
-#### Condition
-
-xxx
-
-#### Effect
-
-xxx
-
-### Gracing Over
-
-#### Condition
-
-xxx
-
-#### Effect
-
-xxx
 
 ## Example
 
