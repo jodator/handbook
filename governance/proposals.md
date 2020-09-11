@@ -55,10 +55,10 @@ All proposal types have constant values for a shared set of parameters that are 
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left"><code>VOTING_PERIOD</code>
+      <td style="text-align:left"><code>DECIDING_PERIOD</code>
       </td>
       <td style="text-align:left">
-        <p>Maximum number of blocks where one can vote.</p>
+        <p>Maximum number of blocks for deciding period.</p>
         <p>Integer no less than 1.</p>
       </td>
     </tr>
@@ -172,7 +172,7 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 
 
 
-  If a new council is elected during this stage, a transition is made to the rejected stage. If `VOTING_PERIOD` blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, slash stake by up to `REJECTION_FEE`, reduce lock by `PROPOSAL_STAKE` and transition to rejected stage.  
+  If a new council is elected during this stage, a transition is made to the rejected stage. If `DECIDING_PERIOD` blocks pass while still in this stage, apply normal checks for approval and slashing in order, with same transition and side-effect rules as the two above. If neither are satisfied, slash stake by up to `REJECTION_FEE`, reduce lock by `PROPOSAL_STAKE` and transition to rejected stage.  
 
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy `CONSTITUTIONALITY` requirement. Transitions to deciding stage when next council is elected.
 * **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
@@ -185,12 +185,12 @@ It useful to designate any proposal in the stages deciding, dormant or gracing, 
 
 Two extra transition rules are worth bearing in mind
 
-* If number of blocks since decision stage starting is less than `VOTING_PERIOD`, then votes can still be submitted, but they have no impact on any outcome when outside of decision stage.
+* If number of blocks since decision stage starting is less than `DECIDING_PERIOD`, then votes can still be submitted, but they have no impact on any outcome when outside of decision stage.
 * For any active proposal, SUDO can initiate veto, which results in transition to vetoed stage.
 
 The stages and transitions, excluding SUDO dynamics, are summarized in the image below.
 
-![ ](../.gitbook/assets/proposal_2.png)
+![Proposal life-cycle stages.](../.gitbook/assets/proposal.png)
 
 ### Discussion
 
@@ -218,7 +218,7 @@ Note that the distinction between `signal` and the rationale parameter is that t
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -251,7 +251,7 @@ There is no direct effect of this proposal, its utility is purely for social coo
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -286,7 +286,7 @@ The block after this proposal is executed will follow the rules of the runtime c
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -320,7 +320,7 @@ The council mints `amount` tokens out of current budget and credits `amount`.
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -353,7 +353,7 @@ As the Council will see a significantly increased workload, there may be need to
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -386,7 +386,7 @@ This proposal allows an opening for a Storage Lead to be created. When editing t
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -419,7 +419,7 @@ This simply sets the opening for Storage Lead to the "in review" status, meaning
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -454,7 +454,7 @@ Note that there can be multiple proposals of this type at the same time, so mult
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -487,7 +487,7 @@ This effectively acts as a budget for the working group \(currently referring to
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -520,7 +520,7 @@ To punish or warn the Storage Lead for not performing their job correctly, they 
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -553,7 +553,7 @@ This proposal type allows decreasing the stake of the Storage Lead.
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -586,7 +586,7 @@ This proposal allows for changing the reward for the Storage Lead if it appears 
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -621,7 +621,7 @@ If for whatever reason the Storage Lead needs to be removed from their post \(an
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -656,7 +656,7 @@ The Validators are rewarded for producing blocks, and will share the rewards tha
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -697,7 +697,7 @@ If the proposal is voted through, the change will occur immediately.
 
 | Constant | Value |
 | :--- | :--- |
-| `VOTING_PERIOD` | `fill-in` |
+| `DECIDING_PERIOD` | `fill-in` |
 | `GRACE_PERIOD` | `fill-in` |
 | `APPROVAL_QUORUM` | `fill-in` |
 | `APPROVAL_THRESHOLD` | `fill-in` |
@@ -792,7 +792,7 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
 * Signer matches controller account of `proposer`
 * Number of active proposals is no greater than `MAX_ACTIVE_PROPOSALS`.
 * If `PROPOSAL_STAKE` is greater than zero, then `account` must have a free balance no less than that. Also`account` is bound to `proposer`, and only has a voting lock if anything.
-* If `trigger` is provided, it must be no less than current block plus `GRACING LIMIT` + `VOTING_PERIOD`.
+* If `trigger` is provided, it must be no less than current block plus `GRACING LIMIT` + `DECIDING_PERIOD`.
 * Creation conditions for `type` are satisfied.
 
 #### Effect
@@ -914,59 +914,39 @@ Note: its important to notice that a council member cannot edit the post of anot
 
 ...
 
+## Events
+
+### Deciding Period Over
+
+#### Condition
+
+xxx
+
+#### Effect
+
+xxx
+
+### Council Elected
+
+#### Condition
+
+xxx
+
+#### Effect
+
+xxx
+
+### Gracing Over
+
+#### Condition
+
+xxx
+
+#### Effect
+
+xxx
+
 ## Example
 
-Suppose there are currently 20 members of the council. A proposal to set max validator count is made, where the parameters below apply:
-
-| Proposal Parameters | Value |
-| :---: | :---: |
-| `voting_period` | 43,200 |
-| `grace_period` | 0 |
-| `approval_quorum_percentage` | 50% |
-| `approval_threshold_percentage` | 75% |
-| `slashing_quorum_percentage` | 60% |
-| `slashing_threshold_percentage` | 80% |
-| `required_stake` | 25,000 |
-
-A member puts up the required stake of 25,000 tJOY, and the proposal goes the `active` stage at block height 100,000.
-
-**Voting Scenario A**
-
-The votes come in, until we have:
-
-* 6 `Approve`
-* 0 `Reject`
-* 0 `Slash`
-* 0 `Abstain`
-
-At this point, the `APPROVAL_QUORUM` parameter is fulfilled \(100%&gt;75% approval\), but there are still to few votes cast to fullfill the `APPROVAL_THRESHOLD` \(at 30%&lt;50%\).
-
-A few more votes are cast:
-
-* 6 `Approve`
-* 1 `Reject`
-* 1 `Slash`
-* 1 `Abstain`
-
-At this point, neither the `APPROVAL_QUORUM` parameter \(67%&lt;75% approval\), nor the `APPROVAL_THRESHOLD` \(at 45%&lt;50%\), is fulfilled.
-
-Another vote comes in:
-
-* 6 `Approve`
-* 2 `Reject`
-* 1 `Slash`
-* 1 `Abstain`
-
-At this point, `APPROVAL_QUORUM` parameter \(60%&lt;75% approval\) is not fulfilled, whereas the `APPROVAL_THRESHOLD` \(50%\), is now fulfilled.
-
-A few more votes are cast:
-
-* 8 `Approve`
-* 2 `Reject`
-* 1 `Slash`
-* 1 `Abstain`
-
-At this point, `APPROVAL_QUORUM` parameter \(67%&lt;75% approval\)\) is not fulfilled, whereas the `APPROVAL_THRESHOLD` \(50%\), is now fulfilled.
-
-A final vote for `Approve` is cast, and the
+WIP: Add a few new examples for new writeup after full implementation
 
