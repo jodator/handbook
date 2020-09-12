@@ -69,8 +69,10 @@ constants
 
 The council has a fixed number of seats `NUMBER_OF_COUNCIL_POSITIONS` occupied by members. The seats are always occupied, allowing the platform to dispose of all proposals thay may come in at any time. The council body has two high level states described as follows.
 
-* **Idle:** During this stage nothing 
-* **Election:** During this stage an election is being conducted.
+* **Normal:** During this stage the council operates normally. After `NORMAL_PERIOD_LENGTH` blocks have passed since this period started, a transition is made to the election stage.
+* **Election:** During this stage, not only does the council operate, but there is an election ongoing.
+
+During both these stages
 
 ## Constants
 
@@ -91,6 +93,16 @@ The council has a fixed number of seats `NUMBER_OF_COUNCIL_POSITIONS` occupied b
       </td>
     </tr>
     <tr>
+      <td style="text-align:left"><code>NORMAL_PERIOD_LENGTH</code>
+      </td>
+      <td style="text-align:left">The number of blocks in the normal period.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>REWARD_PERIOD_LENGTH</code>
+      </td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
       <td style="text-align:left"></td>
       <td style="text-align:left"></td>
     </tr>
@@ -107,9 +119,11 @@ budget for salaries
 
 budget for financing proposal?
 
+reward for council members..&lt;== should be adjustable
+
 ## Operations
 
-#### Announce Candidacy
+### Announce Candidacy
 
 Parameters
 
@@ -117,7 +131,7 @@ Conditions
 
 Effect
 
-#### Submit Sealed Vote
+### Submit Sealed Vote
 
 Parameters
 
@@ -125,7 +139,7 @@ Conditions
 
 Effect
 
-#### Reveal Vote
+### Reveal Vote
 
 Parameters
 
@@ -133,7 +147,23 @@ Conditions
 
 Effect
 
-#### Recover Voting Stake
+### Recover Voting Stake
+
+Parameters
+
+Conditions
+
+Effect
+
+### Recover Candidacy Stake
+
+Parameters
+
+Conditions
+
+Effect
+
+### Submit Reign Note
 
 Parameters
 
