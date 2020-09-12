@@ -50,24 +50,17 @@ State
 
 * candidates: member -&gt; candidate
 * Announcing Block: when we started:
-* whether cylce is odd or even!!!
-
-constants
-
-* idle period length
-* announcing period length
-* voting period length
-* revealing period length
+* whether cylce is odd or even!!
 
 
 
-* **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council.  When time wxpired.... enough people or not? reset everyone and start over.
+* **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council. The same member can only  When time wxpired.... enough people or not? reset everyone and start over.
 * **Voting Period:** This is the stage where voters can submit votes in favour of candidates.
 * **Revealing Period:** ...
 
 ### **Council**
 
-The council has a fixed number of seats `NUMBER_OF_COUNCIL_POSITIONS` occupied by members. The seats are always occupied, allowing the platform to dispose of all proposals thay may come in at any time. The council body has two high level states described as follows.
+The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by members. The seats are always occupied, allowing the platform to dispose of all proposals thay may come in at any time. The council body has two high level states described as follows.
 
 * **Normal:** During this stage the council operates normally. After `NORMAL_PERIOD_LENGTH` blocks have passed since this period started, a transition is made to the election stage.
 * **Election:** During this stage, not only does the council operate, but there is an election ongoing.
@@ -76,38 +69,13 @@ During both these stages
 
 ## Constants
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>NUMBER_OF_COUNCIL_POSITIONS</code>
-      </td>
-      <td style="text-align:left">
-        <p>The number of council seats.</p>
-        <p>Integer no less than 1.</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>NORMAL_PERIOD_LENGTH</code>
-      </td>
-      <td style="text-align:left">The number of blocks in the normal period.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>REWARD_PERIOD_LENGTH</code>
-      </td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
+| Name | Description | Value |
+| :--- | :--- | :---: |
+| `NUMBER_OF_COUNCIL_SEATS` | The number of council seats. | `fill-in` |
+| `NORMAL_PERIOD_LENGTH` | The number of blocks in the normal period. | `fill-in` |
+| `VOTING_PERIOD_LENGHT` | The number of blocks in the voting period. | `fill-in` |
+| `REVEALING_PERIOD_LENGTH` | The number of blocks in the revealing period. | `fill-in` |
+| `REWARD_PERIOD_LENGTH` | The number or blocks between each reward  payout to council members. | `fill-in` |
 
 ## 
 
