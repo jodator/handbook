@@ -26,8 +26,15 @@ A category is defined by the following
 * **Title:** A human readable category name.
 * **Description:** A human readable description.
 * **Stickied Threads**: A list of threads in this categories that have been designated as having long run importance to the category.
-* Archival Status: 
-* \*\*\*\*
+* Archival Status: &lt;...... explain archival status ....&gt;
+
+### Poll
+
+A poll is created and exists in the context of a thread, and it is defined by the following
+
+* **Description:** A human readable description of what question is being polled.
+* **Deadline:** Some block before which is the only time anyone can participate in the poll.
+* **Alternatives:** A list of alternatives, each with its own explainer text, vote count and members who have voted in favor of it.
 
 ### Thread
 
@@ -36,26 +43,26 @@ A thread is defined by the following
 * **Title:** The human readable title
 * **Category:** The category within which the thread lives.
 * **Author:** Member who created the thread.
-* Archived???
 * **Number of Posts:** 
-* Poll: ... 
-
-### Poll
-
-xx
+* **Poll:** An optional poll for the thread.
+* Archived: &lt;.....???. ....&gt;
 
 ### Post
 
-xxxx
+A post in a thread is defined by the following
+
+* Thread: ..
+* Text:
+* Author: ..
+
+
 
 ## Constants
 
 | Name | Description | Value |
 | :--- | :--- | :---: |
-| `NUMBER_OF_COUNCIL_SEATS` | The number of council seats. | `fill-in` |
-| `NORMAL_PERIOD_LENGTH` | The number of blocks in the normal period. | `fill-in` |
-| `VOTING_PERIOD_LENGHT` | The number of blocks in the voting period. | `fill-in` |
-| `REVEALING_PERIOD_LENGTH` | The number of  |  |
+|  |  |  |
+| `MAX_NUMBER_OF_POLL_ALTERNATIVES` | Upper bound on number of alternatives in new poll. | `fill-in` |
 
 ## Operations
 
