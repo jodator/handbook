@@ -16,12 +16,11 @@ The forum is the primary place for community wide asynchronous written communica
 * **Moderator:** Moderators are assigned to subsets of categories... \(stickied???\) hierarchical or just plain????
 * **Lead:** The forum lead is a member occupying the lead role in the forum working group. Beyond the normal working group lead obligations, this 
 
-## Concepts@
+## Concepts
 
-missing
+### Archiving
 
-* locking/archiginv
-* moderation to categories
+Both categories and threads can be _archived,_ and updating this is the responsibility of the moderators. Archiving should be understood as a read only mode for normal usage the given part of the forum.
 
 ### Category
 
@@ -35,7 +34,7 @@ A category is defined by the following
 * **Number of subcategories:** The current number of categories with this category as its parent.
 * **Number of threads:** The number of threads directly contained in this category, so not including subcategories in the count.
 * **Number of moderators:** The number of moderates directly assigned to this category.
-* Archival Status: xxx
+* **Archived:** Whether the category is archived or not. This impacts whether one can use the category, such as creating threads or posts directly, or subrecursively, within the category.
 
 ### Thread
 
