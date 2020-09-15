@@ -269,15 +269,12 @@ The stickied threads of the category corresponding to `category` is set to `thre
 
 * Signer is working group lead.
 * `category` corresponds to an existing category.
-* xxx
-* Limit `MAX_MODERATORS_IN_CATEGORY` is respected.
-* xx
 
 _Note: There is no check that the provided moderator identifier corresponds to a genuine working group moderator._
 
 #### Effect
 
-A...xxxx
+If `is_member` is true, then the `moderator` identifier is added to the category moderators so long as the `MAX_MODERATORS_IN_CATEGORY` limit is respected. If `is_member`is not true, then the `moderator` is removed if present.
 
 ### Delete Category
 
