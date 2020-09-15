@@ -14,7 +14,7 @@ The forum is the primary place for community-wide asynchronous written communica
 
 * **Member:** Members participate as normal forum users, creating and responding to threads, participating in polls, and so on.
 * **Moderator:** Moderators are assigned to subsets of categories... \(stickied???\) hierarchical or just plain????
-* **Lead:** The forum lead is a member occupying the lead role in the forum working group. Beyond the normal working group lead obligations, this 
+* **Lead:** The forum lead is a member occupying the lead role in the forum working group. Beyond the normal working group lead obligations, this .. The lead can act as a moderator as well.
 
 ## Concepts
 
@@ -29,7 +29,8 @@ archived: directly or not,  ACTIVE: not archived in either sense
 * direct or indirect, cant:
   * cant create category
 * can still:
-  * everythnge else
+  * everythnge else: udpate archival status of decedant
+  * udpate title & description & stickied threads
 
 ### Category
 
@@ -162,7 +163,7 @@ Notice that a lot of the limits are forward-looking. In the even to of a runtime
 
 #### Conditions
 
-* Signer matches controller account of working group lead.
+* Signer is working group lead.
 * If provided, `parent` corresponds to valid category, and it is not directly or indirectly archived.
 * Limit `MAX_NUM_CATEGORIES` is respected.
 * Limit `MAX_CATEGORY_TREE_DEPTH` is respected.
@@ -171,50 +172,66 @@ Notice that a lot of the limits are forward-looking. In the even to of a runtime
 
 A new category is created.
 
-### Category Archival Status Updated
+### Update Category Archival Status
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `actor` | Working group identifier of actor. |
+| `category` | Category identifier. |
+| `new_status` | Whether new status is archived or active |
 
 #### Conditions
 
-* * 
+* Signer is working group lead or moderator.
+* `category` corresponds to an existing category.
+* If signer is moderator, then this moderator is assigned to `category` or some ancestor category.
+* `categoy`archival status is different from `new_status`.
+
 #### Effect
 
-A...
+Archival status of category correspondong to `category` is updated to `new_status`.
 
-### Category Title Updated
+### Update Category Title
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `actor` | Working group identifier of actor. |
+| `category` | Category identifier. |
+| `new_title` | New title for category. |
 
 #### Conditions
 
-* * 
+* Signer is working group lead or moderator.
+* `category` corresponds to an existing category.
+* If signer is moderator, then this moderator is assigned to `category` or some ancestor category.
+
 #### Effect
 
-A...
+The title of the category corresponding to `category` is set to `new_title`.
 
-### Category Description Updated
+### Update Category Description
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `actor` | Working group identifier of actor. |
+| `category` | Category identifier. |
+| `new_description` | New description for category. |
 
 #### Conditions
 
-* * 
+* Signer is working group lead or moderator.
+* `category` corresponds to an existing category.
+* If signer is moderator, then this moderator is assigned to `category` or some ancestor category.
+
 #### Effect
 
-A...
+The description of the category corresponding to `category` is set to `new_description`.
 
 ### Set Category Stickied Threads
 
@@ -222,47 +239,45 @@ A...
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `actor` | Working group identifier of actor. |
+| `category` | Category identifier. |
+| `threads` | List of thread identifiers. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer is working group lead or moderator.
+* `category` corresponds to an existing category.
+* If signer is moderator, then this moderator is assigned to `category` or some ancestor category.
+* All identifiers `threads`corresponding to existing threads.
 
 #### Effect
 
-A...
+The stickied threads of the category corresponding to `category` is set to `threads`.
 
-### Add Moderator to Category
+### Update Category Membership of Moderator
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `lead` | Working group identifier of lead. |
+| `category` | Category identifier. |
+| `moderator` | Working group identifer of moderator. |
+| `is_member` | Whether moderator should be member. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer is working group lead.
+* `category` corresponds to an existing category.
+* xxx
+* Limit `MAX_MODERATORS_IN_CATEGORY` is respected.
+* xx
+
+_Note: There is no check that the provided moderator identifier corresponds to a genuine working group moderator._
 
 #### Effect
 
-A...
-
-### Remove Moderator from Category
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| \`\` |  |
-
-#### Conditions
-
-* Signer matches controller account 
-
-#### Effect
-
-A...
+A...xxxx
 
 ### Delete Category
 
@@ -280,21 +295,7 @@ A...
 
 A...
 
-### Lock/Archive Category
 
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| \`\` |  |
-
-#### Conditions
-
-* Signer matches controller account 
-
-#### Effect
-
-A...
 
 ### Create Thread
 
