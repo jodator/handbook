@@ -55,7 +55,7 @@ A thread is defined by the following
 
 * **Id:** A global unique post identifier, effectively the number of posts created in forum prior to this one. From this one can infer of posts in a thread.
 * **Title:** The human readable title
-* **Category:** The category within which the thread lives.
+* **Category:** The category within which the thread lives. This cannot be the root category.
 * **Author:** Member who created the thread.
 * **Number of Posts:** The current number of posts in this thread.
 * **Poll:** An optional poll for the thread, defined by the following
@@ -293,6 +293,7 @@ If `is_member` is true, then the `moderator` identifier is added to the category
 * `category_id` corresponds to an existing category.
 * There are no threads in the category.
 * There are no subcategories in the category.
+* The category, and no ancestors, are not archived. \[WIP\]
 * If the parent of the category is the root, then `actor` must be the lead, otherwise for other categories `actor` must be lead, or moderator assigned to the category, or some ancestor category.
 
 #### Effect
@@ -316,7 +317,7 @@ The category is dropped.
 * Signer uses role account of member corresponding to `member_id`.
 * `category_id` corresponds to an existing category.
 * Limit `MAX_THREADS_IN_CATEGORY` is respected.
-* The category, and no ancestors, are archived.
+* The category, and no ancestors, are not archived.
 * If poll information is provided, make sure 
   * limit `MAX_POLL_ALTERNATIVES` is respected, and that there are at least two alternatives.
   * the end time is in the future.
@@ -341,7 +342,7 @@ A thread is created.
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
 * `thread_id` corresponds to an existing thread.
-* The category, and no ancestors, are archived.
+* The category, and no ancestors, are not archived.
 * If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
 * The thread has archival status different from `new_archival_status`.
 
@@ -366,7 +367,7 @@ Archival status of thread corresponding to `thread_id` is updated to `new_archiv
 * `category_id` corresponds to an existing category.
 * `thread_id` corresponds to an existing thread.
 * `member_id` corresponds to the author of the thread.
-* The category, and no ancestors, are archived. \[WIP\]
+* The category, and no ancestors, are not archived. \[WIP\]
 * The thread is not archived. \[WIP\]
 
 #### Effect
@@ -379,15 +380,26 @@ The title of the thread is set to `new_title`.
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `actor` | Either lead or working group identifier of moderator. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `new_category_id` | Category identifier. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of `actor`. 
+* `category_id` corresponds to an existing category.
+* `new_category_id` corresponds to an existing category.
+* `category_id` and `new_category_id` are distinct.
+* `thread_id` corresponds to an existing thread.
+* If signer is moderator, then this moderator must be assigned to the category corresponding to `category_id`, or some ancestor category.
+* If signer is moderator, then this moderator must be assigned to the category corresponding to `new_category_id`, or some ancestor category.
+* Limit `MAX_THREADS_IN_CATEGORY` is respected for category corrsponding to `new_category_id`. \[WIP\]
+* Both category, and no ancestors, are not archived.
 
 #### Effect
 
-A...
+The thread has relocated to category corresponding to `new_category_id`.
 
 ### Moderate Thread
 
