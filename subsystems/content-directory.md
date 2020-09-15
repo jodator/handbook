@@ -94,7 +94,7 @@ The permission model is purely a _write-access_ model, as all data is publicly r
 
 ### Roles
 
-There are three roles in the content directory, namely
+There are four roles in the content directory, namely
 
 * **Council:** The council can directly act within the content directory through its proposal system. It can change very high-level permissions.
 * **Lead:** This role, which is only ever occupied by at most one actor, is the highest authority in the directory. The role is rewarded and staked. The lead can both directly update content and permissions, and also introduce curators with a narrower set of related responsibilities.
