@@ -30,7 +30,7 @@ Both categories and threads can be _archived,_ and updating this is the responsi
 archived: directly or not,  ACTIVE: not archived in either sense
 
 * direct or indirect, cant:
-  * cant create category
+  * cant create category, edit thread title, update archival status
 * can still:
   * everythnge else: udpate archival status of decedant
   * udpate title & description & stickied threads
@@ -340,7 +340,7 @@ A thread is created.
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* `thread_id` correspods to an existing thread.
+* `thread_id` corresponds to an existing thread.
 * The category, and no ancestors, are archived.
 * If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
 * The thread has archival status different from `new_archival_status`.
@@ -355,15 +355,23 @@ Archival status of thread corresponding to `thread_id` is updated to `new_archiv
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `member_id` | Member identifier. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `new_title` | Thread title. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of member corresponding to `member_id`.
+* `category_id` corresponds to an existing category.
+* `thread_id` corresponds to an existing thread.
+* `member_id` corresponds to the author of the thread.
+* The category, and no ancestors, are archived. \[WIP\]
+* The thread is not archived. \[WIP\]
 
 #### Effect
 
-A...
+The title of the thread is set to `new_title`.
 
 ### Move Thread
 
