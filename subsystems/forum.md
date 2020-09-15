@@ -183,18 +183,18 @@ A new category is created.
 | :--- | :--- |
 | `actor` | Either lead or working group identifier of moderator. |
 | `category_id` | Category identifier. |
-| `new_status` | Whether new status is archived or active |
+| `new_archival_status` | Whether new status is archived or active. |
 
 #### Conditions
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
 * If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
-* The category has archival status different from `new_status`.
+* The category has archival status different from `new_archival_status`.
 
 #### Effect
 
-Archival status of category corresponding to `category_id` is updated to `new_status`.
+Archival status of category corresponding to `category_id` is updated to `new_archival_status`.
 
 ### Update Category Title
 
@@ -331,15 +331,23 @@ A thread is created.
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `actor` | Either lead or working group identifier of moderator. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `new_archival_status` | Whether new status is archived or active. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of `actor`.
+* `category_id` corresponds to an existing category.
+* `thread_id` correspods to an existing thread.
+* The category, and no ancestors, are archived.
+* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
+* The thread has archival status different from `new_archival_status`.
 
 #### Effect
 
-A...
+Archival status of thread corresponding to `thread_id` is updated to `new_archival_status`.
 
 ### Edit Thread Title
 
