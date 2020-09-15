@@ -41,9 +41,9 @@ A category is defined by the following
 * **Title:** A human-readable category name.
 * **Description:** A human-readable description.
 * **Stickied Threads**: A list of threads in this category that have been designated as having long-run importance to the category.
-* **The number of subcategories:** The current number of categories with this category as its parent.
-* **The number of threads:** The number of threads directly contained in this category, so not including subcategories in the count.
-* **The number of moderators:** The number of moderates directly assigned to this category.
+* **Subcategories:** The categories with this category as its parent.
+* **Threads:** The threads directly contained in this category, so not including subcategories in the count.
+* **Moderators:** The moderator directly assigned to this category.
 * **Archived:** Whether the category is archived or not. This impacts whether one can use the category, such as creating threads or posts directly, or recursively, within the category.
 
 ### Thread
