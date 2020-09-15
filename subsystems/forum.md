@@ -189,12 +189,12 @@ A new category is created.
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* If signer is moderator, then this moderator is assigned to `category_id` or some ancestor category.
-* `category_id` corresponds to a category with archival status is different from `new_status`.
+* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
+* The category has archival status different from `new_status`.
 
 #### Effect
 
-Archival status of category correspondong to `category_id` is updated to `new_status`.
+Archival status of category corresponding to `category_id` is updated to `new_status`.
 
 ### Update Category Title
 
@@ -210,7 +210,7 @@ Archival status of category correspondong to `category_id` is updated to `new_st
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* If signer is moderator, then this moderator is assigned to a category `category_id` or some ancestor category.
+* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
 
 #### Effect
 
@@ -230,7 +230,7 @@ The title of the category corresponding to `category_id` is set to `new_title`.
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* If signer is moderator, then this moderator is assigned to category corresponding to `category_id` or some ancestor category.
+* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
 
 #### Effect
 
@@ -250,7 +250,7 @@ The description of the category corresponding to `category_id` is set to `new_de
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* If signer is moderator, then this moderator is assigned to category corresponding to `category_id` or some ancestor category.
+* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
 * All identifiers `threads`corresponding to existing threads.
 
 #### Effect
@@ -284,20 +284,20 @@ If `is_member` is true, then the `moderator` identifier is added to the category
 
 | Name | Description |
 | :--- | :--- |
-| `actor` | Working group identifier of actor. |
+| `actor` | Either lead or working group identifier of moderator. |
 | `category_id` | Category identifier. |
 
 #### Conditions
 
-* Signer matches controller account 
-* There are no threads in the category corresponding to `category_id`.
-* There are no subcategories in the category corresponding to `category_id`.
+* Signer uses role account of `actor`.
+* `category_id` corresponds to an existing category.
+* There are no threads in the category.
+* There are no subcategories in the category.
+* If the parent of the category is the root, then `actor` must be the lead, otherwise for other categories `actor` must be lead, or moderator assigned to the category, or some ancestor category.
 
 #### Effect
 
-A...
-
-
+The category is dropped.
 
 ### Create Thread
 
@@ -305,11 +305,19 @@ A...
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `member_id` | Identifier of member. |
+| `category_id` | Category identifier. |
+| `title` | Thread title. |
+| `text` | Body text of thread. |
+| `poll` | Optional poll for thread. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of member corresponding to `member_id`.
+* `category_id` corresponds to an existing category.
+* Limit `MAX_THREADS_IN_CATEGORY` is respected.
+* xx mutable category
+* when poll set: alterantive valid, poll is valid?
 
 #### Effect
 
