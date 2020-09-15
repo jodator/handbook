@@ -14,7 +14,7 @@ The forum is the primary place for community-wide asynchronous written communica
 
 * **Member:** Members participate as normal forum users, creating and responding to threads, participating in polls, and so on.
 * **Moderator:** Moderators are assigned to subsets of categories... \(stickied???\) hierarchical or just plain????
-  * LIST ACTIONS THEY CAN DO
+  * LIST ACTIONS THEY CAN DO.. they cant add or remove moderators!!!!
 * **Lead:** The forum lead is a member occupying the lead role in the forum working group. Beyond the normal working group lead obligations, this .. The lead can act as a moderator as well.
   * LIST ACTIONS THEY CAN DO
 
@@ -180,13 +180,13 @@ A new category is created.
 
 | Name | Description |
 | :--- | :--- |
-| `actor` | Working group identifier of actor. |
+| `actor` | Either lead or working group identifier of moderator. |
 | `category_id` | Category identifier. |
 | `new_status` | Whether new status is archived or active |
 
 #### Conditions
 
-* Signer is working group lead or moderator.
+* Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
 * If signer is moderator, then this moderator is assigned to `category_id` or some ancestor category.
 * `category_id` corresponds to a category with archival status is different from `new_status`.
@@ -201,13 +201,13 @@ Archival status of category correspondong to `category_id` is updated to `new_st
 
 | Name | Description |
 | :--- | :--- |
-| `actor` | Working group identifier of actor. |
+| `actor` | Either lead or working group identifier of moderator. |
 | `category_id` | Category identifier. |
 | `new_title` | New title for category. |
 
 #### Conditions
 
-* Signer is working group lead or moderator.
+* Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
 * If signer is moderator, then this moderator is assigned to a category `category_id` or some ancestor category.
 
@@ -221,13 +221,13 @@ The title of the category corresponding to `category_id` is set to `new_title`.
 
 | Name | Description |
 | :--- | :--- |
-| `actor` | Working group identifier of actor. |
+| `actor` | Either lead or working group identifier of moderator. |
 | `category_id` | Category identifier. |
 | `new_description` | New description for category. |
 
 #### Conditions
 
-* Signer is working group lead or moderator.
+* Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
 * If signer is moderator, then this moderator is assigned to category corresponding to `category_id` or some ancestor category.
 
@@ -241,13 +241,13 @@ The description of the category corresponding to `category_id` is set to `new_de
 
 | Name | Description |
 | :--- | :--- |
-| `actor` | Working group identifier of actor. |
+| `actor` | Either lead or working group identifier of moderator. |
 | `category_id` | Category identifier. |
 | `threads` | List of thread identifiers. |
 
 #### Conditions
 
-* Signer is working group lead or moderator.
+* Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
 * If signer is moderator, then this moderator is assigned to category corresponding to `category_id` or some ancestor category.
 * All identifiers `threads`corresponding to existing threads.
@@ -262,7 +262,6 @@ The stickied threads of the category corresponding to `category_id` is set to `t
 
 | Name | Description |
 | :--- | :--- |
-| `lead` | Working group identifier of lead. |
 | `category_id` | Category identifier. |
 | `moderator` | Working group identifer of moderator. |
 | `is_member` | Whether moderator should be member. |
