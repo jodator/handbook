@@ -22,6 +22,15 @@ The forum is the primary place for community-wide asynchronous written communica
 
 Both categories and threads can be _archived,_ and updating this is the responsibility of the moderators. Archiving should be understood as a read-only mode for normal usage of the given part of the forum.
 
+
+
+archived: directly or not,  ACTIVE: not archived in either sense
+
+* direct or indirect, cant:
+  * cant create category
+* can still:
+  * everythnge else
+
 ### Category
 
 A category is defined by the following
@@ -40,16 +49,16 @@ A category is defined by the following
 
 A thread is defined by the following
 
-* **Id:** A global unique post identifier, effectively the number of posts created in the forum prior to this one. From this one can infer of posts in a thread.
-* **Title:** The human-readable title
+* **Id:** A global unique post identifier, effectively the number of posts created in forum prior to this one. From this one can infer of posts in a thread.
+* **Title:** The human readable title
 * **Category:** The category within which the thread lives.
 * **Author:** Member who created the thread.
 * **Number of Posts:** The current number of posts in this thread.
 * **Poll:** An optional poll for the thread, defined by the following
-  * **Description:** A human-readable description of what question is being polled.
+  * **Description:** A human readable description of what question is being polled.
   * **Deadline:** Some block before which is the only time anyone can participate in the poll.
-  * **Alternatives:** A list of alternatives, each with its own explainer text, vote count, and members who have voted in favor of it.
-* Archival Status: xxx
+  * **Alternatives:** A list of alternatives, each with its own explainer text, vote count and members who have voted in favor of it.
+* **Archival Status:** Whether thread is archived or not.
 
 ### Post
 
@@ -143,155 +152,311 @@ Notice that a lot of the limits are forward-looking. In the even to of a runtime
 
 ### Create Category
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| `parent` | Optional parent category identifier. |
+| `title` | Title of category. |
+| `description` | Category description. |
 
-Effect
+#### Conditions
+
+* Signer matches controller account of working group lead.
+* If provided, `parent` corresponds to valid category, and it is not directly or indirectly archived.
+* Limit `MAX_NUM_CATEGORIES` is respected.
+* Limit `MAX_CATEGORY_TREE_DEPTH` is respected.
+
+#### Effect
+
+A new category is created.
 
 ### Category Updated
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* * 
+#### Effect
+
+A...
 
 ### Set Category Stickied Threads
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Add Moderator to Category
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Remove Moderator from Category
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Delete Category
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Lock/Archive Category
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Create Thread
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Update Thread Archival Status
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Edit Thread Title
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Move Thread
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Moderate Thread
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Delete Thread
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Create Post
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Edit Post
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### React to Post
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Moderate Post
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Delete Post
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ### Vote On Poll
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
 
-Effect
+#### Conditions
+
+* Signer matches controller account 
+
+#### Effect
+
+A...
 
 ## Examples
 
