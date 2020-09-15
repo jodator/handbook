@@ -309,19 +309,21 @@ The category is dropped.
 | `category_id` | Category identifier. |
 | `title` | Thread title. |
 | `text` | Body text of thread. |
-| `poll` | Optional poll for thread. |
+| `poll` | Optional poll information for thread. |
 
 #### Conditions
 
 * Signer uses role account of member corresponding to `member_id`.
 * `category_id` corresponds to an existing category.
 * Limit `MAX_THREADS_IN_CATEGORY` is respected.
-* xx mutable category
-* when poll set: alterantive valid, poll is valid?
+* The category, and no ancestors, are archived.
+* If poll information is provided, make sure 
+  * limit `MAX_POLL_ALTERNATIVES` is respected, and that there are at least two alternatives.
+  * the end time is in the future.
 
 #### Effect
 
-A...
+A thread is created.
 
 ### Update Thread Archival Status
 
