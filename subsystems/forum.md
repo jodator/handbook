@@ -14,9 +14,10 @@ The forum is the primary place for community-wide asynchronous written communica
 
 * **Member:** Members participate as normal forum users, creating and responding to threads, participating in polls, and so on.
 * **Moderator:** Moderators are assigned to subsets of categories... \(stickied???\) hierarchical or just plain????
-  * LIST ACTIONS THEY CAN DO.. they cant add or remove moderators!!!!
+  * LIST ACTIONS THEY CAN DO.. they cant add or remove moderators!!!! Also cannot delete in root category, as the only moderator is root is lead....
 * **Lead:** The forum lead is a member occupying the lead role in the forum working group. Beyond the normal working group lead obligations, this .. The lead can act as a moderator as well.
   * LIST ACTIONS THEY CAN DO
+  * Is only actor to delete root categories, as lead is implict moderator of the anonymous root category.
 
 ## Concepts
 
@@ -263,7 +264,7 @@ The stickied threads of the category corresponding to `category_id` is set to `t
 | Name | Description |
 | :--- | :--- |
 | `category_id` | Category identifier. |
-| `moderator` | Working group identifer of moderator. |
+| `moderator` | Working group identifier of moderator. |
 | `is_member` | Whether moderator should be member. |
 
 #### Conditions
@@ -289,6 +290,8 @@ If `is_member` is true, then the `moderator` identifier is added to the category
 #### Conditions
 
 * Signer matches controller account 
+* There are no threads in the category corresponding to `category_id`.
+* There are no subcategories in the category corresponding to `category_id`.
 
 #### Effect
 
