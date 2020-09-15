@@ -171,7 +171,37 @@ Notice that a lot of the limits are forward-looking. In the even to of a runtime
 
 A new category is created.
 
-### Category Updated
+### Category Archival Status Updated
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
+
+#### Conditions
+
+* * 
+#### Effect
+
+A...
+
+### Category Title Updated
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| \`\` |  |
+
+#### Conditions
+
+* * 
+#### Effect
+
+A...
+
+### Category Description Updated
 
 **Parameters**
 
