@@ -13,7 +13,7 @@ The forum is the primary place for community-wide asynchronous written communica
 ## Roles
 
 * **Member:** A members participate as normal forum users, creating and responding to threads, participating in polls, and so on.
-* **Moderator:** A moderator is assigned to one or more categories. Importantly, when assigned to a category, the moderator can act as a moderator in any decendant category. The root category is an exception where moderator can act, only the lead can moderate. Lastly, a moderator cannot participate in normal forum activities _as a moderator,_ only in distinct moderator activities.
+* **Moderator:** A moderator is assigned to one or more categories. Importantly, when assigned to a category, the moderator can act as a moderator in any descendant category. The root category is an exception where moderator can act, only the lead can moderate. Lastly, a moderator cannot participate in normal forum activities _as a moderator,_ only in distinct moderator activities.
 * **Lead:** The forum lead is a member occupying the lead role in the forum working group. Beyond the normal working group lead obligations, the lead can act as a moderator as well, including in the root category.
 
 ## Concepts
@@ -24,27 +24,26 @@ Both categories and threads can be _archived._ When a category is directly archi
 
 ### Category
 
-A category is defined by the following
+Any non-root category is defined by the following
 
-* **Id:** A global unique post identifier, effectively the number of posts created in the forum prior to this one. From this one can infer of posts in a thread.
+* **Id:** A global unique category identifier, effectively the number of categories created in the forum prior to this one.
 * **Parent:** An optional reference to a parent category. When not set, it indicates this is a root level category.
 * **Title:** A human-readable category name.
 * **Description:** A human-readable description.
 * **Stickied Threads**: A list of threads in this category that have been designated as having long-run importance to the category.
 * **Subcategories:** The categories with this category as its parent.
-* **Threads:** The threads directly contained in this category, so not including subcategories in the count.
+* **Threads:** The threads directly contained in this category.
 * **Moderators:** The moderator directly assigned to this category.
-* **Archived:** Whether the category is archived or not. This impacts whether one can use the category, such as creating threads or posts directly, or recursively, within the category.
+* **Archival Status:** Whether the category is archived or not. This impacts whether one can use the category, such as creating threads or posts directly, or recursively, within the category.
 
 ### Thread
 
 A thread is defined by the following
 
-* **Id:** A global unique post identifier, effectively the number of posts created in forum prior to this one. From this one can infer of posts in a thread.
-* **Title:** The human readable title
-* **Category:** The category within which the thread lives. This cannot be the root category.
+* **Id:** A global unique thread identifier, effectively the number of threads created in forum prior to this one. From this one can infer a chronological ordering of threads within the category. Importantly, because of the way information is organized in the blockchain state, the identifier for the category is also also required when identifying a thread.
+* **Title:** The human readable title.
 * **Author:** Member who created the thread.
-* **Number of Posts:** The current number of posts in this thread.
+* **Posts:** The posts in this thread.
 * **Poll:** An optional poll for the thread, defined by the following
   * **Description:** A human readable description of what question is being polled.
   * **Deadline:** Some block before which is the only time anyone can participate in the poll.
@@ -55,10 +54,9 @@ A thread is defined by the following
 
 A post in a thread is defined by the following
 
-* **Id:** A global unique post identifier, effectively the number of posts created in the forum prior to this one. From this one can infer of posts in a thread.
-* **Thread:** The thread 
-* **Text:** xxxx
-* **Author:** ....
+* **Id:** A global unique post identifier, effectively the number of posts created in the forum prior to this one. From this one can infer a chronological ordering of posts within the thread. Importantly, because of the way information is organized in the blockchain state, the identifiers for the category and thread are also also required when identifying a post.
+* **Text:** The post thread
+* **Author:** Member who created the pot.
 
 ## Constants
 
@@ -154,7 +152,7 @@ Notice that a lot of the limits are forward-looking. In the even to of a runtime
 #### Conditions
 
 * Signer is working group lead.
-* If provided, `parent` corresponds to valid category, and it is not directly or indirectly archived.
+* If provided, `parent` corresponds to valid category. \[Remove: , and it is not directly or indirectly archived.\]
 * Limit `MAX_NUM_CATEGORIES` is respected.
 * Limit `MAX_CATEGORY_TREE_DEPTH` is respected.
 
@@ -176,7 +174,7 @@ A new category is created.
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
+* If signer is moderator, then this moderator must be assigned have control of the category.
 * The category has archival status different from `new_archival_status`.
 
 #### Effect
@@ -197,7 +195,7 @@ Archival status of category corresponding to `category_id` is updated to `new_ar
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
+* If signer is moderator, then this moderator must be assigned have control of the category.
 
 #### Effect
 
@@ -217,7 +215,7 @@ The title of the category corresponding to `category_id` is set to `new_title`.
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
+* If signer is moderator, then this moderator must be assigned have control of the category.
 
 #### Effect
 
@@ -237,7 +235,7 @@ The description of the category corresponding to `category_id` is set to `new_de
 
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
-* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
+* If signer is moderator, then this moderator must be assigned have control of the category.
 * All identifiers `threads`corresponding to existing threads.
 
 #### Effect
@@ -280,8 +278,7 @@ If `is_member` is true, then the `moderator` identifier is added to the category
 * `category_id` corresponds to an existing category.
 * There are no threads in the category.
 * There are no subcategories in the category.
-* The category, and no ancestors, are not archived. \[WIP\]
-* If the parent of the category is the root, then `actor` must be the lead, otherwise for other categories `actor` must be lead, or moderator assigned to the category, or some ancestor category.
+* If the parent of the category is the root, then `actor` must be the lead, otherwise for other categories `actor` must be lead, or moderator must be assigned have control of the category.
 
 #### Effect
 
@@ -304,7 +301,7 @@ The category is dropped.
 * Signer uses role account of member corresponding to `member_id`.
 * `category_id` corresponds to an existing category.
 * Limit `MAX_THREADS_IN_CATEGORY` is respected.
-* The category, and no ancestors, are not archived.
+* The category is not archived.
 * If poll information is provided, make sure 
   * limit `MAX_POLL_ALTERNATIVES` is respected, and that there are at least two alternatives.
   * the end time is in the future.
@@ -329,8 +326,7 @@ A thread is created.
 * Signer uses role account of `actor`.
 * `category_id` corresponds to an existing category.
 * `thread_id` corresponds to an existing thread.
-* The category, and no ancestors, are not archived.
-* If signer is moderator, then this moderator must be assigned to the category, or some ancestor category.
+* If signer is moderator, then this moderator must be assigned have control of the category.
 * The thread has archival status different from `new_archival_status`.
 
 #### Effect
@@ -354,7 +350,7 @@ Archival status of thread corresponding to `thread_id` is updated to `new_archiv
 * `category_id` corresponds to an existing category.
 * `thread_id` corresponds to an existing thread.
 * `member_id` corresponds to the author of the thread.
-* The category, and no ancestors, are not archived. \[WIP\]
+* The category is not archived. \[WIP\]
 * The thread is not archived. \[WIP\]
 
 #### Effect
@@ -379,30 +375,13 @@ The title of the thread is set to `new_title`.
 * `new_category_id` corresponds to an existing category.
 * `category_id` and `new_category_id` are distinct.
 * `thread_id` corresponds to an existing thread.
-* If signer is moderator, then this moderator must be assigned to the category corresponding to `category_id`, or some ancestor category.
-* If signer is moderator, then this moderator must be assigned to the category corresponding to `new_category_id`, or some ancestor category.
+* If signer is moderator, then this moderator must be assigned have control of the category corresponding to `category_id`.
+* If signer is moderator, then this moderator must be assigned have control of the category corresponding to `new_category_id`.
 * Limit `MAX_THREADS_IN_CATEGORY` is respected for category corresponding to `new_category_id`. \[WIP\]
-* Both category, and no ancestors, are not archived.
 
 #### Effect
 
 The thread has relocated to category corresponding to `new_category_id`.
-
-### Moderate Thread
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| \`\` |  |
-
-#### Conditions
-
-* Signer matches controller account 
-
-#### Effect
-
-A...
 
 ### Delete Thread
 
@@ -410,15 +389,22 @@ A...
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `actor` | Either member identifier, lead or working group identifier of moderator. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `rationale` | Human-readable text. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of `actor`. 
+* `category_id` corresponds to an existing category.
+* `thread_id` corresponds to an existing thread.
+* If signer is moderator, then this moderator must be assigned have control of the category corresponding to `category_id`.
+* If `actor` is author of thread, thread can at most have the one original post.
 
 #### Effect
 
-A...
+The thread and all corresponding posts are removed.
 
 ### Create Post
 
@@ -453,22 +439,6 @@ A...
 A...
 
 ### React to Post
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| \`\` |  |
-
-#### Conditions
-
-* Signer matches controller account 
-
-#### Effect
-
-A...
-
-### Moderate Post
 
 **Parameters**
 
