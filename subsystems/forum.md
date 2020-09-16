@@ -23,17 +23,7 @@ The forum is the primary place for community-wide asynchronous written communica
 
 ### Archiving
 
-Both categories and threads can be _archived,_ and updating this is the responsibility of the moderators. Archiving should be understood as a read-only mode for normal usage of the given part of the forum.
-
-
-
-archived: directly or not,  ACTIVE: not archived in either sense
-
-* direct or indirect, cant:
-  * cant create category, edit thread title, update archival status
-* can still:
-  * everythnge else: udpate archival status of decedant
-  * udpate title & description & stickied threads
+Both categories and threads can be _archived._ When a category is directly archived, or is an ancestor of a directly archived category, it is considered archived. If not, its considered _active_. Likewise, when a thread can be directly archived, or is in a category which is archived, it is considered archived. If not, its considered active. In either case, being archived prevents normal users from updating any associated forum state, for example through user level interactions like creating threads, creating posts, reacting to posts, etc. However, actions associated with moderators and the lead are still unconstrained.
 
 ### Category
 
@@ -394,7 +384,7 @@ The title of the thread is set to `new_title`.
 * `thread_id` corresponds to an existing thread.
 * If signer is moderator, then this moderator must be assigned to the category corresponding to `category_id`, or some ancestor category.
 * If signer is moderator, then this moderator must be assigned to the category corresponding to `new_category_id`, or some ancestor category.
-* Limit `MAX_THREADS_IN_CATEGORY` is respected for category corrsponding to `new_category_id`. \[WIP\]
+* Limit `MAX_THREADS_IN_CATEGORY` is respected for category corresponding to `new_category_id`. \[WIP\]
 * Both category, and no ancestors, are not archived.
 
 #### Effect
