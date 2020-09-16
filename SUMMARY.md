@@ -13,6 +13,12 @@
 * [Extrinsics](key-concepts/extrinsics.md)
 * [Staking](key-concepts/staking.md)
 
+## Governance
+
+* [Council](governance/council.md)
+* [Proposals](governance/proposals.md)
+* [Working Groups](governance/working-groups.md)
+
 ## Subsystems
 
 * [Validation](subsystems/validation.md)
@@ -27,15 +33,4 @@
 * [Building](subsystems/building.md)
 * [Bounties](subsystems/bounties.md)
 * [Content Financing](subsystems/content-financing.md)
-
-## Governance
-
-* [Council](governance/council.md)
-* [Proposals](governance/proposals.md)
-* [Working Groups](governance/working-groups.md)
-
-## Guides
-
-* [The Subkey Utility](guides/the-subkey-utility.md)
-* [Vanity Addresses](guides/vanity-addresses.md)
 
