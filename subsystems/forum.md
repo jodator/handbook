@@ -58,6 +58,10 @@ A post in a thread is defined by the following
 * **Text:** The post thread
 * **Author:** Member who created the pot.
 
+### Reaction
+
+A _reaction_ is a signal a member can send to associate a sentiment, in the form of a non-negative integer called a _reaction value_, with a forum post. Importantly, it is only possible to react, not unreact, that is to withdraw a reaction. The semantics of different values, or of submitting the same value more than once, will require social consensus.
+
 ## Constants
 
 <table>
@@ -399,8 +403,12 @@ The thread has relocated to category corresponding to `new_category_id`.
 * Signer uses role account of `actor`. 
 * `category_id` corresponds to an existing category.
 * `thread_id` corresponds to an existing thread.
-* If signer is moderator, then this moderator must be assigned have control of the category corresponding to `category_id`.
-* If `actor` is author of thread, thread can at most have the one original post.
+* If signer is 
+  * moderator, then this moderator must be assigned have control of the category corresponding to `category_id`.
+  * member, then member is thread author and 
+    * thread can at most have the one post.
+    * category is not archived.
+    * thread is not archived.
 
 #### Effect
 
@@ -412,15 +420,23 @@ The thread and all corresponding posts are removed.
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `member_id` | Member identifier. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `text` | Human-readable text. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of member corresponding to `member_id`.
+* `category_id` corresponds to an existing category.
+* `thread_id` corresponds to an existing thread.
+* category is not archived.
+* thread is not archived.
+* Limit `MAX_POSTS_IN_THREAD` is respected.
 
 #### Effect
 
-A...
+A new post is created in thread with text `text`and author is `member_id`.
 
 ### Edit Post
 
@@ -428,15 +444,25 @@ A...
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `member_id` | Member identifier. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `post_id` | Post identifier. |
+| `new_text` | Human-readable text. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of member corresponding to `member_id`.
+* `category_id` corresponds to an existing category.
+* `thread_id` corresponds to an existing thread.
+* `post_id` corresponds to an existing post.
+* member is author of post.
+* category is not archived.
+* thread is not archived.
 
 #### Effect
 
-A...
+Post text is set to `new_text`.
 
 ### React to Post
 
@@ -444,15 +470,25 @@ A...
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `member_id` | Member identifier. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `post_id` | Post identifier. |
+| `reaction_value` | Reaction value. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of member corresponding to `member_id`.
+* `category_id` corresponds to an existing category.
+* `thread_id` corresponds to an existing thread.
+* `post_id` corresponds to an existing post.
+* member is author of post.
+* category is not archived.
+* thread is not archived.
 
 #### Effect
 
-A...
+Reaction with value `reaction_value`is accepted.
 
 ### Delete Post
 
@@ -460,15 +496,28 @@ A...
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `actor` | Either member identifier, lead or working group identifier of moderator. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `post_id` | Post identifier. |
+| `reaction_value` | Reaction value. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of `actor`. 
+* `category_id` corresponds to an existing category.
+* `thread_id` corresponds to an existing thread.
+* `post_id` corresponds to an existing post.
+* post is not first post in thread.
+* If signer is 
+  * moderator, then this moderator must be assigned have control of the category corresponding to `category_id`.
+  * member, then member is post author and
+    * category is not archived.
+    * thread is not archived.
 
 #### Effect
 
-A...
+Post is deleted.
 
 ### Vote On Poll
 
@@ -476,19 +525,27 @@ A...
 
 | Name | Description |
 | :--- | :--- |
-| \`\` |  |
+| `member_id` | Member identifier. |
+| `category_id` | Category identifier. |
+| `thread_id` | Thread identifier. |
+| `alternative_index` | Index of a poll alternative. |
 
 #### Conditions
 
-* Signer matches controller account 
+* Signer uses role account of member corresponding to `member_id`.
+* `category_id` corresponds to an existing category.
+* `thread_id` corresponds to an existing thread.
+* thread has poll which has not expired.
+* member has not already voted in poll.
+* `alternative-index` identifies an alternative in the poll.
 
 #### Effect
 
-A...
+The member is registered as having voted for alternative `aleternative_index`
 
 ## Examples
 
-xxx
+**WIP**
 
 
 
