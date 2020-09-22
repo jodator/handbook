@@ -3,6 +3,8 @@
 ## TODO
 
 * why key segregation: fund & risk managemnt policy flexibility.
+* Unstaking period must be longer than grace period, or whatever period is needed, for slashing proposal of leads, and slashing must work while unstaking! \(unstaking period is parameter for making openng!\)
+* Missing Constants table that provides constant values for each group, such as unstaking period, even if identical.
 
 ## Introduction
 
