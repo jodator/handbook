@@ -7,11 +7,10 @@
 
 ## Introduction
 
-A membership is a representation of an actor on the platform, and it they exist to serve the following purposes
+A membership is a representation of an actor on the platform, and it exist to serve the following purposes
 
-* **Profile:** A membership has an associated rich profile that includes information that support presenting the actor in a human friendly way in applications, much more so than raw accounts
+* **Profile:** A membership has an associated rich profile that includes information that support presenting the actor in a human friendly way in applications, much more so than raw accounts in isolation.
 * **Reputation:** Facilitates the consolidation of all activity under one stable identifier, allowing an actor to invest in the reputation of a membership through prolonged participation with good conduct. This gives honest and competent actors a practical way to signal quality, and this quality signal is a key screening parameter allowing entry into more important and sensitive activities. While nothing technically prevents an actor from registering for multiple memberships, the value of doing a range of activities under one membership should be greater than having it fragmented, since reputation, in essence, increases with the length and scope of the history of consistent good conduct.
-* **Recovery:** By binding other roles and activities to a membership, it becomes possible to recover control of those roles even if accounts used to authenticate for those roles are lost. \(Rewrite & update, expand\)
 
 It's important to be aware that a membership is not an account, but a higher level concept that involves accounts for authentication.
 
@@ -21,39 +20,88 @@ The membership subsystem is responsible for storing and managing all memberships
 
 ### Membership
 
-A membership includes the following in the blockchain state:
+A membership includes the following
 
 * **Id:** A unique immutable non-negative integer identifying the member, automatically assigned when membership is created.
 * **Root Account:** A required account that is used only to update the controller account. Need not be unique across members, but in practice probably will be.
 * **Controller Account:** A required account that is used to authenticate as the member, both in this and other parts of the platform. Need not be unique across members, but in practice probably will be.
-* **Name:** Hash of a mutable human readable mutable string.
-* **Handle:** Hash of a unique mutable string handle.
+* **Name:** A human readable mutable string.
+* **Handle:** A unique mutable string handle.
 * **Invites:** A mutable non-negative integer that represents how many invitations this member has.
 * **Verified:** A mutable boolean indicator that reflects whether the implied real world identity in the profile corresponds to the true actor behind the membership.
-* **Avatar:** Hash of a mutable URI for an avatar image.
-* **About:** Hash of a mutable human readable text description.
+* **Avatar:** A mutable URI for an avatar image.
+* **About:** A mutable human readable text description.
 * **Founding Member**: A signifier that this member holds some specific historical significance to the launch of the platform. This value will be stored in the chain state when mainnet launches, but for now, since we want to grant founding member status on an ongoing member through a SUDO call, this is in history.
-* **Staking Accounts:** A set of accounts that have been bound to this membership for the purpose of holding staked funds. One account can only be used to stake for at most two separate purposes simultaneously, and one of them has to be an election related purpose, i.e. voting or council candidacy. One account can only be a staking account for a single member, and once associated in this way, it cannot be deassociated and associated with another member.
+* **Staking Accounts:** A set of accounts that have been bound to this membership for the purpose of holding staked funds. One account can only be used to stake for at most two separate purposes simultaneously, and one of them has to be an election related purpose, i.e. voting or council candidacy. One account can only be a staking account for a single member, and once associated in this way, it cannot be de-associated and associated with another member.
 
-### Membership Working Group
+### Working Group
 
 The membership subsystem has a working group. The purpose of the group is to effectively distribute invitation quotas and verified status. The lead has the extra task of refreshing the quotas to workers, which they can in turn then distribute to other members. Workers are referred to as _membership evangelists_.
 
-## State
+## Constants
 
-The system holds the following important on-chain state variables
+| Name | Description |
+| :--- | :--- |
+| `MAX_RUNTIME_UPGRADE_BYTES` | .... |
 
-* All memberships.
-* The identifier value for the next membership to be created.
+## Parameters
+
+
+
 * The price of a membership.
 * The referral cut of the membership price diverted to a referrer when buying a membership.
 * The default number of invitations set for a new bought membership.
 * The total invites budget from which the lead can distribute invitations to other members.
-* The next block where the total invites budget will be set to some new specific value.
 
-## Constants
-
-**TBD.**
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><code>MAX_RUNTIME_UPGRADE_BYTES</code>
+      </td>
+      <td style="text-align:left">
+        <p>Maximum allowed number of bytes in a runtime upgrade Wasm</p>
+        <p>blob.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>REJECTION_FEE</code>
+      </td>
+      <td style="text-align:left">Up to number of tokens slashed if proposal rejected, but not with slashing.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>DISCUSSION_LINGERING_DURATION</code>
+      </td>
+      <td style="text-align:left">Number of blocks after proposal inactivation a proposal discussion is
+        closed.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MAX_POSTS_PER_THREAD</code>
+      </td>
+      <td style="text-align:left">Max posts per thread.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MAX_ACTIVE_PROPOSALS</code>
+      </td>
+      <td style="text-align:left">Max active proposals allowed at any given time.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MAX_SPENDING_PROPOSAL_VALUE</code>
+      </td>
+      <td style="text-align:left">Max value requestable in a funding request.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>PROPOSAL_LOCK_ID</code>
+      </td>
+      <td style="text-align:left">The lock id used for proposal staking locks.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Operation
 

@@ -10,6 +10,10 @@ The content directory is an on-chain index of all content and metadata, and rela
 * **Owned**: Entities are owned, initially be the actor responsible for creating them, and the write access permission model is aware of this ownership status.
 * **Bespoke write access model**: There is a write access model that attempts to capture the common access control rules one would want to enforce over this type of data model. The model has to accommodate an evolving set of subject matter domain concepts without being updated itself, by the very assumption mentioned prior. As a result, it has a bespoke structure that attempts to strike a balance between simplicity and expressivity.
 
+## Working Group
+
+The content directory subsystem has a working group. The purpose of the group is to allocate curation responsibilities, and to performed highly privlidged alterations to the state of the directory, done by the lead, and to do actual curation, done by both workers and the lead. Workers are referred to as _content curators_.
+
 ## Data Model
 
 To aid in the explanation of the data model we will develop a model of the following domain: people and the places they have lived.
