@@ -40,6 +40,20 @@ All roles in a group are occupied by an on boarding process analogous to how som
 
 The opening can be cancelled at any time in the latter two stages.
 
+## Constants
+
+TBD.  
+  
+Hard-coded values are defined _for each working group_, and they can only be altered with a runtime upgrade.
+
+* C1
+* C2
+* C3
+
+| Name | Description |
+| :--- | :--- |
+| `MAX_NUMBER_OF_WORKERS` | The maximum number of workers that can be part of the working group simultaneously. |
+
 ## Stake
 
 There are two separate forms of stake which may be required of applicants to an opening. Application stake is stake that is required simply in order to apply, and it will always be released before the opening ends. It cannot be slashed. Role stake is the stake that is required as part of entering the role itself, and if hired, the stake is not released at that time, and it is subject to slashing risk.

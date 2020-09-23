@@ -720,55 +720,17 @@ If the Lead, or anyone else, wants to replenish or drain the existing Mint, a pr
 
 ## Constants
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>MAX_RUNTIME_UPGRADE_BYTES</code>
-      </td>
-      <td style="text-align:left">
-        <p>Maximum allowed number of bytes in a runtime upgrade Wasm</p>
-        <p>blob.</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>REJECTION_FEE</code>
-      </td>
-      <td style="text-align:left">Up to number of tokens slashed if proposal rejected, but not with slashing.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>DISCUSSION_LINGERING_DURATION</code>
-      </td>
-      <td style="text-align:left">Number of blocks after proposal inactivation a proposal discussion is
-        closed.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>MAX_POSTS_PER_THREAD</code>
-      </td>
-      <td style="text-align:left">Max posts per thread.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>MAX_ACTIVE_PROPOSALS</code>
-      </td>
-      <td style="text-align:left">Max active proposals allowed at any given time.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>MAX_SPENDING_PROPOSAL_VALUE</code>
-      </td>
-      <td style="text-align:left">Max value requestable in a funding request.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>PROPOSAL_LOCK_ID</code>
-      </td>
-      <td style="text-align:left">The lock id used for proposal staking locks.</td>
-    </tr>
-  </tbody>
-</table>
+The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
+
+| Name | Description | Value |
+| :--- | :--- | :---: |
+| `MAX_RUNTIME_UPGRADE_BYTES` | Maximum allowed number of bytes in a runtime upgrade Wasm blob. | x |
+| `REJECTION_FEE` | Up to number of tokens slashed if proposal rejected, but not with slashing. | x |
+| `DISCUSSION_LINGERING_DURATION` | Number of blocks after proposal inactivation a proposal discussion is closed. | x |
+| `MAX_POSTS_PER_THREAD` | Max posts per thread. | x |
+| `MAX_ACTIVE_PROPOSALS` | Max active proposals allowed at any given time. | x |
+| `MAX_SPENDING_PROPOSAL_VALUE` | Max value requestable in a funding request. | x |
+| `PROPOSAL_LOCK_ID` | The lock id used for proposal staking locks. | x |
 
 ## Operations
 

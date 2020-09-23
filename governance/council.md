@@ -69,6 +69,8 @@ During both these stages
 
 ## Constants
 
+The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
+
 | Name | Description | Value |
 | :--- | :--- | :---: |
 | `NUMBER_OF_COUNCIL_SEATS` | The number of council seats. | `fill-in` |
@@ -77,7 +79,7 @@ During both these stages
 | `REVEALING_PERIOD_LENGTH` | The number of blocks in the revealing period. | `fill-in` |
 | `REWARD_PERIOD_LENGTH` | The number or blocks between each reward  payout to council members. | `fill-in` |
 
-## 
+
 
 xxx
 
