@@ -1,3 +1,9 @@
+---
+description: >-
+  Working groups organize subcommittees of incentivized and staked contributors
+  around making a subsystem of the platform to work.
+---
+
 # Working Groups
 
 ## TODO
@@ -8,9 +14,11 @@
 
 ## Introduction
 
-A working group is an executive body, subject to the oversight of the council, which is responsible for the day to day functioning of some subsystem of the platform. There is exactly one working group per subsystem. The rationale for having a working group for this purpose, rather than having the council directly involved, has three parts. First, since all council members are supposed to be fully informed on all matters the cumulative workload of overseeing all subsystems would not be feasible for a single council. Second, even if it was feasible, voting is not a sound means of making such decisions, because there is a lack of guaranteed coherence in the decisions over time. Third, each subsystem will over time likely require a differentiated skillset, knowledge base and social capital. The appropriate analogy for understanding the role of the working groups in the overall operation of the system would be a commission or agency body in a political institution.
+A working group is an executive body, subject to the oversight of the council, which is responsible for the day to day functioning of some subsystem of the platform. There is exactly one working group per subsystem. The rationale for having a working group for this purpose, rather than having the council directly involved, has three parts. First, since all council members are supposed to be fully informed on all matters the cumulative workload of overseeing all subsystems would not be feasible for a single council. Second, even if it was feasible, voting is not a sound means of making such decisions, because there is a lack of guaranteed coherence in the decisions over time. Third, each subsystem will over time likely require a differentiated skill set, knowledge base and social capital. The appropriate analogy for understanding the role of the working groups in the overall operation of the system would be a commission or agency body in a political institution.
 
-## Roles
+## Actors
+
+rewrite =&gt;All roles in a group are occupied by an on boarding process analogous to how someone is hired for a role in real world organizations. This hiring activity is organized into 
 
 There are two roles in a working group, a _lead_ and a _worker_. There is at most one lead, but but at times there is no lead. There are multiple workers in each group, and each working group will have an upper bound on how many workers can be part of the group at any time. A single member can occupy the role of lead in multiple groups simultaneously, and even multiple worker roles in the same group simultaneously. Each separate role does however have its own independent stake and policy variables associated with it. All roles have the following information associated
 
@@ -18,7 +26,13 @@ There are two roles in a working group, a _lead_ and a _worker_. There is at mos
 * **Role account**: The account currently used to authenticate as this role, as well as the source account for any staked quantity, and thus also where unstaked funds return.
 * **Reward account**: The destination account to which periodic rewards are paid out.
 
-## Financing
+## Concepts
+
+### Stake
+
+There are two separate forms of stake which may be required of applicants to an opening. Application stake is stake that is required simply in order to apply, and it will always be released before the opening ends. It cannot be slashed. Role stake is the stake that is required as part of entering the role itself, and if hired, the stake is not released at that time, and it is subject to slashing risk.
+
+### Financing
 
 Each group has a separate budget which funds all expenses in that group, namely
 
@@ -28,9 +42,9 @@ Each group has a separate budget which funds all expenses in that group, namely
 
 The financing dynamics of a group work as follows. Time is split into periods of a fixed length, and at the beginning of each period, the budget for the group is reset. Over the period, all spending out of the budget happens by minting fresh tokens for a given purpose. Periodic rewards to the lead and the worker all payout at a given fixed interval, where fresh tokens our minted out of the budget, and sent to an account provided by the given recipient. The payouts may happen at different blocks for different actors, as they are aligned w.r.t. when the actor was introduced into the group. These autonomous reward payouts are optimistic, in that, if they fail because the budget has been expended, then no payout is made.
 
-## Hiring
+### Hiring
 
-All roles in a group are occupied by an on boarding process analogous to how someone is hired for a role in real world organisations. This hiring activity is organised into _openings_, of which there can be multiple active simultaneously within a single group. The life cycle of an opening has the following stages
+_openings_, of which there can be multiple active simultaneously within a single group. The life cycle of an opening has the following stages
 
 * **Waiting:** An opening can be scheduled to begin in a future block, at which point it will be in the _waiting period_ until that time, and during that period the only thing that can happen is that it can be cancelled.
 * **Application:** The _application period_ is the stage where members can submit a bid to occupy the role in question, by submitting an application.
@@ -42,23 +56,46 @@ The opening can be cancelled at any time in the latter two stages.
 
 ## Constants
 
-TBD.  
-  
 Hard-coded values are defined _for each working group_, and they can only be altered with a runtime upgrade.
-
-* C1
-* C2
-* C3
 
 | Name | Description |
 | :--- | :--- |
 | `MAX_NUMBER_OF_WORKERS` | The maximum number of workers that can be part of the working group simultaneously. |
+| x | x |
+| x | x |
 
-## Stake
+## Parameters
 
-There are two separate forms of stake which may be required of applicants to an opening. Application stake is stake that is required simply in order to apply, and it will always be released before the opening ends. It cannot be slashed. Role stake is the stake that is required as part of entering the role itself, and if hired, the stake is not released at that time, and it is subject to slashing risk.
+xxx
+
+| Name | Description |
+| :--- | :--- |
+| `foo` | bar |
+| `foos` | bars |
+
+
+
+The council can set the size of the budget, but there is a hard upper bound to what they can set.
+
+## Operations
 
 ### Creating an opening
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
 
 If the lead is being hired, the opening would be created by the council, if a worker is to be hired, the lead would be the creator. In what follows, let's refer to the opening creator and manager as the _authority_. Such a process will, in a successful scenario, result in one or more roles being filled. When the opening is created, it has the following associated information
 
@@ -83,17 +120,81 @@ If the lead is being hired, the opening would be created by the council, if a wo
 
 ### Accept applications
 
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
+
 When an opening is in the waiting stage, the authority can transition it to the application stage.
 
 ### Terminate application
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
 
 When an opening is in either the application or review stage, the authority can terminate any application, and while there is no slashing, the unbonding periods from the initial policy apply.
 
 ### Begin review
 
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
+
 When an opening is in the application stage, the authority can transition it to the review stage.
 
 ### Fill opening
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
 
 When an opening is in the review stage, the authority can select a \(possibly empty\) subset of the currently active applications as being hired, resulting in everyone else as failing to be hired. The distinction lies in what happens to the different associated stakes, and also that the successful applications result in the creation of a corresponding new actor in the working group. The authority can also provide a policy for the rewards to be set for all the new actors, which covers
 
@@ -102,6 +203,22 @@ When an opening is in the review stage, the authority can select a \(possibly em
 * when the first payment should occur
 
 ### Apply to opening
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
 
 When an opening is in the application stage, a member can submit an application, which includes the following
 
@@ -114,41 +231,161 @@ The account used as the source of funds for the staking is the account sending t
 
 ### Withdraw application
 
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
+
 When an opening is in the application stage, a member with an active application can withdraw the application.
 
-## Role life cycle
-
 ### Update role account
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
 
 Any role can unilaterally update the current role account by authenticating with their underlying membership.
 
 ### Update reward account
 
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
+
 Any role can unilaterally update the reward account.
 
 ### Leave role
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
 
 Any role can unilaterally leave, triggering any associated role unstaking period, during which they can still get slashed.
 
 ### Terminate role
 
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
+
 Any role can instantly be removed. The lead can be removed by the council, and a worker can be removed by the lead. The relevant unstaking period from the policy parameter of the opening from which the role was set applies.
 
 ### Slash
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
 
 Slashing happens instantly, and can happen to both the lead and a worker, and can be up to the entire balance in the role stake. When the lead is slashed, its due to the council, and when a worker is slashed, its due to the lead.
 
 ### Decrease stake
 
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
+
 Decreasing role stake happen instantly, and it can be triggered by the lead when applying to a worker, or triggered by the council when it applying to the lead. Stake can be reduced any amount, and the funds are returned to the role account.
 
 ### Increase stake
 
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `member_id` | Member identifier. |
+
+#### Conditions
+
+* Signer uses role account of member corresponding to `member_id`.
+
+#### Effect
+
+The member is registered as having voted for alternative `aleternative_index`
+
+`........`
+
 Increasing role stake happens instantly, and it can be triggered by the worker or the lead, on behalf of themselves only. Stake can be increased any amount, and it originates from the role account.
-
-## Oversight
-
-### Change budget
-
-The council can set the size of the budget, but there is a hard upper bound to what they can set.
 
