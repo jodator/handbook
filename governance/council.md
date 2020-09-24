@@ -13,9 +13,9 @@ The council is a political organ
 * political
 * fast- day to day: stand in reprsentation of the full set of stakeholders on a day to day basis.
 
-## Actors
+## Roles
 
-The relevant actors in the council system are
+The relevant roles in the council system are
 
 * **Voters:** Anyone who stakes for the purposes of influencing the outcome of an election. Is not tied to membership, so a member can vote multiple times for different candidates from different accounts.
 * **Candidate:** A member who has staked and stands as an alternative for council membership in an ongoing election cycle.

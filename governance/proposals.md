@@ -18,9 +18,9 @@ A proposal is a motion to change the state or policy of the system in some way. 
 
 The reason for this differentiation across types is because different proposals have very different effects, and carry very different risks of failure or abuse. The proposal system has the responsibility of coordinating the different actors involved in the lifetime of a proposal, from submission to finalization.
 
-## Actors
+## Roles
 
-The relevant actors in the proposal system are
+The relevant roles in the proposal system are
 
 * **Proposer:** A member that has submitted an instance of a specific proposal type. A given member can submit multiple proposals at once, or over time.
 * **Council Members:** They are tasked with voting on proposals, which determines whether the proposals are accepted or not, as well as discussing a proposal with the proposer, and leaving a rationale for their vote.

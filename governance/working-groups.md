@@ -8,36 +8,51 @@ description: >-
 
 ## TODO
 
-* why key segregation: fund & risk managemnt policy flexibility.
 * Unstaking period must be longer than grace period, or whatever period is needed, for slashing proposal of leads, and slashing must work while unstaking! \(unstaking period is parameter for making openng!\)
-* Missing Constants table that provides constant values for each group, such as unstaking period, even if identical.
 
 ## Introduction
 
-A working group is an executive body, subject to the oversight of the council, which is responsible for the day to day functioning of some subsystem of the platform. There is exactly one working group per subsystem. The rationale for having a working group for this purpose, rather than having the council directly involved, has three parts. First, since all council members are supposed to be fully informed on all matters the cumulative workload of overseeing all subsystems would not be feasible for a single council. Second, even if it was feasible, voting is not a sound means of making such decisions, because there is a lack of guaranteed coherence in the decisions over time. Third, each subsystem will over time likely require a differentiated skill set, knowledge base and social capital. The appropriate analogy for understanding the role of the working groups in the overall operation of the system would be a commission or agency body in a political institution.
+A working group is an organizational body, subject to the oversight of the council, which is responsible for the day to day functioning of some subsystem of the platform. There is exactly one working group per subsystem. The rationale for having a working group for this purpose, rather than having the council directly involved, has three parts. First, since all council members are supposed to be fully informed on all matters the cumulative workload of overseeing all subsystems would not be feasible for a single council. Second, even if it was feasible, voting is not a sound means of making such decisions, because there is a lack of guaranteed coherence in the decisions over time. Third, each subsystem will over time likely require a differentiated skill set, knowledge base and social capital. The appropriate analogy for understanding the role of the working groups in the overall operation of the system would be a commission or agency body in a political institution.
 
-## Actors
+## Roles
 
-rewrite =&gt;All roles in a group are occupied by an on boarding process analogous to how someone is hired for a role in real world organizations. This hiring activity is organized into 
+The relevant roles in a working group are
 
-There are two roles in a working group, a _lead_ and a _worker_. There is at most one lead, but but at times there is no lead. There are multiple workers in each group, and each working group will have an upper bound on how many workers can be part of the group at any time. A single member can occupy the role of lead in multiple groups simultaneously, and even multiple worker roles in the same group simultaneously. Each separate role does however have its own independent stake and policy variables associated with it. All roles have the following information associated
-
-* **Membership**: The membership to which this role corresponds.
-* **Role account**: The account currently used to authenticate as this role, as well as the source account for any staked quantity, and thus also where unstaked funds return.
-* **Reward account**: The destination account to which periodic rewards are paid out.
+* **Applicant:** A member who has submitted an application to join an opening for a worker role in the working group. A given member may apply more than once to a given opening, and also if they already occupy the role as worker the same group. Openings are created by the lead \(see below\), or by the council when wanting to fill the lead role.
+* **Worker:** A member who has, through an application, entered the working group.The worker may or may not be staked, and is receiving payouts to a designated account at regular intervals. The worker role gives some ability to act in a domain specific way within the given subsystem. So for example in the context of the forum, a worker in the forum working group can be assigned to be a moderator in certain forum categories, and have associated moderation privileges. Lastly, a member may act as multiple works simultaneously, or over time, in the same working group.
+* **Lead:** A designated worker who is responsible for hiring and managing the other workers, as well as allocating funds from a budget towards purposes that support the success of the subsystem.
 
 ## Concepts
 
-### Stake
+### Worker
 
-There are two separate forms of stake which may be required of applicants to an opening. Application stake is stake that is required simply in order to apply, and it will always be released before the opening ends. It cannot be slashed. Role stake is the stake that is required as part of entering the role itself, and if hired, the stake is not released at that time, and it is subject to slashing risk.
+A has the following information associated
+
+* **Membership**: The membership to which this role corresponds. Comes from the initial application to the opening by which worker is hired.
+* **Role account**: The account currently used to authenticate as this role in the relevant subsystem. Authentication in the working group is done using the controller account of the member, so as to allow for division of labor behind a single membership across multiple roles, while not requiring full trust. Is updatable by member.
+* **Staking profile:** Is only set if the role initially required stake in the opening from which it was hired, and includes
+  * **Staking account:** Holds the stake currently associated with the role. .
+  * **Unstaking period:** The number of blocks required from a worker initiating leaving the group until their staked funds are unlocked.
+* **Reward account**: The destination account to which periodic rewards are paid out.
+
+  All roles have the following information associated.
+
+* **Reward rate per block:** The number of tokens the worker earns per block, although payouts do not occur per block, but every `REWARD_PAYOUT_PERIOD` blocks. This is earned for every block from being hired to being terminated, or initiating leaving the group. It is not earned during unstaking.
+* **Owed reward:** The total reward this worker was not paid over a number of payout periods where there was not sufficient funds in the working group budget
+
+### Rewards
+
+....
+
+### Staking and Slashing
+
+T......
 
 ### Financing
 
 Each group has a separate budget which funds all expenses in that group, namely
 
-* periodic reward to lead
-* periodic reward to each worker
+* periodic reward to each worker, including the lead
 * discretionary spending by lead
 
 The financing dynamics of a group work as follows. Time is split into periods of a fixed length, and at the beginning of each period, the budget for the group is reset. Over the period, all spending out of the budget happens by minting fresh tokens for a given purpose. Periodic rewards to the lead and the worker all payout at a given fixed interval, where fresh tokens our minted out of the budget, and sent to an account provided by the given recipient. The payouts may happen at different blocks for different actors, as they are aligned w.r.t. when the actor was introduced into the group. These autonomous reward payouts are optimistic, in that, if they fail because the budget has been expended, then no payout is made.
@@ -61,21 +76,16 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | Name | Description |
 | :--- | :--- |
 | `MAX_NUMBER_OF_WORKERS` | The maximum number of workers that can be part of the working group simultaneously. |
-| x | x |
-| x | x |
+| `REWARD_PAYOUT_PERIOD` | The number of blocks between each time workers are paid their total reward for the period. |
 
 ## Parameters
 
-xxx
+Parameters are on-chain values that can be updated through the proposal system in order to alter the constraints and functionality of the working group.
 
 | Name | Description |
 | :--- | :--- |
-| `foo` | bar |
-| `foos` | bars |
-
-
-
-The council can set the size of the budget, but there is a hard upper bound to what they can set.
+| `spending_budget` | bar |
+|  |  |
 
 ## Operations
 

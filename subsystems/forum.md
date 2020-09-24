@@ -12,6 +12,8 @@ The forum is the primary place for community-wide asynchronous written communica
 
 ## Roles
 
+The relevant actors in the forum are
+
 * **Member:** A members participate as normal forum users, creating and responding to threads, participating in polls, and so on.
 * **Moderator:** A moderator is assigned to one or more categories. Importantly, when assigned to a category, the moderator can act as a moderator in any descendant category. The root category is an exception where moderator can act, only the lead can moderate. Lastly, a moderator cannot participate in normal forum activities _as a moderator,_ only in distinct moderator activities.
 * **Lead:** The forum lead is a member occupying the lead role in the forum working group. Beyond the normal working group lead obligations, the lead can act as a moderator as well, including in the root category.
