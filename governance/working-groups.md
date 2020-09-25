@@ -38,17 +38,35 @@ A has the following information associated
 
 ### Rewards
 
-All workers are paid every `REWARD_PAYOUT_PERIOD` blocks, and each worker is to be credited according to their own reward rate, and any possibly outstanding owed reward. During this payout, where workers are processed in some consistent order \(for a given set of workers\), the crediting only occurs while the budget constraint `spending_budget` is respected. Also, workers unstaking are ignored. For each payout, the constraint is tightened. If a worker cannot be paid out in full, then the difference is added to their owed reward. The budget will have to be reset, by the council, in order to prevent an ever accumulating debt to workers. When a worker is terminated, or leaves, any owed reward and oustanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the worker suffers the loss.
+All workers are paid every `REWARD_PAYOUT_PERIOD` blocks, and each worker is to be credited according to their own reward rate, and any possibly outstanding owed reward. During this payout, where workers are processed in some consistent order \(for a given set of workers\), the crediting only occurs while the budget constraint `current_budget` is respected. Also, workers unstaking are ignored. For each payout, the constraint is tightened. If a worker cannot be paid out in full, then the difference is added to their owed reward. The budget will then have to be reset by the council. When a worker is terminated, or leaves, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the worker suffers the loss.
 
-### Staking and Slashing
+### Spending
 
-T......
+In addition to rewards, the lead can spend from this budget for arbitrary purposes, to fund expenses and initiatives that are in line with the purpose of the group.
 
-### Discretionary Spending
+### Staking
 
-Each group has a separate budget which funds all expenses in that group, namely
+Some worker roles may require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead, and the requirement may be adjusted up or down at a later time on a worker by worker basis, as long as some non-zero amount was required to begin with. Changing the staking requirement is unilaterally done by the lead, or the council  by adjusting the size of the lock, however, one can only increase the lock if there is sufficient free balance in the account. In order for the worker to have to opt-in for a stake increase, no free balance should be kept in a staking account.  
+  
+Lastly, consult the [Staking](../key-concepts/staking.md#reuse) article to see a list of other staking purposes, and corresponding locks, which can be combined with staking for a given working group.
+
+### Slashing
+
+Slashing is initiated by the council, or the lead, by pure discretion. The full staked amount is at risk of getting slashed, but need not be, and there is no limit to the number of times one may get slashed. Importantly, slashing can also occur while a worker is unbonding. This is of particular importance to avoid a lead attempting to leave the role the moment a slashing proposal is observed. Such last minute exits cannot avoid slashing so long as the unbonding period chosen by the council for the lead, is sufficiently long compared to the inherent delays in the proposal system. There is a similar, but much less severe, concern about workers trying to race with slashing transactions submitted by the lead by attempting to preempt slashing by observing the pool of unconfirmed transactions. The unbonding period required to make this infeasible can be mucher shorter, essentially just however long is required to have a sufficiently high certainty that the slashing transaction is included in a block.
 
 ### Hiring
+
+Hiring is the process by which a worker enters the group. Both normal workers and the lead worker, are hired, in the latter case the council initiates the hiring. Hirings are organized into _openings_, where zero or more _applicants_ may be selected as winners, and becoming workers. An opening for the lead position will always result in hiring at most one worker, and this worker becomes the lead.
+
+#### Application
+
+An application has the following 
+
+#### Opening
+
+xxx
+
+
 
 _openings_, of which there can be multiple active simultaneously within a single group. The life cycle of an opening has the following stages
 
@@ -75,12 +93,11 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 | Name | Description |
 | :--- | :--- |
-| `reward_budget` | The total number of  |
-| `spending_budget` | The total number of tokens available to be spent for discretionary spending by lead. |
+| `current_budget` | The total number of tokens available to be spent for discretionary spending by lead and rewards to all group members. |
 
 ## Operations
 
-### Creating an opening
+### Creating an Opening
 
 **Parameters**
 
