@@ -6,10 +6,6 @@ description: >-
 
 # Working Groups
 
-## TODO
-
-* Unstaking period must be longer than grace period, or whatever period is needed, for slashing proposal of leads, and slashing must work while unstaking! \(unstaking period is parameter for making openng!\)
-
 ## Introduction
 
 A working group is an organizational body, subject to the oversight of the council, which is responsible for the day to day functioning of some subsystem of the platform. There is exactly one working group per subsystem. The rationale for having a working group for this purpose, rather than having the council directly involved, has three parts. First, since all council members are supposed to be fully informed on all matters the cumulative workload of overseeing all subsystems would not be feasible for a single council. Second, even if it was feasible, voting is not a sound means of making such decisions, because there is a lack of guaranteed coherence in the decisions over time. Third, each subsystem will over time likely require a differentiated skill set, knowledge base and social capital. The appropriate analogy for understanding the role of the working groups in the overall operation of the system would be a commission or agency body in a political institution.
@@ -42,7 +38,7 @@ A has the following information associated
 
 ### Rewards
 
-All workers are paid every `REWARD_PAYOUT_PERIOD` blocks, and each worker is to be credited according to their own reward rate, and any possibly oustanding owed reward. During this payout, where workers are processed in some consistent order \(for a given set of workers\), the crediting only occurs while the budget constraint `spending_budget` is respected. Also, workers unstaking are ignored. For each payout, the constraint is tightened. If a worker cannot be paid out in full, then the difference is added to their owed reward. The budget will have to be reset, by the council, in order to prevent an ever accumulating debt to workers. When a worker is terminated, or leaves, any owed reward and oustanding reward from the last payout, are attempted paid out, however if the buget does not allow it, then the worker suffers the loss.
+All workers are paid every `REWARD_PAYOUT_PERIOD` blocks, and each worker is to be credited according to their own reward rate, and any possibly outstanding owed reward. During this payout, where workers are processed in some consistent order \(for a given set of workers\), the crediting only occurs while the budget constraint `spending_budget` is respected. Also, workers unstaking are ignored. For each payout, the constraint is tightened. If a worker cannot be paid out in full, then the difference is added to their owed reward. The budget will have to be reset, by the council, in order to prevent an ever accumulating debt to workers. When a worker is terminated, or leaves, any owed reward and oustanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the worker suffers the loss.
 
 ### Staking and Slashing
 
@@ -79,8 +75,8 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 | Name | Description |
 | :--- | :--- |
+| `reward_budget` | The total number of  |
 | `spending_budget` | The total number of tokens available to be spent for discretionary spending by lead. |
-|  |  |
 
 ## Operations
 
