@@ -91,6 +91,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | :--- | :--- |
 | `MAX_NUMBER_OF_WORKERS` | The maximum number of workers that can be part of the working group simultaneously. |
 | `REWARD_PAYOUT_PERIOD` | The number of blocks between each time workers are paid their total reward for the period. |
+| `LOCK_ID` | The Id for the lock used to stake in this working group. |
 
 ## Parameters
 
@@ -138,23 +139,14 @@ A new opening is added with the given information.
 
 * Signer uses role account of member corresponding to `member_id`.
 * `opening_id` corresponds to an existing opening.
-* `staking_account` is bound to the member and
-  * ...
+* `staking_account`is set only if opening has staking policy, and
+  * is bound to the member,
+  * has free balance no less than the balance in the staking policy,
+  * there are no conflicting staking locks present.
 
 #### Effect
 
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-When an opening is in the application stage, a member can submit an application, which includes the following
-
-* the account to be set as the role account in the event of a hiring
-* the amount of funds to allocate for the role stake
-* the amount of funds to allocate for the application stake
-* a human readable text
-
-The account used as the source of funds for the staking is the account sending the transaction, which is the membership role account. If only a limited number of applications can proceed to the review period, and that limit is exceeded with this new application, then this new application is only included if it the total amount of stake it provides is larger than at least one other active application. If that is the case, then that application is displaced, and cannot proceed to the review period.
+A new application is created for the opening, using the provided information, and `staking_account` has lock with Id `LOCK_ID` and of size following staking policy of opening.
 
 ### Terminate Application
 
