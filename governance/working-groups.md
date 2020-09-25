@@ -42,20 +42,15 @@ A has the following information associated
 
 ### Rewards
 
-....
+All workers are paid every `REWARD_PAYOUT_PERIOD` blocks, and each worker is to be credited according to their own reward rate, and any possibly oustanding owed reward. During this payout, where workers are processed in some consistent order \(for a given set of workers\), the crediting only occurs while the budget constraint `spending_budget` is respected. Also, workers unstaking are ignored. For each payout, the constraint is tightened. If a worker cannot be paid out in full, then the difference is added to their owed reward. The budget will have to be reset, by the council, in order to prevent an ever accumulating debt to workers. When a worker is terminated, or leaves, any owed reward and oustanding reward from the last payout, are attempted paid out, however if the buget does not allow it, then the worker suffers the loss.
 
 ### Staking and Slashing
 
 T......
 
-### Financing
+### Discretionary Spending
 
 Each group has a separate budget which funds all expenses in that group, namely
-
-* periodic reward to each worker, including the lead
-* discretionary spending by lead
-
-The financing dynamics of a group work as follows. Time is split into periods of a fixed length, and at the beginning of each period, the budget for the group is reset. Over the period, all spending out of the budget happens by minting fresh tokens for a given purpose. Periodic rewards to the lead and the worker all payout at a given fixed interval, where fresh tokens our minted out of the budget, and sent to an account provided by the given recipient. The payouts may happen at different blocks for different actors, as they are aligned w.r.t. when the actor was introduced into the group. These autonomous reward payouts are optimistic, in that, if they fail because the budget has been expended, then no payout is made.
 
 ### Hiring
 
@@ -84,7 +79,7 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 | Name | Description |
 | :--- | :--- |
-| `spending_budget` | bar |
+| `spending_budget` | The total number of tokens available to be spent for discretionary spending by lead. |
 |  |  |
 
 ## Operations
