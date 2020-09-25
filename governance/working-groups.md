@@ -28,13 +28,16 @@ A has the following information associated
 * **Role account**: The account currently used to authenticate as this role in the relevant subsystem. Authentication in the working group is done using the controller account of the member, so as to allow for division of labor behind a single membership across multiple roles, while not requiring full trust. Is updatable by member.
 * **Staking profile:** Is only set if the role initially required stake in the opening from which it was hired, and includes
   * **Staking account:** Holds the stake currently associated with the role. .
-  * **Unstaking period:** The number of blocks required from a worker initiating leaving the group until their staked funds are unlocked.
+  * **Leaving unstaking period:** The number of blocks required from a worker initiating leaving the group until their staked funds are unlocked.
 * **Reward account**: The destination account to which periodic rewards are paid out.
 
   All roles have the following information associated.
 
 * **Reward rate per block:** The number of tokens the worker earns per block, although payouts do not occur per block, but every `REWARD_PAYOUT_PERIOD` blocks. This is earned for every block from being hired to being terminated, or initiating leaving the group. It is not earned during unstaking.
-* **Owed reward:** The total reward this worker was not paid over a number of payout periods where there was not sufficient funds in the working group budget
+* **Owed reward:** The total reward this worker was not paid over a number of payout periods where there was not sufficient funds in the working group budget.
+* **Unstaking status:** Is either _normal_, or _unstaking_. The initial status is the former, and the latter is only entered into when the worker attempts to leave while staking with some non-zero balance at stake.
+
+A designated worker may or may not be identified as the lead at any time.
 
 ### Rewards
 
@@ -52,7 +55,7 @@ Lastly, consult the [Staking](../key-concepts/staking.md#reuse) article to see a
 
 ### Slashing
 
-Slashing is initiated by the council, or the lead, by pure discretion. The full staked amount is at risk of getting slashed, but need not be, and there is no limit to the number of times one may get slashed. Importantly, slashing can also occur while a worker is unbonding. This is of particular importance to avoid a lead attempting to leave the role the moment a slashing proposal is observed. Such last minute exits cannot avoid slashing so long as the unbonding period chosen by the council for the lead, is sufficiently long compared to the inherent delays in the proposal system. There is a similar, but much less severe, concern about workers trying to race with slashing transactions submitted by the lead by attempting to preempt slashing by observing the pool of unconfirmed transactions. The unbonding period required to make this infeasible can be mucher shorter, essentially just however long is required to have a sufficiently high certainty that the slashing transaction is included in a block.
+Slashing is initiated by the council, or the lead, by pure discretion. The full staked amount is at risk of getting slashed, but need not be, and there is no limit to the number of times one may get slashed. Importantly, slashing can also occur while a worker is unbonding. This is of particular importance to avoid a lead attempting to leave the role the moment a slashing proposal is observed. Such last minute exits cannot avoid slashing so long as the unbonding period chosen by the council for the lead, is sufficiently long compared to the inherent delays in the proposal system. There is a similar, but much less severe, concern about workers trying to race with slashing transactions submitted by the lead by attempting to preempt slashing by observing the pool of unconfirmed transactions. The unbonding period required to make this infeasible can be much shorter, essentially just however long is required to have a sufficiently high certainty that the slashing transaction is included in a block.
 
 ### Hiring
 
@@ -60,23 +63,25 @@ Hiring is the process by which a worker enters the group. Both normal workers an
 
 #### Application
 
-An application has the following 
+An application has the following information
+
+* **Id:** A unique immutable non-negative integer identifying an individual application across all openings, is automatically assigned when an application is created.
+* **Role account:** A required account that is used to authenticate as the worker if selected, in other parts of the platform. Need not be unique across workers, but in practice probably will be.
+* **Staking account:** If set, the account holding the stake of the application.
+* **Member:** Identifier of member from which application originates.
+* **Description:** A human readable description of the application.
 
 #### Opening
 
-xxx
+An opening has the following information associated
 
-
-
-_openings_, of which there can be multiple active simultaneously within a single group. The life cycle of an opening has the following stages
-
-* **Waiting:** An opening can be scheduled to begin in a future block, at which point it will be in the _waiting period_ until that time, and during that period the only thing that can happen is that it can be cancelled.
-* **Application:** The _application period_ is the stage where members can submit a bid to occupy the role in question, by submitting an application.
-* **Review:** The _review period_ is a stage which serves as a grace period before the hiring process must be concluded by either actively selecting some applicants as hired, and others as not, or by allowing anyone to withdraw their application,
-
-  and thus stake associated with applying to the opening.
-
-The opening can be cancelled at any time in the latter two stages.
+* **Id:** A unique immutable non-negative integer identifying an individual opening, is automatically assigned when an opening is created.
+* **Type:** Whether the opening is for the lead or for a non-lead worker.
+* **Description:** A human readable description.
+* **Staking policy:** If set, the policy is defined by the following
+  * **Balance:** The required non-zero balance required.
+  * **Leaving unstaking period:** The number of blocks required from a worker initiating leaving the group until their staked funds are unlocked.
+* **Applications:** All applications created, but not yet withdrawn.
 
 ## Constants
 
@@ -103,50 +108,38 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 | Name | Description |
 | :--- | :--- |
-| `member_id` | Member identifier. |
+| `description` | Human readable text of new opening. |
+| `type` | Opening type of new opening.. |
+| `staking_policy` | Staking policy of new opening. |
 
 #### Conditions
 
-* Signer uses role account of member corresponding to `member_id`.
+* A lead worker is set.
+* Signer uses role account of lead worker.
+* If `staking_policy` is set, then the balance is greater than zero.
 
 #### Effect
 
-The member is registered as having voted for alternative `aleternative_index`
+A new opening is added with the given information.
 
-`........`
-
-If the lead is being hired, the opening would be created by the council, if a worker is to be hired, the lead would be the creator. In what follows, let's refer to the opening creator and manager as the _authority_. Such a process will, in a successful scenario, result in one or more roles being filled. When the opening is created, it has the following associated information
-
-* **Activation:** Whether its going to start accepting applications immediately, or some time in the future.
-* **Text:** A human readable description of what is involved in the role being hired for.
-* **Policy:** An up front commitment to a number of immutable policy variables governing both the opening and the role itself. These are
-  * Whether there is an upper limit to the number of applications that can proceed to the review period.
-  * Whether stake is required for the application itself, and if so how much \(can be lower bound or exact\), unstaking periods for review period expiry and if kicked out in application period due to limited space.
-  * Whether stake is required for the role itself, with similar parameters as for the application.
-  * Whether the stake of anyone hired can be slashed, or not, and if it can, how many times, and how many % of stake can be slashed at most.
-  * Maximum length of the review period.
-  * Unstaking periods for application stake in the following scenarios:
-    * applicant hired
-    * opening cancelled
-    * application terminated by authority
-    * application terminated by applicant
-  * Unstaking periods for role stake in the following scenarios:
-    * applicant failed to be hired
-    * opening cancelled
-    * application terminated by authority
-    * application terminated by applicant
-
-### Accept applications
+### Apply on Opening
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
 | `member_id` | Member identifier. |
+| `opening_id` | Identifier of opening being applied to. |
+| `role_account` | Role account of future worker. |
+| `staking_account` | Optional account holding stake if required. |
+| `description` | Human readable description for application. |
 
 #### Conditions
 
 * Signer uses role account of member corresponding to `member_id`.
+* `opening_id` corresponds to an existing opening.
+* `staking_account` is bound to the member and
+  * ...
 
 #### Effect
 
@@ -154,9 +147,16 @@ The member is registered as having voted for alternative `aleternative_index`
 
 `........`
 
-When an opening is in the waiting stage, the authority can transition it to the application stage.
+When an opening is in the application stage, a member can submit an application, which includes the following
 
-### Terminate application
+* the account to be set as the role account in the event of a hiring
+* the amount of funds to allocate for the role stake
+* the amount of funds to allocate for the application stake
+* a human readable text
+
+The account used as the source of funds for the staking is the account sending the transaction, which is the membership role account. If only a limited number of applications can proceed to the review period, and that limit is exceeded with this new application, then this new application is only included if it the total amount of stake it provides is larger than at least one other active application. If that is the case, then that application is displaced, and cannot proceed to the review period.
+
+### Terminate Application
 
 **Parameters**
 
@@ -219,33 +219,6 @@ When an opening is in the review stage, the authority can select a \(possibly em
 * how much they should be paid individually
 * at what interval they should be paid
 * when the first payment should occur
-
-### Apply to opening
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Member identifier. |
-
-#### Conditions
-
-* Signer uses role account of member corresponding to `member_id`.
-
-#### Effect
-
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-When an opening is in the application stage, a member can submit an application, which includes the following
-
-* the account to be set as the role account in the event of a hiring
-* the amount of funds to allocate for the role stake
-* the amount of funds to allocate for the application stake
-* a human readable text
-
-The account used as the source of funds for the staking is the account sending the transaction, which is the membership role account. If only a limited number of applications can proceed to the review period, and that limit is exceeded with this new application, then this new application is only included if it the total amount of stake it provides is larger than at least one other active application. If that is the case, then that application is displaced, and cannot proceed to the review period.
 
 ### Withdraw application
 
