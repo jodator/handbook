@@ -165,49 +165,28 @@ A new application is created for the opening, using the provided information, an
 
 If application has staking, then the staking is removed by removing the lock on the staking account. The application is removed.
 
-### Fill opening
+### Fill an Opening
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `member_id` | Member identifier. |
+| `opening_id` | Identifier of opening to be filled. |
+| `winners` | Set of application identifiers of winners. |
 
 #### Conditions
 
-* Signer uses role account of member corresponding to `member_id`.
+* A lead worker is set.
+* Signer uses role account of lead worker.
+* `opening_id` corresponds to existing opening.
+* all identifiers in `winners` correspond to existing applications.
+* Opening type is for worker, and the number of workers in the opening plus the number of  `winners` does not exceed `MAX_NUMBER_OF_WORKERS`.
 
 #### Effect
 
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-When an opening is in the review stage, the authority can select a \(possibly empty\) subset of the currently active applications as being hired, resulting in everyone else as failing to be hired. The distinction lies in what happens to the different associated stakes, and also that the successful applications result in the creation of a corresponding new actor in the working group. The authority can also provide a policy for the rewards to be set for all the new actors, which covers
-
-* how much they should be paid individually
-* at what interval they should be paid
-* when the first payment should occur
-
-### Withdraw application
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Member identifier. |
-
-#### Conditions
-
-* Signer uses role account of member corresponding to `member_id`.
-
-#### Effect
-
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-When an opening is in the application stage, a member with an active application can withdraw the application.
+Create a worker for each application in `winners`, and remmove opening.  
+  
+NB: Notice that all losing applications are still around in order to allow recovering stake later.
 
 ### Update role account
 
