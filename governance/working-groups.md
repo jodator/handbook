@@ -148,45 +148,22 @@ A new opening is added with the given information.
 
 A new application is created for the opening, using the provided information, and `staking_account` has lock with Id `LOCK_ID` and of size following staking policy of opening.
 
-### Terminate Application
+### Withdraw Application
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `member_id` | Member identifier. |
+| `application_id` | Identifier for application to be withdrawn. |
 
 #### Conditions
 
-* Signer uses role account of member corresponding to `member_id`.
+* `application_id` corresponds to an existing application.
+* Signer uses role account of of application.
 
 #### Effect
 
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-When an opening is in either the application or review stage, the authority can terminate any application, and while there is no slashing, the unbonding periods from the initial policy apply.
-
-### Begin review
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Member identifier. |
-
-#### Conditions
-
-* Signer uses role account of member corresponding to `member_id`.
-
-#### Effect
-
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-When an opening is in the application stage, the authority can transition it to the review stage.
+If application has staking, then the staking is removed by removing the lock on the staking account. The application is removed.
 
 ### Fill opening
 
