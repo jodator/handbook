@@ -76,7 +76,9 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 | Storage Worker | Yes | 6 |
 | Content Directory Worker | Yes | 7 |
 
+## Slashing
 
+Slashing is the act of reducing the balance of an account by some amount, and also reducing the size of the lock which represents the use case under which the slashing occurs.
 
 
 

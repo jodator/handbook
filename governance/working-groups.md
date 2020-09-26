@@ -137,7 +137,7 @@ A new opening is added with the given information.
 
 #### Conditions
 
-* Signer uses role account of member corresponding to `member_id`.
+* Signer uses controller account of member corresponding to `member_id`.
 * `opening_id` corresponds to an existing opening.
 * `staking_account`is set only if opening has staking policy, and
   * is bound to the member,
@@ -171,7 +171,7 @@ If application has staking, then the staking is removed by removing the lock on 
 
 | Name | Description |
 | :--- | :--- |
-| `opening_id` | Identifier of opening to be filled. |
+| `opening_id` | Identifier of opening. |
 | `winners` | Set of application identifiers of winners. |
 
 #### Conditions
@@ -184,89 +184,109 @@ If application has staking, then the staking is removed by removing the lock on 
 
 #### Effect
 
-Create a worker for each application in `winners`, and remmove opening.  
+Create a worker for each application in `winners`, and remove opening.  
   
 NB: Notice that all losing applications are still around in order to allow recovering stake later.
 
-### Update role account
+### Cancel an Opening
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `opening_id` | Identifier of opening. |
+
+#### Conditions
+
+* A lead worker is set.
+* Signer uses role account of lead worker.
+* `opening_id` corresponds to existing opening.
+
+#### Effect
+
+The opening is removed.  
+  
+NB: Notice that all  applications are still around in order to allow recovering stake later.
+
+### Update Role Account
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `worker_id` | Worker identifier. |
+| `role_account` | New role account of worker. |
+
+#### Conditions
+
+* `worker_id` corresponds to existing worker.
+* Signer uses controller account of member corresponding to member identifier in worker.
+
+#### Effect
+
+Worker role account is updated to `role_account`.
+
+### Update Reward Account
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `worker_id` | Worker identifier. |
+| `reward_account` | New reward account of worker. |
+
+#### Conditions
+
+* `worker_id` corresponds to existing worker.
+* Signer uses controller account of member corresponding to member identifier in worker.
+
+#### Effect
+
+Worker reward account is updated to `reward_account`.
+
+### Leave Worker Role
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `worker_id` | Worker identifier. |
+
+#### Conditions
+
+* `worker_id` corresponds to existing worker.
+* Signer uses controller account of member corresponding to member identifier in worker.
+* worker unstaking status is normal.
+
+#### Effect
+
+* If worker has owed reward, then as much as is possible current value of `current_budget` , and whatever could be paid out is used to updated the owed field.
+* If worker has a staking profile, then staking status is set to unstaking - where final removal of worker and staking lock occurs after leaving unstaking period, otherwise the worker is removed.
+
+### Terminate Worker
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
 | `member_id` | Member identifier. |
+| `slashing_amount` | Optional amount to be slashed. |
 
 #### Conditions
 
-* Signer uses role account of member corresponding to `member_id`.
+* A lead worker is set.
+* Signer uses role account of lead worker.
+* `worker_id` corresponds to existing worker.
+* If `slashing_amount` is set, then it is greater than zero and the worker
+  * has staking profile set,
+  * staked balance is no less than `slashing_amount`,
+  * staking status is normal.
 
 #### Effect
 
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-Any role can unilaterally update the current role account by authenticating with their underlying membership.
-
-### Update reward account
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Member identifier. |
-
-#### Conditions
-
-* Signer uses role account of member corresponding to `member_id`.
-
-#### Effect
-
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-Any role can unilaterally update the reward account.
-
-### Leave role
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Member identifier. |
-
-#### Conditions
-
-* Signer uses role account of member corresponding to `member_id`.
-
-#### Effect
-
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-Any role can unilaterally leave, triggering any associated role unstaking period, during which they can still get slashed.
-
-### Terminate role
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Member identifier. |
-
-#### Conditions
-
-* Signer uses role account of member corresponding to `member_id`.
-
-#### Effect
-
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-Any role can instantly be removed. The lead can be removed by the council, and a worker can be removed by the lead. The relevant unstaking period from the policy parameter of the opening from which the role was set applies.
+* If worker has owed reward, then as much as is possible current value of `current_budget` , and whatever could be paid out is used to updated the owed field.
+* If `slashing_amount` is set, it's slashed from the staking account.
+* Worker is removed.
 
 ### Slash
 
@@ -274,57 +294,63 @@ Any role can instantly be removed. The lead can be removed by the council, and a
 
 | Name | Description |
 | :--- | :--- |
-| `member_id` | Member identifier. |
+| `worker_id` | Worker identifier. |
+| `slashing_amount` | Amount to be slashed. |
 
 #### Conditions
 
-* Signer uses role account of member corresponding to `member_id`.
+* A lead worker is set.
+* Signer uses role account of lead worker.
+* `worker_id` corresponds to existing worker.
+* worker has staking profile set.
+* `slashing_amount` is greater than zero.
+* staked balance is no less than `slashing_amount`.
 
 #### Effect
 
-The member is registered as having voted for alternative `aleternative_index`
+The staking account is slashed by `slashing_amount`.
 
-`........`
-
-Slashing happens instantly, and can happen to both the lead and a worker, and can be up to the entire balance in the role stake. When the lead is slashed, its due to the council, and when a worker is slashed, its due to the lead.
-
-### Decrease stake
+### Decrease Stake
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `member_id` | Member identifier. |
+| `worker_id` | Worker identifier. |
+| `stake_amount` | Amount to increase staked balance by. |
 
 #### Conditions
 
-* Signer uses role account of member corresponding to `member_id`.
+* A lead worker is set.
+* Signer uses role account of lead worker.
+* `worker_id` corresponds to existing worker.
+* worker has staking profile set.
+* `slashing_amount` is greater than zero.
+* staked balance is no less than `slashing_amount`.
 
 #### Effect
 
-The member is registered as having voted for alternative `aleternative_index`
+Staking lock is reduced by `slashing_amount`.
 
-`........`
-
-Decreasing role stake happen instantly, and it can be triggered by the lead when applying to a worker, or triggered by the council when it applying to the lead. Stake can be reduced any amount, and the funds are returned to the role account.
-
-### Increase stake
+### Increase Stake
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `member_id` | Member identifier. |
+| `worker_id` | Worker identifier. |
+| `stake_amount` | Amount to decrease staked balance by. |
 
 #### Conditions
 
-* Signer uses role account of member corresponding to `member_id`.
+* A lead worker is set.
+* Signer uses role account of lead worker.
+* `worker_id` corresponds to existing worker.
+* worker has staking profile set.
+* `slashing_amount` is greater than zero.
+* free balance on staking account is no less than staked balance plus `stake_amount`.
 
 #### Effect
 
-The member is registered as having voted for alternative `aleternative_index`
-
-`........`
-
-Increasing role stake happens instantly, and it can be triggered by the worker or the lead, on behalf of themselves only. Stake can be increased any amount, and it originates from the role account.
+Staking lock is increased by `stake_amount`.
 
