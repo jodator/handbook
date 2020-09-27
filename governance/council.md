@@ -6,12 +6,18 @@ description: >-
 
 # Council
 
+## NOTES
+
+* recall that failure is both in too fe candidates and in not enough votes reveald...
+* voters only locked in until election starts
+* candidacy is locked in until loss or next council elected.
+
 ## Introduction
 
 The council is a political organ 
 
 * political
-* fast- day to day: stand in reprsentation of the full set of stakeholders on a day to day basis.
+* fast- day to day: stand in representation of the full set of stakeholders on a day to day basis.
 
 ## Roles
 
@@ -27,6 +33,20 @@ The relevant roles in the council system are
 
 xxvoting locks, even odd council locks.
 
+### **Council**
+
+The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by members. The seats are always occupied, allowing the platform to dispose of all proposals they may come in at any time. The council body has two high level states described as follows.
+
+* **Normal:** During this stage the council operates normally. After `NORMAL_PERIOD_LENGTH` blocks have passed since this period started, a transition is made to the election stage.
+* **Election:** During this stage, not only does the council operate, but there is an election ongoing.
+
+During both these stages
+
+* unstaking candidacy
+* eit note
+* unstake vote?
+* rewards
+
 ### Candidate
 
 xxx  
@@ -35,12 +55,25 @@ xxx
 
 ### Council Member
 
-xxx  
-- 
+A council membership is defined by the following information
+
+* **Id**: .....
+* **Member:** The membership to which this role corresponds.
+* Program: ????
+* **Role account**: The account currently used to authenticate as this role in the relevant subsystem. Authentication in the working group is done using the controller account of the member, so as to allow for division of labor behind a single membership across multiple roles, while not requiring full trust. Is updatable by member.
+* **Reward account**: The destination account to which periodic rewards are paid out.
+* **Staking account:** Holds the stake currently associated with the role. .
+* Ending Statement: ...
 
 ### Vote
 
-xx
+A vote is a defined by the following
+
+* Candidate: ...
+* Staking account:
+* Staking balance:
+* Cycle Id: ...
+* Commitment...
 
 ### Election
 
@@ -58,15 +91,6 @@ State
 * **Voting Period:** This is the stage where voters can submit votes in favour of candidates.
 * **Revealing Period:** ...
 
-### **Council**
-
-The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by members. The seats are always occupied, allowing the platform to dispose of all proposals thay may come in at any time. The council body has two high level states described as follows.
-
-* **Normal:** During this stage the council operates normally. After `NORMAL_PERIOD_LENGTH` blocks have passed since this period started, a transition is made to the election stage.
-* **Election:** During this stage, not only does the council operate, but there is an election ongoing.
-
-During both these stages
-
 ## Constants
 
 The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
@@ -79,73 +103,119 @@ The following constants are hard coded into the system, they can only be updated
 | `REVEALING_PERIOD_LENGTH` | The number of blocks in the revealing period. | `fill-in` |
 | `REWARD_PERIOD_LENGTH` | The number or blocks between each reward  payout to council members. | `fill-in` |
 
+## Parameters
 
+Parameters are on-chain values that can be updated through the proposal system in order to alter the constraints and functionality of the council system.
 
-xxx
-
-## State
-
-budget for salaries
-
-budget for financing proposal?
-
-reward for council members..&lt;== should be adjustable
+* budget for salaries
+* budget for financing proposal?
+* reward for council members..&lt;== should be adjustable
 
 ## Operations
 
 ### Announce Candidacy
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| `x` | ... |
 
-Effect
+#### Conditions
+
+* ...
+* ....
+
+#### Effect
+
+* ....
 
 ### Submit Sealed Vote
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| `x` | ... |
 
-Effect
+#### Conditions
+
+* ...
+* ....
+
+#### Effect
+
+* ....
 
 ### Reveal Vote
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| `x` | ... |
 
-Effect
+#### Conditions
+
+* ...
+* ....
+
+#### Effect
+
+* ....
 
 ### Recover Voting Stake
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| `x` | ... |
 
-Effect
+#### Conditions
+
+* ...
+* ....
+
+#### Effect
+
+* ....
 
 ### Recover Candidacy Stake
 
-Parameters
+**Parameters**
 
-Conditions
+| Name | Description |
+| :--- | :--- |
+| `x` | ... |
 
-Effect
+#### Conditions
+
+* ...
+* ....
+
+#### Effect
+
+* ....
 
 ### Submit Reign Note
 
-Parameters
-
-Conditions
-
-Effect
 
 
+**Parameters**
 
-* recall that failure is both in too fe candidates and in not enough votes reveald...
-* voters only locked in until election starts
-* candidacy is locked in until loss or next council elected.
+| Name | Description |
+| :--- | :--- |
+| `x` | ... |
+
+#### Conditions
+
+* ...
+* ....
+
+#### Effect
+
+* ....
 
 ## Examples
 
