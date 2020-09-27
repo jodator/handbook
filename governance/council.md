@@ -50,8 +50,7 @@ During both these stages
 ### Candidate
 
 xxx  
-- entry text  
-- exit text
+- entry text
 
 ### Council Member
 
