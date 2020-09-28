@@ -133,6 +133,7 @@ A new opening is added with the given information.
 | `opening_id` | Identifier of opening being applied to. |
 | `role_account` | Role account of future worker. |
 | `staking_account` | Optional account holding stake if required. |
+| `staking_balance` | Optional balance to stake if required. |
 | `description` | Human readable description for application. |
 
 #### Conditions
@@ -140,13 +141,14 @@ A new opening is added with the given information.
 * Signer uses controller account of member corresponding to `member_id`.
 * `opening_id` corresponds to an existing opening.
 * `staking_account`is set only if opening has staking policy, and
+  * `staking_balance` is no less than balance in staking policy
   * is bound to the member,
-  * has free balance no less than the balance in the staking policy,
+  * has free balance no `staking_balance`
   * there are no conflicting staking locks present.
 
 #### Effect
 
-A new application is created for the opening, using the provided information, and `staking_account` has lock with Id `LOCK_ID` and of size following staking policy of opening.
+A new application is created for the opening, using the provided information, and `staking_account` has lock with Id `LOCK_ID` and of size`staking_balance` if set, otherwise of staking policy of opening.
 
 ### Withdraw Application
 
@@ -296,6 +298,7 @@ Worker reward account is updated to `reward_account`.
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
 | `slashing_amount` | Amount to be slashed. |
+| `rationale` | Human readable text. |
 
 #### Conditions
 

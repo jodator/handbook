@@ -1,5 +1,7 @@
 # Table of contents
 
+* [Introduction](INTRODUCTION.md)
+
 ## Key Concepts
 
 * [Staking](key-concepts/staking.md)
@@ -15,3 +17,4 @@
 * [Membership](subsystems/membership.md)
 * [Content Directory](subsystems/content-directory.md)
 * [Forum](subsystems/forum.md)
+
