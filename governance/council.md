@@ -33,24 +33,31 @@ The relevant roles in the council system are
 
 xxvoting locks, even odd council locks.
 
+### Budget
+
+x.xxxxx
+
 ### **Council**
 
 The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by members. The seats are always occupied, allowing the platform to dispose of all proposals they may come in at any time. The council body has two high level states described as follows.
 
 * **Normal:** During this stage the council operates normally. After `NORMAL_PERIOD_LENGTH` blocks have passed since this period started, a transition is made to the election stage.
-* **Election:** During this stage, not only does the council operate, but there is an election ongoing.
+* **Election:** During this stage, not only does the council operate, but there is an election ongoing. Read more about elections the [Council](council.md#election) section below.
 
-During both these stages
+During both these stages, the following can or does occur
 
-* unstaking candidacy
-* eit note
-* unstake vote?
-* rewards
+* **Unstaking failed candidacy:** If someone announced their candidacy in an election, but did not end up winning, then they can at any time after the conclusion of that election cycle free their stake
+* **Unstaking vote:** If someone voted for a candidate in an election, they will and can free their stake at a later time. Importantly, a vote which was devoted to a losing candidate can be freed the moment the election cycle is over, while a vote which was devoted to a winner can only be freed after the announcing period of the next election begins. The idea behind this assymetry is to lock 
+* Rewards: Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate 
 
 ### Candidate
 
-xxx  
-- entry text
+A candidate is defined by the following information
+
+* Id: ...
+* Member:
+* Program:
+* Staking Account: ..
 
 ### Council Member
 
@@ -58,7 +65,6 @@ A council membership is defined by the following information
 
 * **Id**: .....
 * **Member:** The membership to which this role corresponds.
-* Program: ????
 * **Role account**: The account currently used to authenticate as this role in the relevant subsystem. Authentication in the working group is done using the controller account of the member, so as to allow for division of labor behind a single membership across multiple roles, while not requiring full trust. Is updatable by member.
 * **Reward account**: The destination account to which periodic rewards are paid out.
 * **Staking account:** Holds the stake currently associated with the role. .
@@ -101,14 +107,36 @@ The following constants are hard coded into the system, they can only be updated
 | `VOTING_PERIOD_LENGHT` | The number of blocks in the voting period. | `fill-in` |
 | `REVEALING_PERIOD_LENGTH` | The number of blocks in the revealing period. | `fill-in` |
 | `REWARD_PERIOD_LENGTH` | The number or blocks between each reward  payout to council members. | `fill-in` |
+| `BUDGET_PERIOD_LENGTH` | The number of blocks between each time the  |  |
+|  |  |  |
 
 ## Parameters
 
 Parameters are on-chain values that can be updated through the proposal system in order to alter the constraints and functionality of the council system.
 
-* budget for salaries
-* budget for financing proposal?
-* reward for council members..&lt;== should be adjustable
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><code>current_budget</code>
+      </td>
+      <td style="text-align:left">The current budget</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>council_member_reward</code>
+      </td>
+      <td style="text-align:left">
+        <p>The number of tokens to be paid to each council member</p>
+        <p>in each reward payout.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Operations
 
