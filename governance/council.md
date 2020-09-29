@@ -35,7 +35,7 @@ xxvoting locks, even odd council locks.
 
 ### Budget
 
-x.xxxxx
+The budget of the council is the root resource pool 
 
 ### **Council**
 
@@ -100,15 +100,63 @@ State
 
 The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
 
-| Name | Description | Value |
-| :--- | :--- | :---: |
-| `NUMBER_OF_COUNCIL_SEATS` | The number of council seats. | `fill-in` |
-| `NORMAL_PERIOD_LENGTH` | The number of blocks in the normal period. | `fill-in` |
-| `VOTING_PERIOD_LENGHT` | The number of blocks in the voting period. | `fill-in` |
-| `REVEALING_PERIOD_LENGTH` | The number of blocks in the revealing period. | `fill-in` |
-| `REWARD_PERIOD_LENGTH` | The number or blocks between each reward  payout to council members. | `fill-in` |
-| `BUDGET_PERIOD_LENGTH` | The number of blocks between each time the  |  |
-|  |  |  |
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:center">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><code>NUMBER_OF_COUNCIL_SEATS</code>
+      </td>
+      <td style="text-align:left">The number of council seats.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>NORMAL_PERIOD_LENGTH</code>
+      </td>
+      <td style="text-align:left">The number of blocks in the normal period.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>VOTING_PERIOD_LENGHT</code>
+      </td>
+      <td style="text-align:left">The number of blocks in the voting period.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>REVEALING_PERIOD_LENGTH</code>
+      </td>
+      <td style="text-align:left">The number of blocks in the revealing period.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>REWARD_PERIOD_LENGTH</code>
+      </td>
+      <td style="text-align:left">The number or blocks between each reward
+        <br />payout to council members.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>BUDGET_PERIOD_LENGTH</code>
+      </td>
+      <td style="text-align:left">
+        <p>The number of blocks between each time the the</p>
+        <p>council budget is topped up.</p>
+      </td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Parameters
 
@@ -123,9 +171,9 @@ Parameters are on-chain values that can be updated through the proposal system i
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left"><code>current_budget</code>
+      <td style="text-align:left"><code>budget_top_up</code>
       </td>
-      <td style="text-align:left">The current budget</td>
+      <td style="text-align:left">The amount of tokens added to budget at end of each budget period.</td>
     </tr>
     <tr>
       <td style="text-align:left"><code>council_member_reward</code>
