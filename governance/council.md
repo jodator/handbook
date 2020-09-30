@@ -44,10 +44,11 @@ The budget of the council is the root resource pool for all token minting on the
 | Working group budget decreased by `X > 0` | `+X` |
 | Spending proposal with amount `X > 0` | `-X` |
 | Council reward payout `X > 0` | `-X` |
-| Member invitation crediting `invited_initial_balance > 0` | `-invited_initial_balance` |
 | Budget period ends | `+budget_increments` |
 
 Events that negatively impact the budget balance can only occur if the impact does not occur if they exceed the balance of the budget.
+
+_Notice that working group spending, such as lead spending, or subsystem specific spending, such as minting initial credit for invited new members, does not directly count against the council budget, but against the relevant working group budget._
 
 ### **Council**
 
@@ -89,7 +90,7 @@ A council membership is defined by the following information
 * **Reward account**: The destination account to which periodic rewards are paid out.
 * **Staking account:** Holds the stake currently associated with the role. .
 * **Owed reward:** The total reward this council member was not paid over a number of payout periods where there was not sufficient funds in the council budget.
-* **Ending statement:** xxxxxxxxxxxxxxxx
+* **Ending statement:** An optional mutable human readable statement a council member can provide which relfects their view on the council period.
 
 ### Vote
 
