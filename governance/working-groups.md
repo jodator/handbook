@@ -39,9 +39,13 @@ A has the following information associated
 
 A designated worker may or may not be identified as the lead at any time.
 
+### Budget
+
+The budget is the root resource pool for all token minting in the working group. The budget can be increased or reduced by the council. Whenever rewards are paid, or the leader does discretionary spending, it drains the budget, and these events can only take place if the budget allows it. There may be other additional subsystem specific expenditures that depend on the budget, such as minting initial balances for new invited members in the membership system.
+
 ### Rewards
 
-All workers are paid every `REWARD_PAYOUT_PERIOD` blocks, and each worker is to be credited according to their own reward rate, and any possibly outstanding owed reward. During this payout, where workers are processed in some consistent order \(for a given set of workers\), the crediting only occurs while the budget constraint `current_budget` is respected. Also, workers unstaking are ignored. For each payout, the constraint is tightened. If a worker cannot be paid out in full, then the difference is added to their owed reward. The budget will then have to be reset by the council. When a worker is terminated, or leaves, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the worker suffers the loss.
+All workers are paid every `REWARD_PAYOUT_PERIOD` blocks, and each worker is to be credited according to their own reward rate, and any possibly outstanding owed reward. During this payout, where workers are processed in some consistent order \(for a given set of workers\), the crediting only occurs while the budget is respected. Also, workers unstaking are ignored. For each payout, the budget is tightened. If a worker cannot be paid out in full, then the difference is added to their owed reward. The budget will then have to be reset by the council. When a worker is terminated, or leaves, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the worker suffers the loss.
 
 ### Spending
 
@@ -99,7 +103,7 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 | Name | Description |
 | :--- | :--- |
-| `current_budget` | The total number of tokens available to be spent for discretionary spending by lead and rewards to all group members. |
+
 
 ## Operations
 
@@ -262,7 +266,7 @@ Worker reward account is updated to `reward_account`.
 
 #### Effect
 
-* If worker has owed reward, then as much as is possible current value of `current_budget` , and whatever could be paid out is used to updated the owed field.
+* If worker has owed reward, then as much as is possible under the current budget is paid out, and whatever could be paid out is used to updated the owed field.
 * If worker has a staking profile, then staking status is set to unstaking - where final removal of worker and staking lock occurs after leaving unstaking period, otherwise the worker is removed.
 
 ### Terminate Worker
@@ -286,7 +290,7 @@ Worker reward account is updated to `reward_account`.
 
 #### Effect
 
-* If worker has owed reward, then as much as is possible current value of `current_budget` , and whatever could be paid out is used to updated the owed field.
+* If worker has owed reward, then as much as is possible is paid out of the current budget, and whatever could be paid out is used to updated the owed field.
 * If `slashing_amount` is set, it's slashed from the staking account.
 * Worker is removed.
 
@@ -356,4 +360,8 @@ Staking lock is reduced by `slashing_amount`.
 #### Effect
 
 Staking lock is increased by `stake_amount`.
+
+### Leader Spending
+
+???????
 
