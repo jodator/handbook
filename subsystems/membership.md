@@ -152,11 +152,12 @@ Parameters are on-chain values that can be updated through the proposal system i
 * Signer matches controller account of member corresponding to `member_id`.
 * Invitation quota of member is non-zero.
 * `handle` must be unique among all existing handles.
-* Council budget is no less than `invited_initial_balance`.
+* Working group budget is no less than `invited_initial_balance`.
 
 #### Effect
 
 * A new membership is created with the provided information, and initial invites set to zero, and the root account is credited with`invited_initial_balance`.
+* Working group budget is deducted by `invited_initial_balance`.
 * `controller_account` is encumbered with lock with ID `INVITE_LOCK_ID` and of size `invited_initial_balance`  that only allows transaction fees, and credited with the same amount of tokens.
 * Invite quota of member corresponding to `member_id` is decremented.
 
