@@ -152,6 +152,7 @@ Parameters are on-chain values that can be updated through the proposal system i
 * Signer matches controller account of member corresponding to `member_id`.
 * Invitation quota of member is non-zero.
 * `handle` must be unique among all existing handles.
+* Council budget is no less than `invited_initial_balance`.
 
 #### Effect
 

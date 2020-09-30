@@ -297,6 +297,7 @@ The block after this proposal is executed will follow the rules of the runtime c
 
 * `amount` is greater than zero.
 * `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
+* the council budget is no less than `amount`.
 
 #### Execution Conditions
 
@@ -724,13 +725,12 @@ The following constants are hard coded into the system, they can only be updated
 
 | Name | Description | Value |
 | :--- | :--- | :---: |
-| `MAX_RUNTIME_UPGRADE_BYTES` | Maximum allowed number of bytes in a runtime upgrade Wasm blob. | x |
-| `REJECTION_FEE` | Up to number of tokens slashed if proposal rejected, but not with slashing. | x |
-| `DISCUSSION_LINGERING_DURATION` | Number of blocks after proposal inactivation a proposal discussion is closed. | x |
-| `MAX_POSTS_PER_THREAD` | Max posts per thread. | x |
-| `MAX_ACTIVE_PROPOSALS` | Max active proposals allowed at any given time. | x |
-| `MAX_SPENDING_PROPOSAL_VALUE` | Max value requestable in a funding request. | x |
-| `PROPOSAL_LOCK_ID` | The lock id used for proposal staking locks. | x |
+| `MAX_RUNTIME_UPGRADE_BYTES` | Maximum allowed number of bytes in a runtime upgrade Wasm blob. | `fill-in` |
+| `REJECTION_FEE` | Up to number of tokens slashed if proposal rejected, but not with slashing. | `fill-in` |
+| `DISCUSSION_LINGERING_DURATION` | Number of blocks after proposal inactivation a proposal discussion is closed. | `fill-in` |
+| `MAX_POSTS_PER_THREAD` | Max posts per thread. | `fill-in` |
+| `MAX_ACTIVE_PROPOSALS` | Max active proposals allowed at any given time. | `fill-in` |
+| `PROPOSAL_LOCK_ID` | The lock id used for proposal staking locks. | `fill-in` |
 
 ## Operations
 

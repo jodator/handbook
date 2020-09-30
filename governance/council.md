@@ -31,11 +31,23 @@ The relevant roles in the council system are
 
 ### Staking
 
-xxvoting locks, even odd council locks.
+xxvoting locks, even odd council locks.  
+....
 
 ### Budget
 
-The budget of the council is the root resource pool 
+The budget of the council is the root resource pool for all token minting on the platform, _with the exception of validator rewards_. The lifetime of the budget is divided into periods, called _budget periods_, which occurs every `BUDGET_PERIOD_LENGTH` blocks. Whenever one of the following actions occur, the budget is impacted as described.
+
+| Event | Budget Impact |
+| :--- | :--- |
+| Working group budget increased by `X > 0` |  `-X` |
+| Working group budget decreased by `X > 0` | `+X` |
+| Spending proposal with amount `X > 0` | `-X` |
+| Council reward payout `X > 0` | `-X` |
+| Member invitation crediting `invited_initial_balance > 0` | `-invited_initial_balance` |
+| Budget period ends | `+budget_increments` |
+
+Events that negatively impact the budget balance can only occur if the impact does not occur if they exceed the balance of the budget.
 
 ### **Council**
 
@@ -44,51 +56,60 @@ The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by me
 * **Normal:** During this stage the council operates normally. After `NORMAL_PERIOD_LENGTH` blocks have passed since this period started, a transition is made to the election stage.
 * **Election:** During this stage, not only does the council operate, but there is an election ongoing. Read more about elections the [Council](council.md#election) section below.
 
-During both these stages, the following can or does occur
+During both these stages, the following can or does occur.
 
-* **Unstaking failed candidacy:** If someone announced their candidacy in an election, but did not end up winning, then they can at any time after the conclusion of that election cycle free their stake
-* **Unstaking vote:** If someone voted for a candidate in an election, they will and can free their stake at a later time. Importantly, a vote which was devoted to a losing candidate can be freed the moment the election cycle is over, while a vote which was devoted to a winner can only be freed after the announcing period of the next election begins. The idea behind this assymetry is to lock 
-* Rewards: Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate 
+#### Unstaking Failed Candidacy
+
+If someone announced their candidacy in an election, but did not end up winning, then they can at any time after the conclusion of that election cycle free their stake
+
+#### Unstaking Vote
+
+If someone voted for a candidate in an election, they will and can free their stake at a later time. Importantly, a vote which was devoted to a losing candidate can be freed the moment the election cycle is over, while a vote which was devoted to a winner can only be freed after the announcing period of the next election begins. The idea behind this asymmetry is to lock ....
+
+#### Rewards
+
+Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate `council_member_reward` and any possibly outstanding owed reward. During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss. 
 
 ### Candidate
 
 A candidate is defined by the following information
 
-* Id: ...
-* Member:
-* Program:
-* Staking Account: ..
+* **Id:** A unique immutable non-negative integer identifying a candidate, automatically assigned when candidacy is announced successfully.
+* **Member:** The member behind the candidacy.
+* **Program:** A human readable description of the candidacy. Some socially enforced schema for the encoding of the program.
+* **Staking account:** The account holding the
 
 ### Council Member
 
 A council membership is defined by the following information
 
-* **Id**: .....
+* **Id**: A unique immutable non-negative integer identifying a council member, automatically assigned when a council member is elected.
 * **Member:** The membership to which this role corresponds.
 * **Role account**: The account currently used to authenticate as this role in the relevant subsystem. Authentication in the working group is done using the controller account of the member, so as to allow for division of labor behind a single membership across multiple roles, while not requiring full trust. Is updatable by member.
 * **Reward account**: The destination account to which periodic rewards are paid out.
 * **Staking account:** Holds the stake currently associated with the role. .
-* Ending Statement: ...
+* **Owed reward:** The total reward this council member was not paid over a number of payout periods where there was not sufficient funds in the council budget.
+* **Ending statement:** xxxxxxxxxxxxxxxx
 
 ### Vote
 
 A vote is a defined by the following
 
-* Candidate: ...
-* Staking account:
-* Staking balance:
-* Cycle Id: ...
-* Commitment...
+* **Id:** ....
+* **Candidate:** ...
+* Staking account: ...
+* **Staking balance:** ...
+* **Cycle Id:** ...
+* **Commitment:** ...
 
 ### Election
 
 An election is the periodic process by which a new council is selected by voters among candidates running for a seat on the next council. Elections occur periodically, and each one has a sequence of stages referred to as the election cycle. An election will begin while the current council is active, and the sitting council is only relieved once a new one has been successfully elected. As will become clear, this process can go on for a unknown amount of time.
 
-State
-
-* candidates: member -&gt; candidate
-* Announcing Block: when we started:
-* whether cylce is odd or even!!
+State  
+candidates: member -&gt; candidate  
+Announcing Block: when we started:  
+whether cylce is odd or even!!
 
 
 
@@ -171,7 +192,7 @@ Parameters are on-chain values that can be updated through the proposal system i
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left"><code>budget_top_up</code>
+      <td style="text-align:left"><code>budget_increments</code>
       </td>
       <td style="text-align:left">The amount of tokens added to budget at end of each budget period.</td>
     </tr>
