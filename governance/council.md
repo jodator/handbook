@@ -78,7 +78,10 @@ A candidate is defined by the following information
 * **Id:** A unique immutable non-negative integer identifying a candidate, automatically assigned when candidacy is announced successfully.
 * **Member:** The member behind the candidacy.
 * **Program:** A human readable description of the candidacy. Some socially enforced schema for the encoding of the program.
-* **Staking account:** The account holding the
+* **Staking account:** The account holding the stake for the candidate. 
+* **Stage:** xxxx
+  * **Unrecovered:**  .......`REQUIRED_CANDIDACY_STAKE`
+  * **Recovered:** ....
 
 ### Council Member
 
@@ -86,37 +89,30 @@ A council membership is defined by the following information
 
 * **Id**: A unique immutable non-negative integer identifying a council member, automatically assigned when a council member is elected.
 * **Member:** The membership to which this role corresponds.
-* **Role account**: The account currently used to authenticate as this role in the relevant subsystem. Authentication in the working group is done using the controller account of the member, so as to allow for division of labor behind a single membership across multiple roles, while not requiring full trust. Is updatable by member.
+* **Role account**: The account currently used to authenticate as this role.
 * **Reward account**: The destination account to which periodic rewards are paid out.
-* **Staking account:** Holds the stake currently associated with the role. .
+* **Staking account:** Holds the stake currently associated with the role.
 * **Owed reward:** The total reward this council member was not paid over a number of payout periods where there was not sufficient funds in the council budget.
-* **Ending statement:** An optional mutable human readable statement a council member can provide which relfects their view on the council period.
+* **Ending statement:** An optional mutable human readable statement a council member can provide which reflects their view on the council period.
 
 ### Vote
 
 A vote is a defined by the following
 
-* **Id:** ....
-* **Candidate:** ...
-* Staking account: ...
-* **Staking balance:** ...
-* **Cycle Id:** ...
-* **Commitment:** ...
+* **Staking account:** Holds the stake associated with the vote. A given account can only be involved in a single vote for a given election cycle \(see [Council](council.md#election)\).
+* **Staking balance:** The amount of funds in the staking account encumbered for this vote.
+* **Cycle Id:** The election cycle in which the vote was cast.
+* **Stage:** The vote has two stages, being _sealed_ and _unsealed, each having the following associated information_
+  * **Sealed:** This is the initial stage when a vote is submitted during a the voting period of an election. The only information available is called a voting commitment, which is a **opaque hash digest**.
+  * **Unsealed:** This is the stage which occurs if the voter choses to reveal the their sealed vote during te revealing stage. This has stage has information about a **valid candidate**, and a **nonce**, which when concatenated together are the pre-image of the initial hash digest.
 
 ### Election
 
-An election is the periodic process by which a new council is selected by voters among candidates running for a seat on the next council. Elections occur periodically, and each one has a sequence of stages referred to as the election cycle. An election will begin while the current council is active, and the sitting council is only relieved once a new one has been successfully elected. As will become clear, this process can go on for a unknown amount of time.
+An election is the periodic process by which a new council is selected by voters among candidates running for a seat on the next council. Elections occur periodically, and each one has a sequence of stages referred to as the election cycle. Each cycle is identified with an id, called the _cycle id_. An election will begin while the current council is active, and the sitting council is only relieved once a new one has been successfully elected. As will become clear, this process can go on for a unknown amount of time. The election cycle has the following stages
 
-State  
-candidates: member -&gt; candidate  
-Announcing Block: when we started:  
-whether cylce is odd or even!!
-
-
-
-* **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council. The same member can only  When time wxpired.... enough people or not? reset everyone and start over.
-* **Voting Period:** This is the stage where voters can submit votes in favour of candidates.
-* **Revealing Period:** ...
+* **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council. The same member can only have a single candidacy   When time wxpired.... enough people or not? reset everyone and start over.
+* **Voting Period:** This is the stage where voters can submit votes in favour of candidates. 
+* **Revealing Period:** ... xxxx
 
 ## Constants
 
@@ -177,6 +173,13 @@ The following constants are hard coded into the system, they can only be updated
       <td style="text-align:center"><code>fill-in</code>
       </td>
     </tr>
+    <tr>
+      <td style="text-align:left"><code>REQUIRED_CANDIDACY_STAKE</code>
+      </td>
+      <td style="text-align:left">The required amount of stake for a candidate.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -224,6 +227,23 @@ Parameters are on-chain values that can be updated through the proposal system i
 * ....
 
 #### Effect
+
+* ....
+
+### **Withdraw Candidacy**
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `x` | ... |
+
+**Conditions**
+
+* ...
+* ....
+
+**Effect**
 
 * ....
 
