@@ -6,18 +6,9 @@ description: >-
 
 # Council
 
-## NOTES
-
-* recall that failure is both in too fe candidates and in not enough votes reveald...
-* voters only locked in until election starts
-* candidacy is locked in until loss or next council elected.
-
 ## Introduction
 
-The council is a political organ 
-
-* political
-* fast- day to day: stand in representation of the full set of stakeholders on a day to day basis.
+The council is a political organ ...
 
 ## Roles
 
