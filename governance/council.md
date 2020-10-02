@@ -38,15 +38,6 @@ xxvoting locks, even odd council locks.
 
 Explain what staking is done, what locks are used, and recovery rules.
 
-| Seal | Candidate | Election Recency | Recoverable |
-| :---: | :---: | :---: | :---: |
-| UNSEALED | WINNER | LAST | **NO** |
-| UNSEALED | WINNER | BEFORE LAST | **YES** |
-| UNSEALED | LOSER | LAST | **YES** |
-| UNSEALED | LOSER | BEFORE LAST | **YES** |
-| SEALED | - | LAST | **NO** |
-| SEALED | - | BEFORE LAST | **YES** |
-
 ### Budget
 
 The budget of the council is the root resource pool for all token minting on the platform, _with the exception of validator rewards_. The lifetime of the budget is divided into periods, called _budget periods_, which occurs every `BUDGET_PERIOD_LENGTH` blocks. Whenever one of the following actions occur, the budget is impacted as described.
@@ -112,13 +103,30 @@ Notice that, while there is no explicit identifier, a council membership can be 
 A vote is a defined by the following
 
 * **Staking account:** Holds the stake associated with the vote. A given account can only be involved in a single vote for a given election cycle \(see [Council](council.md#election)\).
-* **Staking balance:** The amount of funds in the staking account encumbered for this vote.
+* **Staking balance:** The amount of funds in the staking account encumbered for this vote, will be no less than `MINIUMUM_VOTING_STAKE`.
 * **Cycle Id:** The election cycle in which the vote was cast.
 * **Stage:** The vote has two stages, being _sealed_ and _unsealed, each having the following associated information_
   * **Sealed:** This is the initial stage when a vote is submitted during a the voting period of an election. The only information available is called a voting commitment, which is a **opaque hash digest**.
-  * **Unsealed:** This is the stage which occurs if the voter chooses to reveal the their sealed vote during the revealing stage. This has stage has information about a **valid candidate**, and a **nonce**, which when concatenated together are the pre-image of the initial hash digest.
+  * **Unsealed:** This is the stage which occurs if the voter chooses to reveal the their sealed vote during the revealing stage. This has stage has information about a **valid candidate**, and a **nonce**, which when concatenated together are the pre-image of the initial hash digest. 
 
-Notice that, while there is no explicit identifier, a vote can be implicitly identified by a combination of the staking account and the election cycle number.
+Notice that, while there is no explicit identifier, a vote can be implicitly identified by a combination of the staking account and the election cycle number.  
+  
+Unlocking the voting lock on the staking account requires an active recovery action on the voter, and it follows the following rules
+
+* If the vote is for an ongoing election, then it is not recoverable.
+* If the vote is for the last concluded election, then it is  recoverable only if it was unsealed in favor of a losing candidate, otherwise it is not.
+* If the vote is for any election before the last concluded, the it is always recoverable.
+
+WIP:
+
+| Seal | Candidate | Election Recency | Recoverable |
+| :---: | :---: | :---: | :---: |
+| UNSEALED | WINNER | LAST | **NO** |
+| UNSEALED | WINNER | BEFORE LAST | **YES** |
+| UNSEALED | LOSER | LAST | **YES** |
+| UNSEALED | LOSER | BEFORE LAST | **YES** |
+| SEALED | - | LAST | **NO** |
+| SEALED | - | BEFORE LAST | **YES** |
 
 ### Election
 
@@ -191,6 +199,13 @@ The following constants are hard coded into the system, they can only be updated
       <td style="text-align:left"><code>REQUIRED_CANDIDACY_STAKE</code>
       </td>
       <td style="text-align:left">The required amount of stake for a candidate.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MINIUMUM_VOTING_STAKE</code>
+      </td>
+      <td style="text-align:left">The minimum allowable stake in a vote.</td>
       <td style="text-align:center"><code>fill-in</code>
       </td>
     </tr>
