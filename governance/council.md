@@ -34,6 +34,19 @@ The relevant roles in the council system are
 xxvoting locks, even odd council locks.  
 ....
 
+
+
+Explain what staking is done, what locks are used, and recovery rules.
+
+| Seal | Candidate | Election Recency | Recoverable |
+| :---: | :---: | :---: | :---: |
+| UNSEALED | WINNER | LAST | **NO** |
+| UNSEALED | WINNER | BEFORE LAST | **YES** |
+| UNSEALED | LOSER | LAST | **YES** |
+| UNSEALED | LOSER | BEFORE LAST | **YES** |
+| SEALED | - | LAST | **NO** |
+| SEALED | - | BEFORE LAST | **YES** |
+
 ### Budget
 
 The budget of the council is the root resource pool for all token minting on the platform, _with the exception of validator rewards_. The lifetime of the budget is divided into periods, called _budget periods_, which occurs every `BUDGET_PERIOD_LENGTH` blocks. Whenever one of the following actions occur, the budget is impacted as described.
@@ -71,29 +84,28 @@ If someone voted for a candidate in an election, they will and can free their st
 
 Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate `council_member_reward` and any possibly outstanding owed reward. During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss. 
 
-### Candidate
+### Candidacy
 
-A candidate is defined by the following information
+A candidacy is defined by the following information
 
-* **Id:** A unique immutable non-negative integer identifying a candidate, automatically assigned when candidacy is announced successfully.
 * **Member:** The member behind the candidacy.
 * **Program:** A human readable description of the candidacy. Some socially enforced schema for the encoding of the program.
-* **Staking account:** The account holding the stake for the candidate. 
-* **Stage:** xxxx
-  * **Unrecovered:**  .......`REQUIRED_CANDIDACY_STAKE`
-  * **Recovered:** ....
+* **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails, then this lock can be removed by the candidate, otherwise it remains on into the council membership.
+
+Note that, while there is no explicit identifier, a candidacy can be implicitly identified by a combination of the member, the order of this announcement for this member - as one could in principle announce and withdraw multiple times, and finally the election cycle number.
 
 ### Council Member
 
 A council membership is defined by the following information
 
-* **Id**: A unique immutable non-negative integer identifying a council member, automatically assigned when a council member is elected.
 * **Member:** The membership to which this role corresponds.
 * **Role account**: The account currently used to authenticate as this role.
 * **Reward account**: The destination account to which periodic rewards are paid out.
-* **Staking account:** Holds the stake currently associated with the role.
+* **Staking account:** Holds the stake currently associated with the role. Locks`REQUIRED_CANDIDACY_STAKE` under the relevant council lock which is recoverable when council membership ends.
 * **Owed reward:** The total reward this council member was not paid over a number of payout periods where there was not sufficient funds in the council budget.
-* **Ending statement:** An optional mutable human readable statement a council member can provide which reflects their view on the council period.
+* **Ending statement:** An optional mutable human readable statement a council member can provide which reflects their view on the council period. Can be updated multiple times during council membership.
+
+Notice that, while there is no explicit identifier, a council membership can be implicitly identified by a combination of the member and the election cycle number.
 
 ### Vote
 
@@ -104,11 +116,13 @@ A vote is a defined by the following
 * **Cycle Id:** The election cycle in which the vote was cast.
 * **Stage:** The vote has two stages, being _sealed_ and _unsealed, each having the following associated information_
   * **Sealed:** This is the initial stage when a vote is submitted during a the voting period of an election. The only information available is called a voting commitment, which is a **opaque hash digest**.
-  * **Unsealed:** This is the stage which occurs if the voter choses to reveal the their sealed vote during te revealing stage. This has stage has information about a **valid candidate**, and a **nonce**, which when concatenated together are the pre-image of the initial hash digest.
+  * **Unsealed:** This is the stage which occurs if the voter chooses to reveal the their sealed vote during the revealing stage. This has stage has information about a **valid candidate**, and a **nonce**, which when concatenated together are the pre-image of the initial hash digest.
+
+Notice that, while there is no explicit identifier, a vote can be implicitly identified by a combination of the staking account and the election cycle number.
 
 ### Election
 
-An election is the periodic process by which a new council is selected by voters among candidates running for a seat on the next council. Elections occur periodically, and each one has a sequence of stages referred to as the election cycle. Each cycle is identified with an id, called the _cycle id_. An election will begin while the current council is active, and the sitting council is only relieved once a new one has been successfully elected. As will become clear, this process can go on for a unknown amount of time. The election cycle has the following stages
+An election is the periodic process by which a new council is selected by voters among candidates running for a seat on the next council. Elections occur periodically, and each one has a sequence of stages referred to as the election cycle. Each cycle is identified with an id, called the _election cycle id,_ which is just the cycle number. An election will begin while the current council is active, and the sitting council is only relieved once a new one has been successfully elected. As will become clear, this process can go on for a unknown amount of time. The election cycle has the following stages
 
 * **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council. The same member can only have a single candidacy   When time wxpired.... enough people or not? reset everyone and start over.
 * **Voting Period:** This is the stage where voters can submit votes in favour of candidates. 
