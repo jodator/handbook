@@ -8,7 +8,7 @@ description: >-
 
 ## Introduction
 
-The council is a political organ ...
+The council is a fixed size commitee, up for election at regular intervals by token holders, tasked with the role of voting on proposals in the proposal system.
 
 ## Roles
 
@@ -22,12 +22,9 @@ The relevant roles in the council system are
 
 ### Staking
 
-xxvoting locks, even odd council locks.  
-....
+There are two kinds of staking associated with the council: voting and council membership candidacy. Importantly, one of the distinct characteristics of this staking from everything else i the runtime \(see [Staking](../key-concepts/staking.md)\) is that it allows the redeployment of already staked funds in the system for other purposes. This means, for example, that a validator or nominator can vote using some part of that stake. In this same spirit, it is also possible for a council candidate to stake in an election which is already locked up for staking due to being part of the currently active council. Voting periods are non-overlapping, so no reuse considertions are even required.
 
-
-
-Explain what staking is done, what locks are used, and recovery rules.
+The staking is implemented by two set of locks: one voting lock and two council candidacy locks. The two council candiacy locks are meant for odd and even numbered election cycles. Having these distinct locks for adjacent council periods, in combination with the non-stacking behavour of locks, gives a simple way to implement the intended reuse.
 
 ### Budget
 
