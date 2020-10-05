@@ -26,6 +26,23 @@ There are two kinds of staking associated with the council: voting and council m
 
 The staking is implemented by two set of locks: one voting lock and two council candidacy locks. The two council candiacy locks are meant for odd and even numbered election cycles. Having these distinct locks for adjacent council periods, in combination with the non-stacking behavour of locks, gives a simple way to implement the intended reuse.
 
+WIP:
+
+| Seal | Candidate | Election Recency | Recoverable |
+| :---: | :---: | :---: | :---: |
+| UNSEALED | WINNER | LAST | **NO** |
+| UNSEALED | WINNER | BEFORE LAST | **YES** |
+| UNSEALED | LOSER | LAST | **YES** |
+| UNSEALED | LOSER | BEFORE LAST | **YES** |
+| SEALED | - | LAST | **NO** |
+| SEALED | - | BEFORE LAST | **YES** |
+
+
+
+
+
+
+
 ### Budget
 
 The budget of the council is the root resource pool for all token minting on the platform, _with the exception of validator rewards_. The lifetime of the budget is divided into periods, called _budget periods_, which occurs every `BUDGET_PERIOD_LENGTH` blocks. Whenever one of the following actions occur, the budget is impacted as described.
@@ -63,13 +80,17 @@ If someone voted for a candidate in an election, they will and can free their st
 
 Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate `council_member_reward` and any possibly outstanding owed reward. During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss. 
 
+#### Reign Note
+
+A council member can, an unlimited number of times, update a note which reflects their views on subjects relevant to their time as a council member. A social consensus may develop 
+
 ### Candidacy
 
 A candidacy is defined by the following information
 
 * **Member:** The member behind the candidacy.
 * **Program:** A human readable description of the candidacy. Some socially enforced schema for the encoding of the program.
-* **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails, then this lock can be removed by the candidate, otherwise it remains on into the council membership.
+* **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails - either becaue the election cycle fails or the candidate receives too few votes, then this lock can be removed by the candidate, otherwise it remains on into the council membership.
 
 Note that, while there is no explicit identifier, a candidacy can be implicitly identified by a combination of the member, the order of this announcement for this member - as one could in principle announce and withdraw multiple times, and finally the election cycle number.
 
@@ -105,24 +126,13 @@ Unlocking the voting lock on the staking account requires an active recovery act
 * If the vote is for the last concluded election, then it is  recoverable only if it was unsealed in favor of a losing candidate, otherwise it is not.
 * If the vote is for any election before the last concluded, the it is always recoverable.
 
-WIP:
-
-| Seal | Candidate | Election Recency | Recoverable |
-| :---: | :---: | :---: | :---: |
-| UNSEALED | WINNER | LAST | **NO** |
-| UNSEALED | WINNER | BEFORE LAST | **YES** |
-| UNSEALED | LOSER | LAST | **YES** |
-| UNSEALED | LOSER | BEFORE LAST | **YES** |
-| SEALED | - | LAST | **NO** |
-| SEALED | - | BEFORE LAST | **YES** |
-
 ### Election
 
 An election is the periodic process by which a new council is selected by voters among candidates running for a seat on the next council. Elections occur periodically, and each one has a sequence of stages referred to as the election cycle. Each cycle is identified with an id, called the _election cycle id,_ which is just the cycle number. An election will begin while the current council is active, and the sitting council is only relieved once a new one has been successfully elected. As will become clear, this process can go on for a unknown amount of time. The election cycle has the following stages
 
-* **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council. The same member can only have a single candidacy   When time wxpired.... enough people or not? reset everyone and start over.
-* **Voting Period:** This is the stage where voters can submit votes in favour of candidates. 
-* **Revealing Period:** ... xxxx
+* **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council. Such an announcement can later be withdrawn within this same period, without consequences. The same member can only have a single candidacy active at any given time, but can in principle announce and withdraw an unlimited number of times. Importantly, if less than the minimum number of candidates have announced by the end of this period, a new election cycle starts. All candidates can recover their stake from such a failed cycle instantly, but it requires action, and anyone wanting to stand for the next election will need to announe again.
+* **Voting Period:** This is the stage where voters can submit votes in favor of candidates. The votes are sealed, meaning that it is only known that some account voted for an unknown, possibly invalid candidate, with a known amount of tokens.
+* **Revealing Period:** During this stage, voters can reveal their sealed votes. Any valid vote which is unsealed is counte, and in the end a winning set of candidates is selected. Importantly, even if there is an insufficient number of valid votes revealed to render a set of winners with non-zero backing stake, the runtime will just pick a winning set deterministically.
 
 ## Constants
 
