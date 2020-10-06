@@ -759,6 +759,10 @@ The following constants are hard coded into the system, they can only be updated
 
 A new proposal , of type `type` , is created in the deciding period stage, and a new discussion thread is opened in the open mode. Moreover, if `PROPOSAL_STAKE`is greater than zero, a new lock with id `PROPOSAL_LOCK_ID` and amount `PROPOSAL_STAKE` is set.
 
+### Withdraw Proposal
+
+TBD.
+
 ### Vote
 
 **Parameters**
