@@ -115,7 +115,7 @@ All proposal types have constant values for a shared set of parameters that are 
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>`CONSTITUTIONALITY`</code>
+      <td style="text-align:left"><code>CONSTITUTIONALITY</code>
       </td>
       <td style="text-align:left">The number of councils in that must approve the proposal
         <br />in a row before it has its intended effect.
