@@ -363,5 +363,55 @@ Staking lock is increased by `stake_amount`.
 
 ### Leader Spending
 
-???????
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `account_id` | Account to get the tokens. |
+| `amount` | Transfer amount. |
+| `rationale` | Spending rationale. |
+
+#### Conditions
+
+* A lead worker is set.
+* A caller must be an active leader.
+* `amount` is greater than zero.
+* The working group budget is sufficient to transfer the tokens.
+
+#### Effect
+
+Account balance is increased by `amount`.
+
+### Setting the working group budget
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `new budget` | New working group budget balance. |
+
+#### Conditions
+
+* Caller must be sudo.
+
+#### Effect
+
+Working group balance is set to the new `amount`.
+
+### Setting the working group status text
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `status_text` | New working group status text. |
+
+#### Conditions
+
+* A lead worker is set.
+* A caller must be an active leader.
+
+#### Effect
+
+Working group current status is set to the new `status_text`.
 
