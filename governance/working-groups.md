@@ -16,7 +16,11 @@ The relevant roles in a working group are
 
 * **Applicant:** A member who has submitted an application to join an opening for a worker role in the working group. A given member may apply more than once to a given opening, and also if they already occupy the role as worker the same group. Openings are created by the lead \(see below\), or by the council when wanting to fill the lead role.
 * **Worker:** A member who has, through an application, entered the working group.The worker may or may not be staked, and is receiving payouts to a designated account at regular intervals. The worker role gives some ability to act in a domain specific way within the given subsystem. So for example in the context of the forum, a worker in the forum working group can be assigned to be a moderator in certain forum categories, and have associated moderation privileges. Lastly, a member may act as multiple works simultaneously, or over time, in the same working group.
-* **Lead:** A designated worker who is responsible for hiring and managing the other workers, as well as allocating funds from a budget towards purposes that support the success of the subsystem.
+* **Lead:** A designated worker who is responsible for hiring and managing the other workers, as well as allocating funds from a budget towards purposes that support the success of the subsystem. Also the leader could set the general working group status, like: 
+    - a one line status message on the subsystem,
+    - new upcoming expected positions,
+    - a link to a subsection of the forum devoted to the subsystem,
+    - a message feed including information updates.
 
 ## Concepts
 
