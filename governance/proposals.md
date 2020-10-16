@@ -343,6 +343,40 @@ _xxxx_
 
 As the Council will see a significantly increased workload, there may be need to change the some of the Election cycle parameters. This proposal allows the Council to vote on expanding the Council seats, increase or decrease the length of the Voting process, or the minimum stakes required to participate. If this proposal is voted through, a change of these parameters will not be activated until the next election cycle, to avoid the current Council making changes benefitting themselves.
 
+### Set Working Group Budget
+
+#### Parameters
+
+| Name | Description |
+| :--- | :--- |
+| new-budget| New working group budget amount.|
+| working-group| Specifies the working group.|
+
+#### Constants
+
+| Constant | Value |
+| :--- | :--- |
+| `DECIDING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
+
+#### Creation Conditions
+
+_xxx_
+
+#### Execution Conditions
+
+_xxxx_
+
+#### Effect
+
+The Council could set, increase or decrease the working group budget using this proposal. The working group budget could be used to pay role rewards, to spend on any goals by the group leader.
+
 ### Add Working Group Leader Opening
 
 #### Parameters
