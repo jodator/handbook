@@ -61,11 +61,11 @@ If someone voted for a candidate in an election, they will and can free their st
 
 #### Rewards
 
-Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate `council_member_reward` and any possibly outstanding owed reward. During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss. 
+Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate `council_member_reward` and any possibly outstanding owed reward. During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss.
 
 #### Reign Note
 
-A council member can, an unlimited number of times, update a note which reflects their views on subjects relevant to their time as a council member. A social consensus may develop 
+A council member can, an unlimited number of times, update a note which reflects their views on subjects relevant to their time as a council member. A social consensus may develop
 
 ### Candidacy
 
@@ -99,10 +99,10 @@ A vote is a defined by the following
 * **Cycle Id:** The election cycle in which the vote was cast.
 * **Stage:** The vote has two stages, being _sealed_ and _unsealed, each having the following associated information_
   * **Sealed:** This is the initial stage when a vote is submitted during a the voting period of an election. The only information available is called a voting commitment, which is a **opaque hash digest**.
-  * **Unsealed:** This is the stage which occurs if the voter chooses to reveal the their sealed vote during the revealing stage. This has stage has information about a **valid candidate**, and a **nonce**, which when concatenated together are the pre-image of the initial hash digest. 
+  * **Unsealed:** This is the stage which occurs if the voter chooses to reveal the their sealed vote during the revealing stage. This has stage has information about a **valid candidate**, and a **nonce**, which when concatenated together are the pre-image of the initial hash digest.
 
-Notice that, while there is no explicit identifier, a vote can be implicitly identified by a combination of the staking account and the election cycle number.  
-  
+Notice that, while there is no explicit identifier, a vote can be implicitly identified by a combination of the staking account and the election cycle number.
+
 Unlocking the voting lock on the staking account requires an active recovery action on the voter, and it follows the following rules
 
 * If the vote is for an ongoing election, then it is not recoverable.
@@ -116,6 +116,13 @@ An election is the periodic process by which a new council is selected by voters
 * **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council. Such an announcement can later be withdrawn within this same period, without consequences. The same member can only have a single candidacy active at any given time, but can in principle announce and withdraw an unlimited number of times. Importantly, if less than the minimum number of candidates have announced by the end of this period, a new election cycle starts. All candidates can recover their stake from such a failed cycle instantly, but it requires action, and anyone wanting to stand for the next election will need to announe again.
 * **Voting Period:** This is the stage where voters can submit votes in favor of candidates. The votes are sealed, meaning that it is only known that some account voted for an unknown, possibly invalid candidate, with a known amount of tokens.
 * **Revealing Period:** During this stage, voters can reveal their sealed votes. Any valid vote which is unsealed is counte, and in the end a winning set of candidates is selected. Importantly, even if there is an insufficient number of valid votes revealed to render a set of winners with non-zero backing stake, the runtime will just pick a winning set deterministically.
+
+### Candidacy announcement phase reset
+
+In some cases election can be interrupted and reset to the Candidacy Announcement phase. These situations are:
+
+* **Not enough candidates** A minimum number of candidates `MINIMUM_CANDIDATES_COUNT` hasn't announced their candidacy during the Candidacy Announcement phase.
+* **Not enough winners** Not enough candidates received any votes, and a new council with enough members can't be established.
 
 ## Constants
 
@@ -184,9 +191,23 @@ The following constants are hard coded into the system, they can only be updated
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>MINIUMUM_VOTING_STAKE</code>
+      <td style="text-align:left"><code>MINIMUM_VOTING_STAKE</code>
       </td>
       <td style="text-align:left">The minimum allowable stake in a vote.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MAX_SALT_LENGTH</code>
+      </td>
+      <td style="text-align:left">The maximum length of salt is used to calculate a vote's sealed commitment.</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>MINIMUM_CANDIDATES_COUNT</code>
+      </td>
+      <td style="text-align:left">The minimum number of candidates needed for the election to become legitimate.</td>
       <td style="text-align:center"><code>fill-in</code>
       </td>
     </tr>
@@ -225,109 +246,152 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 ### Announce Candidacy
 
+All users wanting to become a candidate in the next council election has to register themself during the Candidacy Announcement phase
+and stake a sufficient amount of value.
+
+**Extrinsic name**
+
+`announce_candidacy`
+
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `x` | ... |
+| council_user_id | Membership id uniquely identifying the user. |
+| stake | Amount of currency user wants to stake for the candidacy. The stake must be at least `REQUIRED_CANDIDACY_STAKE`. |
 
 #### Conditions
 
-* ...
-* ....
+* Candidacy can be announced only during the Candidacy Announcement phase.
+* The user is not already candidating in the current election.
+* In case the user has announced candidacy in one of the previous elections and hasn't released candidacy stake yet,
+  `account_id` derived from the Origin must be the same as `account_id` used for the said staking.
+* The user has enough balance to be locked as candidacy stake.
 
 #### Effect
 
-* ....
+* The user is added to the list of candidates for the current election and candidacy stake is locked for the duration of election.
 
-### **Withdraw Candidacy**
+### Withdraw Candidacy
+
+Users are able to revoke their candidacy announcement before the actual election begins.
+
+**Extrinsic name**
+
+`withdraw_candidacy`
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `x` | ... |
+| council_user_id | Membership id uniquely identifying the user. |
 
-**Conditions**
+### Conditions
 
-* ...
-* ....
+* The user is candidating in the current election.
+* Candidacy can be withdrawn only during the same Candidacy Announcement phase in which it has been announced.
 
 **Effect**
 
-* ....
+* The user is removed from the list of candidates for the current election and candidacy stake is unlocked.
 
 ### Submit Sealed Vote
 
+A user can cast a vote for the selected candidate and stake currency to increase chances for the candidate's win.
+Users cast votes for their selected candidate(s). A commitment for an invalid vote option can be (mistakenly) passed here,
+but it will be rejected later in [Reveal vote](#user-content-reveal-vote) where an actual check for vote validity is made.
+
+**Extrinsic name**
+
+`vote`
+
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `x` | ... |
+| `commitment` | The sealed vote representation. |
+| `stake` | Amount of currency user wants to stake for the vote. The stake must be at least `MINIUMUM_VOTING_STAKE`. The candidates with the most staked amount behind the votes recieved will win. |
 
 #### Conditions
 
-* ...
-* ....
+* A vote can be cast only during the Voting phase.
+* The sealed commitment must represent valid vote for the candidate that is actually candidating.
+  The commitment will be verified later in [Reveal vote](#user-content-reveal-vote).
+* One account can vote only once in the election. If you want to vote for multiple candidates, repeat vote with a different account(s).
+* The user has enough balance to be locked as voting stake.
 
 #### Effect
 
-* ....
+* The sealed commitment is remembered, and the voting stake is locked until this election ends.
 
 ### Reveal Vote
 
+A vote previously cast in the form of sealed commitment can be revealed during the Revealing phase.
+
+**Extrinsic name**
+
+`reveal_vote`
+
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `x` | ... |
+| `salt` | The (cryptographic) salt used to calculate the sealed commitment. Salt's lenght can't be higher than `MAX_SALT_LENGTH` |
+| `vote_option_id` | The user id of the candidate you voted for. |
 
 #### Conditions
 
-* ...
-* ....
+* A vote can be revealed only during the Revealing phase.
+* A vote's sealed commitment has been previously cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) for the current election.
+* A vote can be only revealed once, sealed commitment must be valid, and `vote_option_id` must be a valid candidate's identifier.
 
 #### Effect
 
-* ....
+* Power proportional to the value staked for the vote is added to the candidate voted for.
 
 ### Recover Voting Stake
 
+A stake used to support a selected candidate can be released after an election ends.
+
+**Extrinsic name**
+
+`release_voting_stake`
+
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `x` | ... |
+No parameters.
 
 #### Conditions
 
-* ...
-* ....
+* A stake can be released only after the new council election ends.
+* There exists a still locked voting stake associated with the authorizing account.
 
 #### Effect
 
-* ....
+* A stake used for vote is unlocked.
 
 ### Recover Candidacy Stake
 
+**Extrinsic name**
+
+`release_candidacy_stake`
+
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `x` | ... |
+| `council_user_id` | Membership id uniquely identifying the user. |
 
 #### Conditions
 
-* ...
-* ....
+* A candidacy stake is still locked. Note that successful candidates have their stake automatically converted
+  to the elected member stake and then automatically released when their reign ends.
 
 #### Effect
 
-* ....
+* A candidacy stake is unlocked.
 
 ### Submit Reign Note
-
-
 
 **Parameters**
 
