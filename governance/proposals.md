@@ -178,6 +178,7 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy `CONSTITUTIONALITY` requirement. Transitions to deciding stage when next council is elected.
 * **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
 * **Vetoed:** Was halted by SUDO, nothing further can happen. This is removed at mainnet.
+* **Slashed:** Was rejected with full stake penalty by the current council.
 * **Execution Succeeded:** Execution succeeded, nothing further can happen.
 * **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
 * **Rejected:** Was not approved, nothing further can happen.
@@ -186,7 +187,7 @@ It useful to designate any proposal in the stages deciding, dormant or gracing, 
 
 Two extra transition rules are worth bearing in mind
 
-* If number of blocks since decision stage starting is less than `DECIDING_PERIOD`, then votes can still be submitted, but they have no impact on any outcome when outside of decision stage.
+* A proposal could be transitted to **Gracing**, **Slashed** or **Rejected** states before the ending of the `DECIDING_PERIOD` when votes number is enough to satisfy quorum or threshold parameters. Votes can not be submitted after that.
 * For any active proposal, SUDO can initiate veto, which results in transition to vetoed stage.
 
 The stages and transitions, excluding SUDO dynamics, are summarized in the image below.
