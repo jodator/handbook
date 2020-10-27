@@ -17,10 +17,10 @@ The relevant roles in a working group are
 * **Applicant:** A member who has submitted an application to join an opening for a worker role in the working group. A given member may apply more than once to a given opening, and also if they already occupy the role as worker the same group. Openings are created by the lead \(see below\), or by the council when wanting to fill the lead role.
 * **Worker:** A member who has, through an application, entered the working group.The worker may or may not be staked, and is receiving payouts to a designated account at regular intervals. The worker role gives some ability to act in a domain specific way within the given subsystem. So for example in the context of the forum, a worker in the forum working group can be assigned to be a moderator in certain forum categories, and have associated moderation privileges. Lastly, a member may act as multiple works simultaneously, or over time, in the same working group.
 * **Lead:** A designated worker who is responsible for hiring and managing the other workers, as well as allocating funds from a budget towards purposes that support the success of the subsystem. Also the leader could set the general working group status, like: 
-    - a one line status message on the subsystem,
-    - new upcoming expected positions,
-    - a link to a subsection of the forum devoted to the subsystem,
-    - a message feed including information updates.
+  * a one line status message on the subsystem,
+  * new upcoming expected positions,
+  * a link to a subsection of the forum devoted to the subsystem,
+  * a message feed including information updates.
 
 ## Concepts
 
@@ -57,8 +57,8 @@ In addition to rewards, the lead can spend from this budget for arbitrary purpos
 
 ### Staking
 
-Some worker roles may require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead, and the requirement may be adjusted up or down at a later time on a worker by worker basis, as long as some non-zero amount was required to begin with. Changing the staking requirement is unilaterally done by the lead, or the council  by adjusting the size of the lock, however, one can only increase the lock if there is sufficient free balance in the account. In order for the worker to have to opt-in for a stake increase, no free balance should be kept in a staking account.  
-  
+Some worker roles may require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead, and the requirement may be adjusted up or down at a later time on a worker by worker basis, as long as some non-zero amount was required to begin with. Changing the staking requirement is unilaterally done by the lead, or the council by adjusting the size of the lock, however, one can only increase the lock if there is sufficient free balance in the account. In order for the worker to have to opt-in for a stake increase, no free balance should be kept in a staking account.
+
 Lastly, consult the [Staking](../key-concepts/staking.md#reuse) article to see a list of other staking purposes, and corresponding locks, which can be combined with staking for a given working group.
 
 ### Slashing
@@ -194,8 +194,8 @@ If application has staking, then the staking is removed by removing the lock on 
 
 #### Effect
 
-Create a worker for each application in `winners`, and remove opening.  
-  
+Create a worker for each application in `winners`, and remove opening.
+
 NB: Notice that all losing applications are still around in order to allow recovering stake later.
 
 ### Cancel an Opening
@@ -214,9 +214,9 @@ NB: Notice that all losing applications are still around in order to allow recov
 
 #### Effect
 
-The opening is removed.  
-  
-NB: Notice that all  applications are still around in order to allow recovering stake later.
+The opening is removed.
+
+NB: Notice that all applications are still around in order to allow recovering stake later.
 
 ### Update Role Account
 

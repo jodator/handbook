@@ -162,18 +162,15 @@ A proposal is defined by the following information
 
 Below is a list of the stages a proposal can be in, and what each of them mean:
 
-* **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. If a new council is elected, any present stake is slashed by `REJECTION_FEE` , the staking lock is removed and the proposal transitions to the rejected stage.  
-  
-  When a vote is submitted it is evaluated as such:    
+* **Deciding:** Initial stage for all successfully created proposals. This is the only stage where votes submitted can actually impact the outcome. If a new council is elected, any present stake is slashed by `REJECTION_FEE` , the staking lock is removed and the proposal transitions to the rejected stage.
 
+  When a vote is submitted it is evaluated as such:
 
-  1. If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` are satisfied, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then remove staking lock and transition to gracing stage, otherwise  transition to dormant stage.
-  2. If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` are satisfied, but point \(1\) is not, then slash full stake, remove the lock and transition to the rejected stage.
-  3. If points \(1\) and \(2\) are not and cannot be satisifed by any future a outstanding votes, then slash stake by up to `REJECTION_FEE`, remove lock and transition to rejected stage.
+1. If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` are satisfied, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then remove staking lock and transition to gracing stage, otherwise  transition to dormant stage.
+2. If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` are satisfied, but point \(1\) is not, then slash full stake, remove the lock and transition to the rejected stage.
+3. If points \(1\) and \(2\) are not and cannot be satisifed by any future a outstanding votes, then slash stake by up to `REJECTION_FEE`, remove lock and transition to rejected stage.
 
-
-
-  If `DECIDING_PERIOD` blocks pass while still in this stage, apply checks \(1-3\) with same transition and side-effect rules as above.  
+If `DECIDING_PERIOD` blocks pass while still in this stage, apply checks \(1-3\) with same transition and side-effect rules as above.
 
 * **Dormant:** Was approved by current council, but requires further approvals to satisfy `CONSTITUTIONALITY` requirement. Transitions to deciding stage when next council is elected.
 * **Gracing:** Is awaiting execution for until trigger block, or `GRACING_LIMIT` blocks since start of period if no trigger was provided. When this duration is over, the execution conditions are checked, if they are satisfied the proposal transitions to the execution succeeded stage, if they are not, it transitions to the execution failed stage.
@@ -183,15 +180,13 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 * **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
 * **Rejected:** Was not approved, nothing further can happen.
 
-It useful to designate any proposal in the stages deciding, dormant or gracing, as an _active proposal_, and any other proposal is said to be an _inactive proposal_.  Votes can not be submitted for _inactive proposal_.
+It useful to designate any proposal in the stages deciding, dormant or gracing, as an _active proposal_, and any other proposal is said to be an _inactive proposal_. Votes can not be submitted for _inactive proposal_.
 
-Extra transition rule is worth bearing in mind
-
-* For any active proposal, SUDO can initiate veto, which results in transition to vetoed stage.
+Before mainnet, an extra transition rule is worth bearing in mind is that, for any active proposal, SUDO can initiate veto, which results in transition to vetoed stage.
 
 The stages and transitions, excluding SUDO dynamics, are summarized in the image below.
 
-![Proposal life-cycle stages.](../.gitbook/assets/proposal.png)
+![Proposal life-cycle stages.](../.gitbook/assets/proposal_3.png)
 
 ### Discussion
 
@@ -199,7 +194,7 @@ A single threaded discussion is opened for each successfully created discussion.
 
 ### Staking
 
-As described, proposals may require staking to be submitted. A single account must be used to provide the stake for a proposal, and it cannot be used to hold stake for any other proposals or purpose, except voting, at the same time. The staking is implemented as a lock with id `PROPOSAL_LOCK_ID`. 
+As described, proposals may require staking to be submitted. A single account must be used to provide the stake for a proposal, and it cannot be used to hold stake for any other proposals or purpose, except voting, at the same time. The staking is implemented as a lock with id `PROPOSAL_LOCK_ID`.
 
 ## General Proposals
 
@@ -349,8 +344,8 @@ As the Council will see a significantly increased workload, there may be need to
 
 | Name | Description |
 | :--- | :--- |
-| new-budget| New working group budget amount.|
-| working-group| Specifies the working group.|
+| new-budget | New working group budget amount. |
+| working-group | Specifies the working group. |
 
 #### Constants
 
