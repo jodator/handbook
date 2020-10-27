@@ -183,11 +183,10 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 * **Execution Failed:** Execution failed due to unsatisfied execution conditions, nothing further can happen.
 * **Rejected:** Was not approved, nothing further can happen.
 
-It useful to designate any proposal in the stages deciding, dormant or gracing, as an _active proposal_, and any other proposal is said to be an _inactive proposal._
+It useful to designate any proposal in the stages deciding, dormant or gracing, as an _active proposal_, and any other proposal is said to be an _inactive proposal_.  Votes can not be submitted for _inactive proposal_.
 
-Two extra transition rules are worth bearing in mind
+Extra transition rule is worth bearing in mind
 
-* A proposal could be transitted to **Gracing**, **Slashed** or **Rejected** states before the ending of the `DECIDING_PERIOD` when votes number is enough to satisfy quorum or threshold parameters. Votes can not be submitted after that.
 * For any active proposal, SUDO can initiate veto, which results in transition to vetoed stage.
 
 The stages and transitions, excluding SUDO dynamics, are summarized in the image below.
@@ -814,7 +813,7 @@ TBD.
 
 #### Conditions
 
-* `proposal` corresponds to an existing proposal in a stage where voting is valid.
+* `proposal` corresponds to an existing proposal in **Deciding** stage.
 * Signer is role account of councilor identified by `councilor`.
 * Councilor has not yet voted on this proposal.
 
