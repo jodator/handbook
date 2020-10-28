@@ -257,16 +257,17 @@ and stake a sufficient amount of value.
 
 | Name | Description |
 | :--- | :--- |
+| account_id | Staking account. Derived from the Origin. |
 | council_user_id | Membership id uniquely identifying the user. |
-| stake | Amount of currency user wants to stake for the candidacy. The stake must be at least `REQUIRED_CANDIDACY_STAKE`. |
+| stake | Amount of currency user wants to stake for the candidacy. |
 
 #### Conditions
 
-* Candidacy can be announced only during the Candidacy Announcement phase.
-* The user is not already candidating in the current election.
-* In case the user has announced candidacy in one of the previous elections and hasn't released candidacy stake yet,
-  `account_id` derived from the Origin must be the same as `account_id` used for the said staking.
-* The user has enough balance to be locked as candidacy stake.
+* Candidacy Announcement phase is running.
+* Candidacy is not announced repeatedly.
+* The user has no unreleased candidacy stake from one of the previous elections or `account_id` derived from the Origin must be the same as `account_id` used for the said staking.
+* `account_id` has enough balance to be locked as candidacy stake.
+* The `stake` must be at least `REQUIRED_CANDIDACY_STAKE`.
 
 #### Effect
 
@@ -284,12 +285,13 @@ Users are able to revoke their candidacy announcement before the actual election
 
 | Name | Description |
 | :--- | :--- |
-| council_user_id | Membership id uniquely identifying the user. |
+| `account_id` | Staking account. Derived from the Origin. |
+| `council_user_id` | Membership id uniquely identifying the user. |
 
 ### Conditions
 
-* The user is candidating in the current election.
-* Candidacy can be withdrawn only during the same Candidacy Announcement phase in which it has been announced.
+* The Candidacy Announcement phase is running.
+* The user identified by `council_user_id` is candidating in the current election with the same `account_id` used for staking.
 
 **Effect**
 
@@ -309,16 +311,16 @@ but it will be rejected later in [Reveal vote](#user-content-reveal-vote) where 
 
 | Name | Description |
 | :--- | :--- |
+| `account_id` | Staking account. Derived from the Origin. |
 | `commitment` | The sealed vote representation. |
-| `stake` | Amount of currency user wants to stake for the vote. The stake must be at least `MINIUMUM_VOTING_STAKE`. The candidates with the most staked amount behind the votes recieved will win. |
+| `stake` | Amount of currency user wants to stake for the vote. |
 
 #### Conditions
 
-* A vote can be cast only during the Voting phase.
-* The sealed commitment must represent valid vote for the candidate that is actually candidating.
-  The commitment will be verified later in [Reveal vote](#user-content-reveal-vote).
-* One account can vote only once in the election. If you want to vote for multiple candidates, repeat vote with a different account(s).
-* The user has enough balance to be locked as voting stake.
+* The Voting phase is running.
+* The `account_id` haven't voted yet in the current election. If you want to vote for multiple candidates, repeat vote with a different account(s).
+* The `account_id` has enough balance to be locked as a voting stake.
+* The `stake` must be at least `MINIUMUM_VOTING_STAKE`.
 
 #### Effect
 
@@ -336,14 +338,16 @@ A vote previously cast in the form of sealed commitment can be revealed during t
 
 | Name | Description |
 | :--- | :--- |
-| `salt` | The (cryptographic) salt used to calculate the sealed commitment. Salt's lenght can't be higher than `MAX_SALT_LENGTH` |
+| `account_id` | Staking account. Derived from the Origin. |
+| `salt` | The (cryptographic) salt used to calculate the sealed commitment. |
 | `vote_option_id` | The user id of the candidate you voted for. |
 
 #### Conditions
 
-* A vote can be revealed only during the Revealing phase.
+* The Revealing phase is running.
 * A vote's sealed commitment has been previously cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) for the current election.
-* A vote can be only revealed once, sealed commitment must be valid, and `vote_option_id` must be a valid candidate's identifier.
+* A sealed commitment cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) must target valid candidate.
+* `salt`'s lenght is not higher than `MAX_SALT_LENGTH`.
 
 #### Effect
 
@@ -380,6 +384,7 @@ No parameters.
 
 | Name | Description |
 | :--- | :--- |
+| `account_id` | Staking account. Derived from the Origin. |
 | `council_user_id` | Membership id uniquely identifying the user. |
 
 #### Conditions
@@ -411,8 +416,3 @@ No parameters.
 ## Examples
 
 xxx
-
-
-
-
-
