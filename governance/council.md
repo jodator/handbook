@@ -376,6 +376,8 @@ No parameters.
 
 ### Recover Candidacy Stake
 
+A candidacy stake that is no longer needed can be released after the relevant election has ended.
+
 **Extrinsic name**
 
 `release_candidacy_stake`
@@ -396,23 +398,23 @@ No parameters.
 
 * A candidacy stake is unlocked.
 
-### Submit Reign Note
+### Submit Candidacy Note
+
+A candidate can set a note about their candidacy.
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `x` | ... |
+| `account_id` | Staking account. Derived from the Origin. |
+| `council_user_id` | Membership id uniquely identifying the user. |
+| `note` | A note describing a candidate. |
 
 #### Conditions
 
-* ...
-* ....
+* The candidacy announcement or election period is running.
+* The user is candidating in current election.
 
 #### Effect
 
-* ....
-
-## Examples
-
-xxx
+* A note is associated with a candidate.
