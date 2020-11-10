@@ -328,7 +328,7 @@ The staking account is slashed by `slashing_amount`.
 | Name | Description |
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
-| `stake_amount` | Amount to increase staked balance by. |
+| `stake_amount` | New stake amount. |
 
 #### Conditions
 
@@ -336,8 +336,7 @@ The staking account is slashed by `slashing_amount`.
 * Signer uses role account of lead worker.
 * `worker_id` corresponds to existing worker.
 * worker has staking profile set.
-* `slashing_amount` is greater than zero.
-* staked balance is no less than `slashing_amount`.
+* `stake_amount` is greater than zero.
 
 #### Effect
 
@@ -350,16 +349,14 @@ Staking lock is reduced by `slashing_amount`.
 | Name | Description |
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
-| `stake_amount` | Amount to decrease staked balance by. |
+| `stake_amount` | New stake amount. |
 
 #### Conditions
 
-* A lead worker is set.
-* Signer uses role account of lead worker.
+* Signer uses role account of a worker.
 * `worker_id` corresponds to existing worker.
 * worker has staking profile set.
-* `slashing_amount` is greater than zero.
-* free balance on staking account is no less than staked balance plus `stake_amount`.
+* `stake_amount` is greater than zero.
 
 #### Effect
 
