@@ -57,7 +57,7 @@ In addition to rewards, the lead can spend from this budget for arbitrary purpos
 
 ### Staking
 
-Some worker roles may require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead, and the requirement may be adjusted up or down at a later time on a worker by worker basis, as long as some non-zero amount was required to begin with. Changing the staking requirement is unilaterally done by the lead, or the council by adjusting the size of the lock, however, one can only increase the lock if there is sufficient free balance in the account. In order for the worker to have to opt-in for a stake increase, no free balance should be kept in a staking account.
+Some worker roles may require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead. The staking requirement could be decreased by the lead (or by the council for leaders). The worker is able to increase their own stake, for example, in response for leader demand.
 
 Lastly, consult the [Staking](../key-concepts/staking.md#reuse) article to see a list of other staking purposes, and corresponding locks, which can be combined with staking for a given working group.
 
@@ -328,7 +328,7 @@ The staking account is slashed by `slashing_amount`.
 | Name | Description |
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
-| `stake_amount` | Amount to increase staked balance by. |
+| `stake_amount` | Amount to decrease staked balance by. |
 
 #### Conditions
 
@@ -336,8 +336,7 @@ The staking account is slashed by `slashing_amount`.
 * Signer uses role account of lead worker.
 * `worker_id` corresponds to existing worker.
 * worker has staking profile set.
-* `slashing_amount` is greater than zero.
-* staked balance is no less than `slashing_amount`.
+* `stake_amount` is greater than zero.
 
 #### Effect
 
@@ -350,16 +349,14 @@ Staking lock is reduced by `slashing_amount`.
 | Name | Description |
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
-| `stake_amount` | Amount to decrease staked balance by. |
+| `stake_amount` | Amount to increase staked balance by. |
 
 #### Conditions
 
-* A lead worker is set.
-* Signer uses role account of lead worker.
+* Signer uses role account of a worker.
 * `worker_id` corresponds to existing worker.
 * worker has staking profile set.
-* `slashing_amount` is greater than zero.
-* free balance on staking account is no less than staked balance plus `stake_amount`.
+* `stake_amount` is greater than zero.
 
 #### Effect
 
