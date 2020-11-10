@@ -328,7 +328,7 @@ The staking account is slashed by `slashing_amount`.
 | Name | Description |
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
-| `stake_amount` | New stake amount. |
+| `stake_amount` | Amount to decrease staked balance by. |
 
 #### Conditions
 
@@ -349,7 +349,7 @@ Staking lock is reduced by `slashing_amount`.
 | Name | Description |
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
-| `stake_amount` | New stake amount. |
+| `stake_amount` | Amount to increase staked balance by. |
 
 #### Conditions
 
