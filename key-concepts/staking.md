@@ -47,17 +47,20 @@ Reusability does imply that if there is a slashing event in the context of one o
   
 The table below summarizes the current reusability relationships, changing them currently requires a runtime upgrade.
 
-|  | Voting | Council/E | Council/O | Validation | Nomination | Proposals | Worker |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Voting | No | Yes | Yes | Yes | Yes | Yes | Yes |
-| Council/E | - | No | Yes | No | No | No | No |
-| Council/O | - | - | No | No | No | No | No |
-| Validation | - | - | - | No | No | No | No |
-| Nomination | - | - | - | - | No | No | No |
-| Proposals | - | - | - | - | - | No | No |
-| Worker | - | - | - | - | - | - | No |
+|  | Invitation | Voting | Council/E | Council/O | Validation | Nomination | Proposals | Worker |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Invitation | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| Voting | - | No | Yes | Yes | Yes | Yes | Yes | Yes |
+| Council/E | - | - | No | Yes | No | No | No | No |
+| Council/O | - | - | - | No | No | No | No | No |
+| Validation | - | - | - | - | No | No | No | No |
+| Nomination | - | - | - | - | - | No | No | No |
+| Proposals | - | - | - | - | - | - | No | No |
+| Worker | - | - | - | - | - | - | - | No |
 
-The table is symmetric, as all reuse relationships are symmetric, hence cells are omitted beyond the diagonal to ignore duplicate specification.
+The table is symmetric, as all reuse relationships are symmetric, hence cells are omitted beyond the diagonal to ignore duplicate specification.  
+  
+**TBD: Add informatino about Invitation!!!! Also add a Locks section?**
 
 **Notice two new voting purposes: Council/O and Council/E. These represent voting for council candidacy and membership in odd and even election cycles respectively. These are separate activties from the perspective of reuse, as their stake is reusable. This means that a current council member can use the stake for their current reign in the next election.**
 
