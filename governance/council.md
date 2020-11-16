@@ -152,7 +152,7 @@ The following constants are hard coded into the system, they can only be updated
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>VOTING_PERIOD_LENGHT</code>
+      <td style="text-align:left"><code>VOTING_PERIOD_LENGTH</code>
       </td>
       <td style="text-align:left">The number of blocks in the voting period.</td>
       <td style="text-align:center"><code>fill-in</code>
@@ -246,8 +246,8 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 ### Announce Candidacy
 
-All users wanting to become a candidate in the next council election has to register themself during the Candidacy Announcement phase
-and stake a sufficient amount of value.
+All users wanting to become a candidate in the next council election have to register themself during the Candidacy Announcement phase
+and stake a sufficient amount of value. If a candidacy stake from one of the previous elections is still locked, it will be released first.
 
 **Extrinsic name**
 
@@ -257,16 +257,15 @@ and stake a sufficient amount of value.
 
 | Name | Description |
 | :--- | :--- |
-| account_id | Staking account. Derived from the Origin. |
-| council_user_id | Membership id uniquely identifying the user. |
-| stake | Amount of currency user wants to stake for the candidacy. |
+| `membership_id` | Membership id uniquely identifying the user. |
+| `staking_account_id` | Staking account. |
+| `stake` | Amount of currency user wants to stake for the candidacy. |
 
 #### Conditions
 
 * Candidacy Announcement phase is running.
 * Candidacy is not announced repeatedly.
-* The user has no unreleased candidacy stake from one of the previous elections or `account_id` derived from the Origin must be the same as `account_id` used for the said staking.
-* `account_id` has enough balance to be locked as candidacy stake.
+* `staking_account_id` has enough balance to be locked as candidacy stake.
 * The `stake` must be at least `REQUIRED_CANDIDACY_STAKE`.
 
 #### Effect
@@ -275,7 +274,8 @@ and stake a sufficient amount of value.
 
 ### Withdraw Candidacy
 
-Users are able to revoke their candidacy announcement before the actual election begins.
+Users can revoke their candidacy announcement before the actual election begins. A candidacy stake locked during
+the [Announce Candidacy](#user-announce-candidacy) will be released when candidacy is withdrawn.
 
 **Extrinsic name**
 
@@ -285,13 +285,12 @@ Users are able to revoke their candidacy announcement before the actual election
 
 | Name | Description |
 | :--- | :--- |
-| `account_id` | Staking account. Derived from the Origin. |
-| `council_user_id` | Membership id uniquely identifying the user. |
+| `membership_id` | Membership id uniquely identifying the user. |
 
 ### Conditions
 
 * The Candidacy Announcement phase is running.
-* The user identified by `council_user_id` is candidating in the current election with the same `account_id` used for staking.
+* The user's candidacy is currently announced.
 
 **Effect**
 
@@ -311,15 +310,15 @@ but it will be rejected later in [Reveal vote](#user-content-reveal-vote) where 
 
 | Name | Description |
 | :--- | :--- |
-| `account_id` | Staking account. Derived from the Origin. |
+| `staking_account_id` | Staking account. |
 | `commitment` | The sealed vote representation. |
 | `stake` | Amount of currency user wants to stake for the vote. |
 
 #### Conditions
 
 * The Voting phase is running.
-* The `account_id` haven't voted yet in the current election. If you want to vote for multiple candidates, repeat vote with a different account(s).
-* The `account_id` has enough balance to be locked as a voting stake.
+* The `staking_account_id` hasn't been used for voting in the current election yet. (If you want to vote for multiple candidates, repeat vote with a different staking account(s).)
+* The `staking_account_id` has enough balance to be locked as a voting stake.
 * The `stake` must be at least `MINIUMUM_VOTING_STAKE`.
 
 #### Effect
@@ -338,16 +337,17 @@ A vote previously cast in the form of sealed commitment can be revealed during t
 
 | Name | Description |
 | :--- | :--- |
-| `account_id` | Staking account. Derived from the Origin. |
+| `staking_account_id` | Staking account. |
 | `salt` | The (cryptographic) salt used to calculate the sealed commitment. |
 | `vote_option_id` | The user id of the candidate you voted for. |
 
 #### Conditions
 
 * The Revealing phase is running.
-* A vote's sealed commitment has been previously cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) for the current election.
-* A sealed commitment cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) must target valid candidate.
-* `salt`'s lenght is not higher than `MAX_SALT_LENGTH`.
+* The vote's sealed commitment has been previously cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) using `staking_account_id` in the current election.
+* The sealed commitment cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) must target valid candidate.
+* The vote hasn't been revealed yet.
+* `salt`'s length is not higher than `MAX_SALT_LENGTH`.
 
 #### Effect
 
@@ -386,8 +386,7 @@ A candidacy stake that is no longer needed can be released after the relevant el
 
 | Name | Description |
 | :--- | :--- |
-| `account_id` | Staking account. Derived from the Origin. |
-| `council_user_id` | Membership id uniquely identifying the user. |
+| `membership_id` | Membership id uniquely identifying the user. |
 
 #### Conditions
 
@@ -402,18 +401,21 @@ A candidacy stake that is no longer needed can be released after the relevant el
 
 A candidate can set a note about their candidacy.
 
+**Extrinsic name**
+
+`set_candidacy_note`
+
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `account_id` | Staking account. Derived from the Origin. |
-| `council_user_id` | Membership id uniquely identifying the user. |
+| `membership_id` | Membership id uniquely identifying the user. |
 | `note` | A note describing a candidate. |
 
 #### Conditions
 
 * The candidacy announcement or election period is running.
-* The user is candidating in current election.
+* The user is candidating in the current election.
 
 #### Effect
 
