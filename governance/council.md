@@ -259,6 +259,7 @@ and stake a sufficient amount of value. If a candidacy stake from one of the pre
 | :--- | :--- |
 | `membership_id` | Membership id uniquely identifying the user. |
 | `staking_account_id` | Staking account. |
+| `reward_account_id` | Account receiving council member rewards in the case candidate gets elected. |
 | `stake` | Amount of currency user wants to stake for the candidacy. |
 
 #### Conditions
@@ -266,6 +267,7 @@ and stake a sufficient amount of value. If a candidacy stake from one of the pre
 * Candidacy Announcement phase is running.
 * Candidacy is not announced repeatedly.
 * `staking_account_id` has enough balance to be locked as candidacy stake.
+* `staking_account_id` and `reward_account_id` are both associated with the member via `membership_id`
 * The `stake` must be at least `REQUIRED_CANDIDACY_STAKE`.
 
 #### Effect
@@ -310,7 +312,7 @@ but it will be rejected later in [Reveal vote](#user-content-reveal-vote) where 
 
 | Name | Description |
 | :--- | :--- |
-| `staking_account_id` | Staking account. |
+| `staking_account_id` | Staking account. Derived from the Origin. |
 | `commitment` | The sealed vote representation. |
 | `stake` | Amount of currency user wants to stake for the vote. |
 
