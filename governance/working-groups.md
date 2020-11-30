@@ -28,6 +28,7 @@ The relevant roles in a working group are
 
 A has the following information associated
 
+* **Id:** A unique non-negative integer identifier.
 * **Membership**: The membership to which this role corresponds. Comes from the initial application to the opening by which worker is hired.
 * **Role account**: The account currently used to authenticate as this role in the relevant subsystem. Authentication in the working group is done using the controller account of the member, so as to allow for division of labor behind a single membership across multiple roles, while not requiring full trust. Is updatable by member.
 * **Staking profile:** Is only set if the role initially required stake in the opening from which it was hired, and includes
@@ -41,11 +42,13 @@ A has the following information associated
 * **Owed reward:** The total reward this worker was not paid over a number of payout periods where there was not sufficient funds in the working group budget.
 * **Unstaking status:** Is either _normal_, or _unstaking_. The initial status is the former, and the latter is only entered into when the worker attempts to leave while staking with some non-zero balance at stake.
 
-A designated worker may or may not be identified as the lead at any time.
+### Lead
+
+A designated worker may be identified as the lead at any time, let `current_lead` represent the worker id of this worker when set. It is the role of the council to manage what worker, if any, is the lead in a given working group.
 
 ### Budget
 
-The budget is the root resource pool for all token minting in the working group. The budget can be increased or reduced by the council. Whenever rewards are paid, or the leader does discretionary spending, it drains the budget, and these events can only take place if the budget allows it. There may be other additional subsystem specific expenditures that depend on the budget, such as minting initial balances for new invited members in the membership system.
+The budget is the root resource pool for all token minting in the working group, and the size of the pool is denoted by `budget`. The budget can be increased or reduced by the council. Whenever rewards are paid, or the leader does discretionary spending, it drains the budget, and these events can only take place if the budget allows it. There may be other additional subsystem specific expenditures that depend on the budget, such as minting initial balances for new invited members in the membership system.
 
 ### Rewards
 
@@ -91,6 +94,10 @@ An opening has the following information associated
   * **Leaving unstaking period:** The number of blocks required from a worker initiating leaving the group until their staked funds are unlocked.
 * **Applications:** All applications created, but not yet withdrawn.
 
+### Status
+
+A working group has an associated _status_ that is updatable by the lead. The status is text signal, which follows some yet to be standardised encoding.
+
 ## Constants
 
 Hard-coded values are defined _for each working group_, and they can only be altered with a runtime upgrade.
@@ -100,16 +107,6 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `MAX_NUMBER_OF_WORKERS` | The maximum number of workers that can be part of the working group simultaneously. |
 | `REWARD_PAYOUT_PERIOD` | The number of blocks between each time workers are paid their total reward for the period. |
 | `LOCK_ID` | The Id for the lock used to stake in this working group. |
-
-## Parameters
-
-Parameters are on-chain values that can be updated through the proposal system in order to alter the constraints and functionality of the working group.
-
-| Name | Description |
-| :--- | :--- |
-| `CURRENT_LEAD` | The leader of the working group. They could be elected by the council via proposals.
-| `BUDGET` | The working group budget. It is used by the working group leader and is replenished by the council via proposals.
-| `STATUS` | The current status of the working group. It could be set by the working group leader.
 
 ## Operations
 
@@ -355,8 +352,8 @@ Staking lock is reduced by `slashing_amount`.
 
 #### Conditions
 
-* Signer uses role account of a worker.
-* `worker_id` corresponds to existing worker.
+* `worker_id` corresponds to an existing worker.
+* Signer uses role account of worker.
 * worker has staking profile set.
 * `stake_amount` is greater than zero.
 
@@ -377,44 +374,28 @@ Staking lock is increased by `stake_amount`.
 #### Conditions
 
 * A lead worker is set.
-* A caller must be an active leader.
+* Signer uses role account of lead worker.
 * `amount` is greater than zero.
-* The working group budget is sufficient to transfer the tokens.
+* `budget` is not less than `amount`.
 
 #### Effect
 
-Account balance is increased by `amount`.
+Account balance is increased by `amount`, and `budget` is reduced correspondingly.
 
-### Setting the working group budget
+### Set Status
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
-| `new budget` | New working group budget balance. |
-
-#### Conditions
-
-* Caller must be sudo.
-
-#### Effect
-
-Working group balance is set to the new `amount`.
-
-### Setting the working group status text
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `status_text` | New working group status text. |
+| `new_status` | New working group status. |
 
 #### Conditions
 
 * A lead worker is set.
-* A caller must be an active leader.
+* Signer uses role account of lead worker.
 
 #### Effect
 
-Working group current status is set to the new `status_text`.
+`status` is set to `new_status`.
 
