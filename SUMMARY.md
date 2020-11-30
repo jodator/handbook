@@ -5,6 +5,7 @@
 ## Key Concepts
 
 * [Staking](key-concepts/staking.md)
+* [Encodings](key-concepts/encodings.md)
 
 ## Governance
 
