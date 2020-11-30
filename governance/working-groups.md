@@ -96,7 +96,7 @@ An opening has the following information associated
 
 ### Status
 
-A working group has an associated _status_ that is updatable by the lead. The status is text signal, which follows some yet to be standardised encoding.
+A working group has an associated _status_ that is updatable by the lead. The status is text signal, denoted by `status`, which follows some yet to be standardized encoding.
 
 ## Constants
 
