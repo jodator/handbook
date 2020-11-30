@@ -107,7 +107,9 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 | Name | Description |
 | :--- | :--- |
-
+| `CURRENT_LEAD` | The leader of the working group. They could be elected by the council via proposals.
+| `BUDGET` | The working group budget. It is used by the working group leader and is replenished by the council via proposals.
+| `STATUS` | The current status of the working group. It could be set by the working group leader.
 
 ## Operations
 
