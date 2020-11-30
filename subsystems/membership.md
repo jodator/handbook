@@ -39,9 +39,15 @@ The membership subsystem has a working group. The purpose of the group is to eff
 
 ### Invitations
 
-The long-term objective is to have most memberships established by being purchased, however, currently the various costs associated with gaining access to a digital asset are considerable. As a result, person-to-person invitations is an alternative mechanism for giving new community members direct access to participate on the platform. This works by giving each person an _invite quota_, that is a certain number of outstanding invitations available at any given time. The quota is initially set when buying a membership, but it can also be increased by having another member transfer some of theirs. The membership lead has at regular intervals of length `INVITATION_BUDGET_PERIOD`, called _invitation budget periods_, have `invitation_budget_increments` added to their quota.  
-  
-When a member is invited, they are also credited some minimal quantity of funds to their controller account so that they can engage in some initial set of activities. These funds are however only spendable on transaction fees, nothing else, such as transferring to another member.
+The long-term objective is to have most memberships established by being purchased, however, currently the various costs associated with gaining access to a digital asset are considerable. As a result, person-to-person invitations is an alternative mechanism for giving new community members direct access to participate on the platform. 
+
+#### Quotas
+
+This works by giving each person an _invite quota_, that is a certain number of outstanding invitations available at any given time. The quota is initially set when buying a membership, but it can also be increased by having another member transfer some of theirs. The quota of the lead can also be set by the council through a proposal.
+
+#### Initial Balance
+
+When a member is invited, they are also credited some initial balance to their controller account so that they can engage in some initial set of activities. These funds are however only spendable on transaction fees, nothing else, such as transferring to another member.
 
 ## Constants
 
@@ -51,7 +57,6 @@ The following constants are hard coded into the system, they can only be updated
 
 | Name | Description | Value |
 | :--- | :--- | :--- |
-| `INVITATION_BUDGET_PERIOD` | The number of blocks an invitation  budget period lasts. | `fill-in` |
 | `INVITE_LOCK_ID` | The identifier value for the lock applied to root account of a new member | `fill-in` |
 
 ### Working Group
@@ -65,46 +70,12 @@ The following constants are hard coded into the system, they can only be updated
 
 Parameters are on-chain values that can be updated through the proposal system in order to alter the constraints and functionality of the membership system.
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>membership_price</code>
-      </td>
-      <td style="text-align:left">The price of buying a membership.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>referral_cut</code>
-      </td>
-      <td style="text-align:left">The referral cut of the membership price diverted to a referrer when buying
-        a membership. Must be no greater than <code>membership_price</code>.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>default_invite_count</code>
-      </td>
-      <td style="text-align:left">The default number of invitations set for a new bought membership.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>invited_initial_balance</code>
-      </td>
-      <td style="text-align:left">The initial balance credited to an invited members controller account.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">
-        <p><code>invitation_budget_increments</code>
-        </p>
-        <p></p>
-      </td>
-      <td style="text-align:left">The number of invites added to the quota of the lead at each invitation
-        budget period.</td>
-    </tr>
-  </tbody>
-</table>
+| Name | Description |
+| :--- | :--- |
+| `membership_price` | The price of buying a membership. |
+| `referral_cut` | The referral cut of the membership price diverted to a referrer when buying a membership. Must be no greater than `membership_price`. |
+| `default_invite_count` | The default number of invitations set for a new bought membership. |
+| `invited_initial_balance` | The initial balance credited to an invited members controller account. |
 
 ## Operations
 
