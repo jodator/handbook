@@ -60,9 +60,11 @@ In addition to rewards, the lead can spend from this budget for arbitrary purpos
 
 ### Staking
 
-Some worker roles may require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead. The staking requirement could be decreased by the lead \(or by the council for leaders\). The worker is able to increase their own stake, for example, in response for leader demand.
+Some worker roles may require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead. The staking requirement could be decreased by the lead \(or by the council for leaders\). The worker is able to increase their own stake, for example, in response for leader demand. Consult the [Staking](../key-concepts/staking.md#reuse) article to see a list of other staking purposes, and corresponding locks, which can be combined with staking for a given working group.
 
-Lastly, consult the [Staking](../key-concepts/staking.md#reuse) article to see a list of other staking purposes, and corresponding locks, which can be combined with staking for a given working group.
+#### Staking Policy
+
+A _staking policy_ describes the requirements involved in staking for a role. It has two components, it has an _amount_, the minimum number of tokens required to stake, and a _leaving unstakig period,_ the unstaking period incurred form the time a worker initiates leaving the group.
 
 ### Slashing
 
