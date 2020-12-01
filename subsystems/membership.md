@@ -77,7 +77,7 @@ Parameters are on-chain values that can be updated through the proposal system i
 | `default_invite_count` | The default number of invitations set for a new bought membership. |
 | `invited_initial_balance` | The initial balance credited to an invited members controller account. |
 
-## Operations
+## Extrinsics
 
 ### Buy a Membership
 

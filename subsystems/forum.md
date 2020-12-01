@@ -156,7 +156,7 @@ Notice that a lot of the limits are forward-looking. In the even to of a runtime
 
 
 
-## Operations
+## Extrinsics
 
 ### Create Category
 
