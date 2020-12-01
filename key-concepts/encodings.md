@@ -4,6 +4,6 @@
 
 * working group status
 * constitution
-* working group opening
+* working group opening description
 * ...
 
