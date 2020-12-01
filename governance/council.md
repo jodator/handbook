@@ -221,7 +221,7 @@ Parameters are on-chain values that can be updated through the proposal system i
   </tbody>
 </table>
 
-## Operations
+## Extrinsics
 
 ### Announce Candidacy
 
