@@ -8,7 +8,7 @@ description: >-
 
 ## Introduction
 
-Staking, or bonding,  is the act of locking up funds under some terms so that they are not transferable and otherwise not entirely usable as they otherwise would be. The terms, referred to as _unstaking terms_ describe the circumstances under which the funds may begin to cease being staked. This may involve who is able to initiate this, at what time and whether there is a possible delay from initiation to completion. This time lag is referred to as the _unstaking period._ Another critical term will also be whether and some part, possibly all of, the funds may be burned. This is referred to as _slashing._ 
+Staking, or bonding, is the act of locking up funds under some terms so that they are not transferable and otherwise not entirely usable as they otherwise would be. The terms, referred to as _unstaking terms_ describe the circumstances under which the funds may begin to cease being staked. This may involve who is able to initiate this, at what time and whether there is a possible delay from initiation to completion. This time lag is referred to as the _unstaking period._ Another critical term will also be whether and some part, possibly all of, the funds may be burned. This is referred to as _slashing._
 
 ## **Modes**
 
@@ -30,21 +30,21 @@ One can currently stake funds for a range of activities, and the table below lis
 | Proposals | Yes | Yes\* |
 | Worker\*\* | Yes | Yes |
 
-_\* It varies across_ [_proposal types_](../governance/proposals.md#proposal-type) _whether punishment is actually used, but in the interest of keeping the staking model simple, it is assumed it always is.   
-\*\*  Can be both lead an non lead workers in a working group._
+_\* It varies across_ [_proposal types_](../governance/proposals.md#proposal-type) _whether punishment is actually used, but in the interest of keeping the staking model simple, it is assumed it always is.  
+\*\* Can be both lead an non lead workers in a working group._
 
 ## Implementation
 
-The way staking is implemented is with the use of account [locks](). Each purpose above has one or more fixed number of locks associated with it, each with its own fixed ID. This means it is very easy to simply look at an account and understand in what staking activity it is involved. Some purposes allow more than one account to hold stake for the given purpose, others do not. Some purposes allow for staking any account, while others require that you are staking with an account that has been bound to a specific membership. The this binding constraint comes from purposes where staking itself is associated with membership, and this binding allows initiation of staking with a single extrinsic signed with membership credentials, rather than having an additional extrinsic for each arbitrary account used for staking on each occasion.
+The way staking is implemented is with the use of account [locks](staking.md). Each purpose above has one or more fixed number of locks associated with it, each with its own fixed ID. This means it is very easy to simply look at an account and understand in what staking activity it is involved. Some purposes allow more than one account to hold stake for the given purpose, others do not. Some purposes allow for staking any account, while others require that you are staking with an account that has been bound to a specific membership. The this binding constraint comes from purposes where staking itself is associated with membership, and this binding allows initiation of staking with a single extrinsic signed with membership credentials, rather than having an additional extrinsic for each arbitrary account used for staking on each occasion.
 
 ## Reuse
 
-Given staking purposes A and B, we can say that stake is reusable across A and B if a token staked towards one can simultaneously count as staked towards the other. Since staking is implemented with locks, and locks do not stack, this means that a single account cannot be used for staking across two non-reusable purposes.  
-  
-&lt;figure?&gt;  
-  
-Reusability does imply that if there is a slashing event in the context of one of the two, stake in both has been reduced. This must be accounted for by platform actors, and for this reason it is currently not possible to reuse stake across two activities where both are subject to slashing. In fact, the only reuse allowed currently is when exactly one of A or B is voting. This is primarily to counteract the fact that voting is not incentivized, hence lowering the cost to vote is critical.   
-  
+Given staking purposes A and B, we can say that stake is reusable across A and B if a token staked towards one can simultaneously count as staked towards the other. Since staking is implemented with locks, and locks do not stack, this means that a single account cannot be used for staking across two non-reusable purposes.
+
+&lt;figure?&gt;
+
+Reusability does imply that if there is a slashing event in the context of one of the two, stake in both has been reduced. This must be accounted for by platform actors, and for this reason it is currently not possible to reuse stake across two activities where both are subject to slashing. In fact, the only reuse allowed currently is when exactly one of A or B is voting. This is primarily to counteract the fact that voting is not incentivized, hence lowering the cost to vote is critical.
+
 The table below summarizes the current reusability relationships, changing them currently requires a runtime upgrade.
 
 |  | Invitation | Voting | Council/E | Council/O | Validation | Nomination | Proposals | Worker |
@@ -58,8 +58,8 @@ The table below summarizes the current reusability relationships, changing them 
 | Proposals | - | - | - | - | - | - | No | No |
 | Worker | - | - | - | - | - | - | - | No |
 
-The table is symmetric, as all reuse relationships are symmetric, hence cells are omitted beyond the diagonal to ignore duplicate specification.  
-  
+The table is symmetric, as all reuse relationships are symmetric, hence cells are omitted beyond the diagonal to ignore duplicate specification.
+
 **TBD: Add informatino about Invitation!!!! Also add a Locks section?**
 
 **Notice two new voting purposes: Council/O and Council/E. These represent voting for council candidacy and membership in odd and even election cycles respectively. These are separate activties from the perspective of reuse, as their stake is reusable. This means that a current council member can use the stake for their current reign in the next election.**
@@ -83,6 +83,4 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 ## Slashing
 
 Slashing is the act of reducing the balance of an account by some amount, and also reducing the size of the lock which represents the use case under which the slashing occurs.
-
-
 
