@@ -121,6 +121,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | :--- | :--- |
 | `description` | Human readable text of new opening. |
 | `staking_policy` | Staking policy of new opening. |
+| `reward_per_block` | Initial per reward block. |
 
 #### Conditions
 
@@ -196,7 +197,7 @@ If application has staking, then the staking is removed by removing the lock on 
 
 #### Effect
 
-Create a worker for each application in `winners`, and remove opening.
+Create a worker for each application in `winners`, each having a reward rate per block associated with the opening and no owed reward, and remove opening.
 
 NB: Notice that all losing applications are still around in order to allow recovering stake later.
 
@@ -247,6 +248,24 @@ Worker role account is updated to `role_account`.
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
 | `reward_account` | New reward account of worker. |
+
+#### Conditions
+
+* `worker_id` corresponds to existing worker.
+* Signer uses controller account of member corresponding to member identifier in worker.
+
+#### Effect
+
+Worker reward account is updated to `reward_account`.
+
+### Update Reward Amount
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `worker_id` | Worker identifier. |
+| `reward_per_block` | New reward account of worker. |
 
 #### Conditions
 

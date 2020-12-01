@@ -32,7 +32,7 @@ The budget of the council is the root resource pool for all token minting on the
 
 | Event | Budget Impact |
 | :--- | :--- |
-| Working group budget increased by `X > 0` |  `-X` |
+| Working group budget increased by `X > 0` | `-X` |
 | Working group budget decreased by `X > 0` | `+X` |
 | Spending proposal with amount `X > 0` | `-X` |
 | Council reward payout `X > 0` | `-X` |
@@ -133,7 +133,7 @@ The following constants are hard coded into the system, they can only be updated
     <tr>
       <th style="text-align:left">Name</th>
       <th style="text-align:left">Description</th>
-      <th style="text-align:center">Value</th>
+      <th style="text-align:left">Value</th>
     </tr>
   </thead>
   <tbody>
@@ -141,28 +141,28 @@ The following constants are hard coded into the system, they can only be updated
       <td style="text-align:left"><code>NUMBER_OF_COUNCIL_SEATS</code>
       </td>
       <td style="text-align:left">The number of council seats.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>NORMAL_PERIOD_LENGTH</code>
       </td>
       <td style="text-align:left">The number of blocks in the normal period.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>VOTING_PERIOD_LENGTH</code>
       </td>
       <td style="text-align:left">The number of blocks in the voting period.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>REVEALING_PERIOD_LENGTH</code>
       </td>
       <td style="text-align:left">The number of blocks in the revealing period.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
@@ -170,7 +170,7 @@ The following constants are hard coded into the system, they can only be updated
       </td>
       <td style="text-align:left">The number or blocks between each reward
         <br />payout to council members.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
@@ -180,36 +180,38 @@ The following constants are hard coded into the system, they can only be updated
         <p>The number of blocks between each time the the</p>
         <p>council budget is topped up.</p>
       </td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>REQUIRED_CANDIDACY_STAKE</code>
       </td>
       <td style="text-align:left">The required amount of stake for a candidate.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>MINIMUM_VOTING_STAKE</code>
       </td>
       <td style="text-align:left">The minimum allowable stake in a vote.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>MAX_SALT_LENGTH</code>
       </td>
-      <td style="text-align:left">The maximum length of salt is used to calculate a vote's sealed commitment.</td>
-      <td style="text-align:center"><code>fill-in</code>
-      </td>
+      <td style="text-align:left">The maximum length of salt is used to calculate a vote&apos;s sealed commitment.</td>
+      <td
+      style="text-align:left"><code>fill-in</code>
+        </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>MINIMUM_CANDIDATES_COUNT</code>
       </td>
       <td style="text-align:left">The minimum number of candidates needed for the election to become legitimate.</td>
-      <td style="text-align:center"><code>fill-in</code>
-      </td>
+      <td
+      style="text-align:left"><code>fill-in</code>
+        </td>
     </tr>
   </tbody>
 </table>
@@ -246,8 +248,7 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 ### Announce Candidacy
 
-All users wanting to become a candidate in the next council election have to register themself during the Candidacy Announcement phase
-and stake a sufficient amount of value. If a candidacy stake from one of the previous elections is still locked, it will be released first.
+All users wanting to become a candidate in the next council election have to register themself during the Candidacy Announcement phase and stake a sufficient amount of value. If a candidacy stake from one of the previous elections is still locked, it will be released first.
 
 **Extrinsic name**
 
@@ -276,8 +277,7 @@ and stake a sufficient amount of value. If a candidacy stake from one of the pre
 
 ### Withdraw Candidacy
 
-Users can revoke their candidacy announcement before the actual election begins. A candidacy stake locked during
-the [Announce Candidacy](#user-announce-candidacy) will be released when candidacy is withdrawn.
+Users can revoke their candidacy announcement before the actual election begins. A candidacy stake locked during the [Announce Candidacy](council.md#user-announce-candidacy) will be released when candidacy is withdrawn.
 
 **Extrinsic name**
 
@@ -300,9 +300,7 @@ the [Announce Candidacy](#user-announce-candidacy) will be released when candida
 
 ### Submit Sealed Vote
 
-A user can cast a vote for the selected candidate and stake currency to increase chances for the candidate's win.
-Users cast votes for their selected candidate(s). A commitment for an invalid vote option can be (mistakenly) passed here,
-but it will be rejected later in [Reveal vote](#user-content-reveal-vote) where an actual check for vote validity is made.
+A user can cast a vote for the selected candidate and stake currency to increase chances for the candidate's win. Users cast votes for their selected candidate\(s\). A commitment for an invalid vote option can be \(mistakenly\) passed here, but it will be rejected later in [Reveal vote](council.md#user-content-reveal-vote) where an actual check for vote validity is made.
 
 **Extrinsic name**
 
@@ -319,7 +317,7 @@ but it will be rejected later in [Reveal vote](#user-content-reveal-vote) where 
 #### Conditions
 
 * The Voting phase is running.
-* The `staking_account_id` hasn't been used for voting in the current election yet. (If you want to vote for multiple candidates, repeat vote with a different staking account(s).)
+* The `staking_account_id` hasn't been used for voting in the current election yet. \(If you want to vote for multiple candidates, repeat vote with a different staking account\(s\).\)
 * The `staking_account_id` has enough balance to be locked as a voting stake.
 * The `stake` must be at least `MINIUMUM_VOTING_STAKE`.
 
@@ -340,14 +338,14 @@ A vote previously cast in the form of sealed commitment can be revealed during t
 | Name | Description |
 | :--- | :--- |
 | `staking_account_id` | Staking account. |
-| `salt` | The (cryptographic) salt used to calculate the sealed commitment. |
+| `salt` | The \(cryptographic\) salt used to calculate the sealed commitment. |
 | `vote_option_id` | The user id of the candidate you voted for. |
 
 #### Conditions
 
 * The Revealing phase is running.
-* The vote's sealed commitment has been previously cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) using `staking_account_id` in the current election.
-* The sealed commitment cast via [Submit Sealed Vote](#user-content-submit-sealed-vote) must target valid candidate.
+* The vote's sealed commitment has been previously cast via [Submit Sealed Vote](council.md#user-content-submit-sealed-vote) using `staking_account_id` in the current election.
+* The sealed commitment cast via [Submit Sealed Vote](council.md#user-content-submit-sealed-vote) must target valid candidate.
 * The vote hasn't been revealed yet.
 * `salt`'s length is not higher than `MAX_SALT_LENGTH`.
 
@@ -393,6 +391,7 @@ A candidacy stake that is no longer needed can be released after the relevant el
 #### Conditions
 
 * A candidacy stake is still locked. Note that successful candidates have their stake automatically converted
+
   to the elected member stake and then automatically released when their reign ends.
 
 #### Effect
@@ -422,3 +421,4 @@ A candidate can set a note about their candidacy.
 #### Effect
 
 * A note is associated with a candidate.
+
