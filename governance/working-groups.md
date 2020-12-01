@@ -265,16 +265,17 @@ Worker reward account is updated to `reward_account`.
 | Name | Description |
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
-| `reward_per_block` | New reward account of worker. |
+| `reward_per_block` | New reward rate per block for worker. |
 
 #### Conditions
 
+* A lead worker is set.
+* Signer uses role account of lead worker.
 * `worker_id` corresponds to existing worker.
-* Signer uses controller account of member corresponding to member identifier in worker.
 
 #### Effect
 
-Worker reward account is updated to `reward_account`.
+Worker reward rate per block is set to `reward_per_block`. 
 
 ### Leave Worker Role
 
