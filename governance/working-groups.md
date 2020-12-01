@@ -107,6 +107,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `MAX_NUMBER_OF_WORKERS` | The maximum number of workers that can be part of the working group simultaneously. |
 | `REWARD_PAYOUT_PERIOD` | The number of blocks between each time workers are paid their total reward for the period. |
 | `LOCK_ID` | The Id for the lock used to stake in this working group. |
+| `MIN_UNSTAKING_PERIOD_LIMIT` | Minimum unstaking period in this working group. |
 
 ## Operations
 
