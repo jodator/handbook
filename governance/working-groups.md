@@ -111,16 +111,15 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `LOCK_ID` | The Id for the lock used to stake in this working group. |
 | `MIN_UNSTAKING_PERIOD_LIMIT` | Minimum unstaking period in this working group. |
 
-## Operations
+## Extrinsics
 
-### Creating an Opening
+### Creating an Opening for Workers
 
 **Parameters**
 
 | Name | Description |
 | :--- | :--- |
 | `description` | Human readable text of new opening. |
-| `type` | Opening type of new opening.. |
 | `staking_policy` | Staking policy of new opening. |
 
 #### Conditions
@@ -131,7 +130,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 #### Effect
 
-A new opening is added with the given information.
+A new opening is added with the given information and for hiring a worker, not lead.
 
 ### Apply on Opening
 
@@ -177,7 +176,7 @@ A new application is created for the opening, using the provided information, an
 
 If application has staking, then the staking is removed by removing the lock on the staking account. The application is removed.
 
-### Fill an Opening
+### Fill an Opening for Workers
 
 **Parameters**
 
@@ -191,6 +190,7 @@ If application has staking, then the staking is removed by removing the lock on 
 * A lead worker is set.
 * Signer uses role account of lead worker.
 * `opening_id` corresponds to existing opening.
+* opening is for hiring a worker, not lead.
 * all identifiers in `winners` correspond to existing applications.
 * Opening type is for worker, and the number of workers in the opening plus the number of  `winners` does not exceed `MAX_NUMBER_OF_WORKERS`.
 
@@ -200,7 +200,7 @@ Create a worker for each application in `winners`, and remove opening.
 
 NB: Notice that all losing applications are still around in order to allow recovering stake later.
 
-### Cancel an Opening
+### Cancel an Opening for Workers
 
 **Parameters**
 
@@ -213,6 +213,7 @@ NB: Notice that all losing applications are still around in order to allow recov
 * A lead worker is set.
 * Signer uses role account of lead worker.
 * `opening_id` corresponds to existing opening.
+* opening is for workers, not lead.
 
 #### Effect
 
