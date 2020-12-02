@@ -258,7 +258,7 @@ Worker role account is updated to `role_account`.
 
 Worker reward account is updated to `reward_account`.
 
-### Update Reward Amount
+### Update Reward Amount for Worker
 
 **Parameters**
 
@@ -271,7 +271,7 @@ Worker reward account is updated to `reward_account`.
 
 * A lead worker is set.
 * Signer uses role account of lead worker.
-* `worker_id` corresponds to existing worker.
+* `worker_id` corresponds to existing worker, not lead.
 
 #### Effect
 
@@ -309,7 +309,7 @@ Worker reward rate per block is set to `reward_per_block`.
 
 * A lead worker is set.
 * Signer uses role account of lead worker.
-* `worker_id` corresponds to existing worker.
+* `worker_id` corresponds to existing worker, not lead.
 * If `slashing_amount` is set, then it is greater than zero and the worker
   * has staking profile set,
   * staked balance is no less than `slashing_amount`,
@@ -321,7 +321,7 @@ Worker reward rate per block is set to `reward_per_block`.
 * If `slashing_amount` is set, it's slashed from the staking account.
 * Worker is removed.
 
-### Slash
+### Slash Worker
 
 **Parameters**
 
@@ -335,7 +335,7 @@ Worker reward rate per block is set to `reward_per_block`.
 
 * A lead worker is set.
 * Signer uses role account of lead worker.
-* `worker_id` corresponds to existing worker.
+* `worker_id` corresponds to existing worker, not lead.
 * worker has staking profile set.
 * `slashing_amount` is greater than zero.
 * staked balance is no less than `slashing_amount`.
@@ -344,7 +344,7 @@ Worker reward rate per block is set to `reward_per_block`.
 
 The staking account is slashed by `slashing_amount`.
 
-### Decrease Stake
+### Decrease Worker Stake
 
 **Parameters**
 
@@ -357,7 +357,7 @@ The staking account is slashed by `slashing_amount`.
 
 * A lead worker is set.
 * Signer uses role account of lead worker.
-* `worker_id` corresponds to existing worker.
+* `worker_id` corresponds to existing worker, not lead.
 * worker has staking profile set.
 * `stake_amount` is greater than zero.
 
