@@ -166,9 +166,9 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 
   When a vote is submitted it is evaluated as such:
 
-1. If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` are satisfied, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then remove staking lock and transition to gracing stage, otherwise  transition to dormant stage.
-2. If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` are satisfied, but point \(1\) is not, then slash full stake, remove the lock and transition to the rejected stage.
-3. If points \(1\) and \(2\) are not and cannot be satisifed by any future a outstanding votes, then slash stake by up to `REJECTION_FEE`, remove lock and transition to rejected stage.
+* If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` are satisfied, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then remove staking lock and transition to gracing stage, otherwise transition to dormant stage.
+* If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` are satisfied, but point \(1\) is not, then slash full stake, remove the lock and transition to the rejected stage.
+* If points \(1\) and \(2\) are not and cannot be satisifed by any future a outstanding votes, then slash stake by up to `REJECTION_FEE`, remove lock and transition to rejected stage.
 
 If `DECIDING_PERIOD` blocks pass while still in this stage, apply checks \(1-3\) with same transition and side-effect rules as above.
 
@@ -196,7 +196,7 @@ A single threaded discussion is opened for each successfully created discussion.
 
 As described, proposals may require staking to be submitted. A single account must be used to provide the stake for a proposal, and it cannot be used to hold stake for any other proposals or purpose, except voting, at the same time. The staking is implemented as a lock with id `PROPOSAL_LOCK_ID`.
 
-## General Proposals
+## Proposals
 
 This section includes proposals that concern the platform as whole in terms intended effect and type-specific parameters.
 
@@ -225,7 +225,7 @@ Note that the distinction between `signal` and the rationale parameter is that t
 
 #### Creation Conditions
 
-- `signal` is non-empty.
+* `signal` is non-empty.
 
 #### Execution Conditions
 
@@ -292,18 +292,18 @@ None.
 
 #### Creation Conditions
 
-- `amount` is greater than zero.
-- `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
-- the council budget is no less than `amount`.
+* `amount` is greater than zero.
+* `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
+* the council budget is no less than `amount`.
 
 #### Execution Conditions
 
-- the council budget is no less than `amount`.
+* the council budget is no less than `amount`.
 
 #### Effect
 
-- the council budget is reduced by `amount`.
-- `amount` is deposited in account `account`.
+* the council budget is reduced by `amount`.
+* `amount` is deposited in account `account`.
 
 ### Runtime Upgrade
 
@@ -475,8 +475,8 @@ None.
 
 Same as when slashing a worker in group with given inputs, except
 
-- signer check,
-- worker corresponding to `worker_id` must be lead.
+* signer check,
+* worker corresponding to `worker_id` must be lead.
 
 #### Effect
 
