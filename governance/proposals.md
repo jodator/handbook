@@ -225,7 +225,7 @@ Note that the distinction between `signal` and the rationale parameter is that t
 
 #### Creation Conditions
 
-* `signal` is not empty.
+- `signal` is non-empty.
 
 #### Execution Conditions
 
@@ -233,7 +233,77 @@ None.
 
 #### Effect
 
-There is no direct effect of this proposal, its utility is purely for social coordination of matters outside of the direct state of the blockchain state.
+None.
+
+### Amend Constitution
+
+#### Parameters
+
+| Name | Description |
+| :--- | :--- |
+| `new_constitution` | The actual human readable constitution text. |
+
+#### Constants
+
+| Constant | Value |
+| :--- | :--- |
+| `DECIDING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+None.
+
+### Funding Request
+
+#### Parameters
+
+| Name | Description |
+| :--- | :--- |
+| `amount` | The amount of tokens requested. |
+| `account` | Recipient of funds. |
+
+#### Constants
+
+| Constant | Value |
+| :--- | :--- |
+| `DECIDING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
+
+#### Creation Conditions
+
+- `amount` is greater than zero.
+- `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
+- the council budget is no less than `amount`.
+
+#### Execution Conditions
+
+- the council budget is no less than `amount`.
+
+#### Effect
+
+- the council budget is reduced by `amount`.
+- `amount` is deposited in account `account`.
 
 ### Runtime Upgrade
 
@@ -258,8 +328,7 @@ There is no direct effect of this proposal, its utility is purely for social coo
 
 #### Creation Conditions
 
-* `blob` is non-empty.
-* `blob` is no longer than `MAX_RUNTIME_UPGRADE_BYTES`
+`blob` is non-empty.
 
 #### Execution Conditions
 
@@ -267,16 +336,18 @@ None.
 
 #### Effect
 
-The block after this proposal is executed will follow the rules of the runtime captured in the provided Wasm blob.
+The block after this proposal is executed will follow the rules of the runtime captured in `blob`.
 
-### Funding Requests
+### Create Working Group Lead Opening
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| `amount` | The amount of tokens requested. |
-| `account` | Recipient of funds. |
+| `group` | Identifier for working group. |
+| `description` | Human readable description of opening. |
+| `stake_policy` | Optional staking policy. |
+| `per_block_reward_amount` | Block denominated reward. |
 
 #### Constants
 
@@ -293,25 +364,24 @@ The block after this proposal is executed will follow the rules of the runtime c
 
 #### Creation Conditions
 
-* `amount` is greater than zero.
-* `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
-* the council budget is no less than `amount`.
+None.
 
 #### Execution Conditions
 
-* Minting the `amount` is within the current budget constraint of the council.
+Same as when creating an opening for workers in the given group with given inputs, except signer check.
 
 #### Effect
 
-The council mints `amount` tokens out of current budget and credits `amount`.
+Same as when creating an opening for workers in the given group with given inputs, except the opening type is for lead.
 
-### Set Election Parameters
+### Cancel Working Group Lead Opening
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-|  |  |
+| `group` | Identifier for working group. |
+| `opening_id` | Identifier for opening in group. |
 
 #### Constants
 
@@ -328,24 +398,25 @@ The council mints `amount` tokens out of current budget and credits `amount`.
 
 #### Creation Conditions
 
-_xxx_
+None.
 
 #### Execution Conditions
 
-_xxxx_
+Same as when cancelling an opening for workers in the given group with given inputs, except signer check.
 
 #### Effect
 
-As the Council will see a significantly increased workload, there may be need to change the some of the Election cycle parameters. This proposal allows the Council to vote on expanding the Council seats, increase or decrease the length of the Voting process, or the minimum stakes required to participate. If this proposal is voted through, a change of these parameters will not be activated until the next election cycle, to avoid the current Council making changes benefitting themselves.
+Same as when cancelling an opening for workers in the given group with given inputs.
 
-### Set Working Group Budget
+### Fill Working Group Lead Opening
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| new-budget | New working group budget amount. |
-| working-group | Specifies the working group. |
+| `group` | Identifier for working group. |
+| `opening_id` | Identifier for opening in group. |
+| `application_id` | Identifier for successful applicant. |
 
 #### Constants
 
@@ -362,23 +433,26 @@ As the Council will see a significantly increased workload, there may be need to
 
 #### Creation Conditions
 
-_xxx_
+None.
 
 #### Execution Conditions
 
-_xxxx_
+Same as when filling opening in group for worker with given inputs, except `application_id` as `winners` and signer check.
 
 #### Effect
 
-The Council could set, increase or decrease the working group budget using this proposal. The working group budget could be used to pay role rewards, to spend on any goals by the group leader.
+Same as when filling opening in group for worker with given inputs, except `application_id` as `winners`.
 
-### Add Working Group Leader Opening
+### Slash Working Group Lead
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| `group` | Identifier for working group. |
+| `worker_id` | Worker identifier. |
+| `slashing_amount` | Amount to be slashed. |
+| `rationale` | Human readable text. |
 
 #### Constants
 
@@ -395,23 +469,28 @@ The Council could set, increase or decrease the working group budget using this 
 
 #### Creation Conditions
 
-_xxx_
+None.
 
 #### Execution Conditions
 
-_xxxx_
+Same as when slashing a worker in group with given inputs, except
+
+- signer check,
+- worker corresponding to `worker_id` must be lead.
 
 #### Effect
 
-This proposal allows an opening for a Storage Lead to be created. When editing the "Opening schema", you must ensure your changes still returns a valid JSON schema. This determines what information is collected from candidates. Note that the reward specified is not binding, and is only determined when the Fill Working Group Leader Opening proposal is made \(and approved\).
+Same as when slashing a worker in group with given inputs.
 
-### Begin Review Working Group Leader Application
+### Terminate Working Group Lead
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw WebAssembly object to be used as the new runtime. |
+| `group` | Identifier for working group. |
+| `worker_id` | Worker identifier. |
+| `slashing_amount` | Optional amount to be slashed. |
 
 #### Constants
 
@@ -428,23 +507,25 @@ This proposal allows an opening for a Storage Lead to be created. When editing t
 
 #### Creation Conditions
 
-_xxx_
+None.
 
 #### Execution Conditions
 
-_xxxx_
+Same as when terminating a worker in group with given inputs, except signer check.
 
 #### Effect
 
-This simply sets the opening for Storage Lead to the "in review" status, meaning no further applications can be accepted. It is required to move on to the `Fill Working Group Leader Opening` proposal.
+Same as when terminating a worker in group with given inputs, and removing lead designation.
 
-### Fill Working Group Leader Opening
+### Set Working Group Lead Reward
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| `group` | Identifier for working group. |
+| `worker_id` | Worker identifier. |
+| `reward_per_block` | New reward rate per block for worker. |
 
 #### Constants
 
@@ -461,25 +542,25 @@ This simply sets the opening for Storage Lead to the "in review" status, meaning
 
 #### Creation Conditions
 
-_xxx_
+None.
 
 #### Execution Conditions
 
-_xxxx_
+Same as when updating reward of a worker in group with given inputs, except signer check.
 
 #### Effect
 
-If the Opening is in the "Review Stage", use this proposal to propose a specific Lead. The Council can now vote, and, if approved, this will be the new Lead.
+Same as when updating reward of a worker in group with given inputs.
 
-Note that there can be multiple proposals of this type at the same time, so multiple candidates can be considered simultaneously. However, once one is approved, the others will fail.
-
-### Set Working Group Mint Capacity
+### Decrease Working Group Lead Stake
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| `group` | Identifier for working group. |
+| `worker_id` | Worker identifier. |
+| `stake_amount` | Amount by which to decrease stake. |
 
 #### Constants
 
@@ -496,23 +577,24 @@ Note that there can be multiple proposals of this type at the same time, so mult
 
 #### Creation Conditions
 
-_xxx_
+`stake_amount` is greater than zero.
 
 #### Execution Conditions
 
-_xxxx_
+Same as when decreasing worker stake in group with given inputs, except signer check.
 
 #### Effect
 
-This effectively acts as a budget for the working group \(currently referring to the Storage Working Group\). The Storage Lead will be unable to spend more than the limit established by this proposal.
+Same as when decreasing worker stake in group with given inputs.
 
-### Slash Working Group Leader Stake
+### Update Working Group Budget
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| `group` | Identifier for working group. |
+| `budget_update` | Signed amount change in budget. |
 
 #### Constants
 
@@ -529,116 +611,15 @@ This effectively acts as a budget for the working group \(currently referring to
 
 #### Creation Conditions
 
-_xxx_
+None.
 
 #### Execution Conditions
 
-_xxxx_
+If `budget_update` is non-negative, then this it must be no less than the council budget, otherwise the absolute value must be no less than the current group budget.
 
 #### Effect
 
-To punish or warn the Storage Lead for not performing their job correctly, they can be slashed partially or fully without firing them using this proposal type.
-
-### Decrease Working Group Leader Stake
-
-#### Parameters
-
-| Name | Description |
-| :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
-
-#### Constants
-
-| Constant | Value |
-| :--- | :--- |
-| `DECIDING_PERIOD` | `fill-in` |
-| `GRACE_PERIOD` | `fill-in` |
-| `APPROVAL_QUORUM` | `fill-in` |
-| `APPROVAL_THRESHOLD` | `fill-in` |
-| `SLASHING_QUORUM` | `fill-in` |
-| `SLASHING_THRESHOLD` | `fill-in` |
-| `PROPOSAL_STAKE` | `fill-in` |
-| `CONSTITUTIONALITY` | `fill-in` |
-
-#### Creation Conditions
-
-_xxx_
-
-#### Execution Conditions
-
-_xxxx_
-
-#### Effect
-
-This proposal type allows decreasing the stake of the Storage Lead.
-
-### Set Working Group Leader Reward
-
-#### Parameters
-
-| Name | Description |
-| :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
-
-#### Constants
-
-| Constant | Value |
-| :--- | :--- |
-| `DECIDING_PERIOD` | `fill-in` |
-| `GRACE_PERIOD` | `fill-in` |
-| `APPROVAL_QUORUM` | `fill-in` |
-| `APPROVAL_THRESHOLD` | `fill-in` |
-| `SLASHING_QUORUM` | `fill-in` |
-| `SLASHING_THRESHOLD` | `fill-in` |
-| `PROPOSAL_STAKE` | `fill-in` |
-| `CONSTITUTIONALITY` | `fill-in` |
-
-#### Creation Conditions
-
-_xxx_
-
-#### Execution Conditions
-
-_xxxx_
-
-#### Effect
-
-This proposal allows for changing the reward for the Storage Lead if it appears too little or too much. Note that only the amount can be changed, not the frequency.
-
-### Terminate Working Group Leader Role
-
-#### Parameters
-
-| Name | Description |
-| :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
-
-#### Constants
-
-| Constant | Value |
-| :--- | :--- |
-| `DECIDING_PERIOD` | `fill-in` |
-| `GRACE_PERIOD` | `fill-in` |
-| `APPROVAL_QUORUM` | `fill-in` |
-| `APPROVAL_THRESHOLD` | `fill-in` |
-| `SLASHING_QUORUM` | `fill-in` |
-| `SLASHING_THRESHOLD` | `fill-in` |
-| `PROPOSAL_STAKE` | `fill-in` |
-| `CONSTITUTIONALITY` | `fill-in` |
-
-#### Creation Conditions
-
-_xxx_
-
-#### Execution Conditions
-
-_xxxx_
-
-#### Effect
-
-If for whatever reason the Storage Lead needs to be removed from their post \(and potentially slashed\), this is the proposal type which needs to be voted on.
-
-## Validation Proposals
+If `budget_update` is non-negative, then this amount is reduced from the council budget and credited to the group budget, otherwise the reverse.
 
 ### Set Max Validator Count
 
@@ -646,7 +627,7 @@ If for whatever reason the Storage Lead needs to be removed from their post \(an
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| `new_validator_count` | New max validator count. |
 
 #### Constants
 
@@ -663,25 +644,23 @@ If for whatever reason the Storage Lead needs to be removed from their post \(an
 
 #### Creation Conditions
 
-_xxx_
+`new_validator_count` is no less than `MIN_VALIDATOR_COUNT` and no greater than `MAX_VALIDATOR_COUNT`.
 
 #### Execution Conditions
 
-_xxxx_
+None.
 
 #### Effect
 
-The Validators are rewarded for producing blocks, and will share the rewards that are minted each era \(target 3600 blocks\). This reward is calculated based on the total issuance, and the amount of tJOY staked by the pool of Validators relative to the total issuance. A higher number means smaller rewards for each individual Validator, but set to low and the network grinds to a halt.
+Same as `set_validator_count` in `pallet_staking` module with given input.
 
-## Content Directory Proposals
-
-### Set Content Curator Lead
+### Set Membership Price
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| `new_membership_price` | New membership price. |
 
 #### Constants
 
@@ -698,31 +677,23 @@ The Validators are rewarded for producing blocks, and will share the rewards tha
 
 #### Creation Conditions
 
-_xxx_
+None.
 
 #### Execution Conditions
 
-_xxxx_
+None.
 
 #### Effect
 
-The Content Curator Lead is the first implementation of the concept of Group Leads on the platform. These will in general be responsible for hiring, firing, rewarding and training the group they are leading. They are hired by the council, and will be given a budget to perform their role satisfactory, without inflating the supply more than necessary.
+The membership price is set to `new_membership_price`.
 
-This means they have to answer to the users if they fail in their task. In this particular case, all members can propose to:
-
-* Set a Lead if there are none currently occupying the role
-* Fire the existing Lead, without setting a new one
-* Replace the existing Lead, with a specified new member
-
-If the proposal is voted through, the change will occur immediately.
-
-### Set Content Working Group Mint Capacity
+### Set Referral Cut
 
 #### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| Wasm blob | The raw Webassembly object to be used as the new runtime. |
+| `new_referral_cut` | New referral cut. |
 
 #### Constants
 
@@ -739,180 +710,112 @@ If the proposal is voted through, the change will occur immediately.
 
 #### Creation Conditions
 
-_xxx_
+None.
 
 #### Execution Conditions
 
-_xxxx_
+None.
 
 #### Effect
 
-To avoid the Lead paying themselves too much, or frivolous spending in general, the Lead can only spend as much as the Mint Capacity. Effectively, a budget for their spending. Once the Mint runs out, recurring rewards for the Content Curators \(including themselves\) will be frozen.
+The referral cut is set to `new_referral_cut`.
 
-If the Lead, or anyone else, wants to replenish or drain the existing Mint, a proposal can be made. If voted in, the new Capacity proposed will be set immediately.
+### Set Initial Invitation Count
 
-## Constants
-
-The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
-
-| Name | Description | Value |
-| :--- | :--- | :---: |
-| `MAX_RUNTIME_UPGRADE_BYTES` | Maximum allowed number of bytes in a runtime upgrade Wasm blob. | `fill-in` |
-| `REJECTION_FEE` | Up to number of tokens slashed if proposal rejected, but not with slashing. | `fill-in` |
-| `DISCUSSION_LINGERING_DURATION` | Number of blocks after proposal inactivation a proposal discussion is closed. | `fill-in` |
-| `MAX_POSTS_PER_THREAD` | Max posts per thread. | `fill-in` |
-| `MAX_ACTIVE_PROPOSALS` | Max active proposals allowed at any given time. | `fill-in` |
-| `PROPOSAL_LOCK_ID` | The lock id used for proposal staking locks. | `fill-in` |
-| `MIN_VALIDATOR_COUNT` | The minimum number of validators accepted by validator staking system. | `fill-in` |
-| `MAX_VALIDATOR_COUNT` | The maximum acceptable number of validators. | `fill-in` |
-
-## Extrinsics
-
-### Submit Proposal
-
-**Parameters**
+#### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| `proposer` | Member identifier of proposer. |
-| `title` | Title for proposal. |
-| `rationale` | Rationale for proposal. |
-| `trigger` | Optional trigger block for executing proposal. |
-| `account` | Optional staking account for proposal. |
-| `type` | The of proposal and all associated type specific parameters. |
+| `new_default_invite_count` | New default invitations count. |
 
-#### Conditions
+#### Constants
 
-* Signer matches controller account of `proposer`
-* Number of active proposals is no greater than `MAX_ACTIVE_PROPOSALS`.
-* If `PROPOSAL_STAKE` is greater than zero, then `account` must have a free balance no less than that. Also`account` is bound to `proposer`, and only has a voting lock if anything.
-* If `trigger` is provided, it must be no less than current block plus `GRACING LIMIT` + `DECIDING_PERIOD`.
-* Creation conditions for `type` are satisfied.
+| Constant | Value |
+| :--- | :--- |
+| `DECIDING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
 
 #### Effect
 
-A new proposal , of type `type` , is created in the deciding period stage, and a new discussion thread is opened in the open mode. Moreover, if `PROPOSAL_STAKE`is greater than zero, a new lock with id `PROPOSAL_LOCK_ID` and amount `PROPOSAL_STAKE` is set.
+The default invitations count is set to `new_default_invite_count`.
 
-### Withdraw Proposal
+### Set Initial Invitation Balance
 
-TBD.
-
-### Vote
-
-**Parameters**
+#### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| `proposal` | Identifier for proposal. |
-| `vote_type` | The type of vote. |
-| `rationale` | The rationale for the vote. |
-| `councilor` | Identifier for council member. |
+| `new_invited_initial_balance` | New invited initial balance. |
 
-#### Conditions
+#### Constants
 
-* `proposal` corresponds to an existing proposal in **Deciding** stage.
-* Signer is role account of councilor identified by `councilor`.
-* Councilor has not yet voted on this proposal.
+| Constant | Value |
+| :--- | :--- |
+| `DECIDING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
 
 #### Effect
 
-See [Proposals](proposals.md#proposal-type).
+The new invited initial balance is set to `new_invited_initial_balance`.
 
-### Post to Thread
+### Set Membership Lead Invitation Quota
 
-**Parameters**
+#### Parameters
 
 | Name | Description |
 | :--- | :--- |
-| `proposal` | Identifier for proposal. |
-| `text` | Post text. |
-| `author` | Either identifier of council member or of a member. |
+| `new_invite_count` | New invitation count. |
 
-#### Conditions
+#### Constants
 
-* `proposal` corresponds to an existing proposal in where discussion is active, that is either the proposal is active, or no more than `DISCUSSION_LINGERING_DURATION` blocks have passed since it became inactive.
-* `author` corresponds to signer.
-* If `author` is a member,  either is the proposer, or the discussion mode is open,  or it is closed and the `author` is on the whitelist for this thread.
-* The current number of posts in this thread is less than `MAX_POSTS_PER_THREAD`.
-
-#### Effect
-
-Post is added to thread.
-
-### Edit to Post
-
-**Parameters**
-
-| Name | Description |
+| Constant | Value |
 | :--- | :--- |
-| `proposal` | Identifier for proposal. |
-| `post` | Identifier for post. |
-| `text` | New post text. |
-| `author` | Identifier for either council member |
+| `DECIDING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
 
-#### Conditions
+#### Creation Conditions
 
-* ....
-* Note
+None.
 
-Note: its important to notice that a council member cannot edit the post of another council member in the same, or a prior, council.
+#### Execution Conditions
 
-#### Effect
-
-...
-
-### Change Thread Mode
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `proposer` |  |
-| `title` |  |
-
-#### Conditions
-
-* ....
+The membership working group has an assigned lead with membership id `membership_id`.
 
 #### Effect
 
-...
-
-### Add Member to Thread Whitelist
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `proposer` |  |
-| `title` |  |
-
-#### Conditions
-
-* ....
-
-#### Effect
-
-...
-
-### Remove Member from Thread Whitelist
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `proposer` |  |
-| `title` |  |
-
-#### Conditions
-
-* ....
-
-#### Effect
-
-...
-
-## Example
-
-WIP: Add a few new examples for new writeup after full implementation
+The invitation quota of member is set to `new_invite_count`.
 
