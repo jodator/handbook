@@ -37,9 +37,13 @@ A membership includes the following
 
 The membership subsystem has a working group. The purpose of the group is to effectively distribute invitation quotas and verified status. The lead, called the _membership lead_  has the extra task of refreshing the quotas to workers, which they can in turn then distribute to other members. Workers are referred to as _membership evangelists_.
 
+### Buying a Membership
+
+The primary means of establishing a membership is buying one by burning tokens, the number of which is held in a mutable parameter denoted as `membership_price`. When purchasing a membership, another member, called a _reference,_ can be referenced, resulting in a portion of the burned funds being credited to the reference. This portion is a mutable parameter denoted as `referral_cut`.
+
 ### Invitations
 
-The long-term objective is to have most memberships established by being purchased, however, currently the various costs associated with gaining access to a digital asset are considerable. As a result, person-to-person invitations is an alternative mechanism for giving new community members direct access to participate on the platform. 
+The long-term objective is to have most memberships established by being purchased, however, currently the various costs associated with gaining access to a digital asset are considerable. As a result, person-to-person invitations is an alternative mechanism for giving new community members direct access to participate on the platform. When buying a membership, an initial number of invitations are granted, the number of which is held in a mutable parameter denoted as `default_invite_count`.
 
 #### Quotas
 
@@ -47,7 +51,7 @@ This works by giving each person an _invite quota_, that is a certain number of 
 
 #### Initial Balance
 
-When a member is invited, they are also credited some initial balance to their controller account so that they can engage in some initial set of activities. These funds are however only spendable on transaction fees, nothing else, such as transferring to another member.
+When a member is invited, they are also credited some initial balance to their controller account so that they can engage in some initial set of activities. These funds are however only spendable on transaction fees, nothing else, such as transferring to another member. The amount credited is held in a mutable parameter denoted as `invited_initial_balance`.
 
 ## Constants
 
@@ -57,17 +61,6 @@ The following constants are hard coded into the system, they can only be updated
 | :--- | :--- | :--- |
 | `INVITE_LOCK_ID` | The identifier value for the lock applied to root account of a new member | `fill-in` |
 | `MAX_NUMBER_OF_WORKERS` |  | `fill-in` |
-
-## Parameters
-
-Parameters are on-chain values that can be updated through the proposal system in order to alter the constraints and functionality of the membership system.
-
-| Name | Description |
-| :--- | :--- |
-| `membership_price` | The price of buying a membership. |
-| `referral_cut` | The referral cut of the membership price diverted to a referrer when buying a membership. Must be no greater than `membership_price`. |
-| `default_invite_count` | The default number of invitations set for a new bought membership. |
-| `invited_initial_balance` | The initial balance credited to an invited members controller account. |
 
 ## Extrinsics
 
@@ -94,7 +87,7 @@ Parameters are on-chain values that can be updated through the proposal system i
 #### Effect
 
 * A new membership is created with the provided information, and initial invites set to `default_invite_count`.
-* If `referer_id` is provided, then the corresponding member has`referral_cut` credited to their controller account and `membership_price - referral_cut` is burned, otherwise `membership_price` is burned.
+* If `referer_id` is provided, then the corresponding member has`X = mi(referral_cut, membership_price)` credited to their controller account and `membership_price - X` is burned, otherwise `membership_price` is burned.
 
 ### Invite a Member
 
