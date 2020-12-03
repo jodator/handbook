@@ -53,18 +53,10 @@ When a member is invited, they are also credited some initial balance to their c
 
 The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
 
-### General
-
 | Name | Description | Value |
 | :--- | :--- | :--- |
 | `INVITE_LOCK_ID` | The identifier value for the lock applied to root account of a new member | `fill-in` |
-
-### Working Group
-
-| Name | Value |
-| :--- | :--- |
-| `MAX_NUMBER_OF_WORKERS` | `fill-in` |
-|  | . |
+| `MAX_NUMBER_OF_WORKERS` |  | `fill-in` |
 
 ## Parameters
 

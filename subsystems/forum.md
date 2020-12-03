@@ -68,8 +68,6 @@ A _reaction_ is a signal a member can send to associate a sentiment, in the form
 
 The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
 
-### General
-
 <table>
   <thead>
     <tr>
@@ -142,19 +140,17 @@ The following constants are hard coded into the system, they can only be updated
       <td style="text-align:center"><code>fill-in</code>
       </td>
     </tr>
+    <tr>
+      <td style="text-align:left"><code>MAX_NUMBER_OF_WORKERS</code>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
   </tbody>
 </table>
 
 Notice that a lot of the limits are forward-looking. In the even to of a runtime upgrade, it may be that the limits are changed in a more restrictive direction, in which case it should not be expected that there is a migration that throws out the storage state, instead, the limit should only be understood to have bearing on future actions.
-
-### Working Group
-
-| Name | Value |
-| :--- | :--- |
-| `MAX_NUMBER_OF_WORKERS` | `fill-in` |
-|  | . |
-
-
 
 ## Extrinsics
 
