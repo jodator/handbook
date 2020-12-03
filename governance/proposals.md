@@ -763,6 +763,8 @@ The following constants are hard coded into the system, they can only be updated
 | `MAX_POSTS_PER_THREAD` | Max posts per thread. | `fill-in` |
 | `MAX_ACTIVE_PROPOSALS` | Max active proposals allowed at any given time. | `fill-in` |
 | `PROPOSAL_LOCK_ID` | The lock id used for proposal staking locks. | `fill-in` |
+| `MIN_VALIDATOR_COUNT` | The minimum number of validators accepted by validator staking system. | `fill-in` |
+| `MAX_VALIDATOR_COUNT` | The maximum acceptable number of validators. | `fill-in` |
 
 ## Extrinsics
 
