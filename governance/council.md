@@ -46,7 +46,7 @@ _Notice that working group spending, such as lead spending, or subsystem specifi
 
 ### **Council**
 
-The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by members. The seats are always occupied, allowing the platform to dispose of all proposals they may come in at any time. The council body has two high level states described as follows.
+The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by members, called _councilors_. The seats are always occupied, allowing the platform to dispose of all proposals they may come in at any time. The council body has two high level states described as follows.
 
 * **Normal:** During this stage the council operates normally. After `NORMAL_PERIOD_LENGTH` blocks have passed since this period started, a transition is made to the election stage.
 * **Election:** During this stage, not only does the council operate, but there is an election ongoing. Read more about elections the [Council](council.md#election) section below.
@@ -63,12 +63,9 @@ If someone voted for a candidate in an election, they will and can free their st
 
 #### Rewards
 
-Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate and any possibly outstanding owed reward. This rate is held in a mutable paramter denoted as   
-`council_member_reward` . During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss.
+Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate and any possibly outstanding owed reward. This rate is held in a mutable parameter, called the _councilor reward_, denoted as `councilor_reward` . During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss.
 
-#### Reign Note
 
-A council member can, an unlimited number of times, update a note which reflects their views on subjects relevant to their time as a council member. A social consensus may develop
 
 ### Candidacy
 
