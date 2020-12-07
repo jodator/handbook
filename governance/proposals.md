@@ -166,9 +166,9 @@ Below is a list of the stages a proposal can be in, and what each of them mean:
 
   When a vote is submitted it is evaluated as such:
 
-* If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` are satisfied, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then remove staking lock and transition to gracing stage, otherwise transition to dormant stage.
-* If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` are satisfied, but point \(1\) is not, then slash full stake, remove the lock and transition to the rejected stage.
-* If points \(1\) and \(2\) are not and cannot be satisifed by any future a outstanding votes, then slash stake by up to `REJECTION_FEE`, remove lock and transition to rejected stage.
+  1. If `APPROVAL_QUORUM` and `APPROVAL_THRESHOLD` are satisfied, then increment council approvals counter. If counter now is `CONSTITUTIONALITY` then remove staking lock and transition to gracing stage, otherwise transition to dormant stage.
+  2. If `SLASHING_QUORUM` and `SLASHING_THRESHOLD` are satisfied, but point \(1\) is not, then slash full stake, remove the lock and transition to the rejected stage.
+  3. If points \(1\) and \(2\) are not and cannot be satisfied by any future a outstanding votes, then slash stake by up to `REJECTION_FEE`, remove lock and transition to rejected stage.
 
 If `DECIDING_PERIOD` blocks pass while still in this stage, apply checks \(1-3\) with same transition and side-effect rules as above.
 
