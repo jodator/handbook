@@ -376,6 +376,27 @@ No parameters.
 
 * A stake used for vote is unlocked.
 
+### Recover Failed Candidacy Stake
+
+A stake used to support a selected candidate can be released after an election ends.
+
+**Extrinsic name**
+
+`release_voting_stake`
+
+**Parameters**
+
+No parameters.
+
+#### Conditions
+
+* A stake can be released only after the new council election ends.
+* There exists a still locked voting stake associated with the authorizing account.
+
+#### Effect
+
+* A stake used for vote is unlocked.
+
 ### Submit Candidacy Note
 
 A candidate can set a note about their candidacy.
