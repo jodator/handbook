@@ -289,12 +289,12 @@ Users can revoke their candidacy announcement before the actual election begins.
 | :--- | :--- |
 | `membership_id` | Membership id uniquely identifying the user. |
 
-### Conditions
+#### Conditions
 
 * The Candidacy Announcement phase is running.
 * The user's candidacy is currently announced.
 
-**Effect**
+#### **Effect**
 
 * The user is removed from the list of candidates for the current election and candidacy stake is unlocked.
 
@@ -373,30 +373,6 @@ No parameters.
 #### Effect
 
 * A stake used for vote is unlocked.
-
-### Recover Candidacy Stake
-
-A candidacy stake that is no longer needed can be released after the relevant election has ended.
-
-**Extrinsic name**
-
-`release_candidacy_stake`
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `membership_id` | Membership id uniquely identifying the user. |
-
-#### Conditions
-
-* A candidacy stake is still locked. Note that successful candidates have their stake automatically converted
-
-  to the elected member stake and then automatically released when their reign ends.
-
-#### Effect
-
-* A candidacy stake is unlocked.
 
 ### Submit Candidacy Note
 
