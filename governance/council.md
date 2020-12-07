@@ -250,13 +250,7 @@ Parameters are on-chain values that can be updated through the proposal system i
 
 ### Announce Candidacy
 
-All users wanting to become a candidate in the next council election have to register themself during the Candidacy Announcement phase and stake a sufficient amount of value. If a candidacy stake from one of the previous elections is still locked, it will be released first.
-
-**Extrinsic name**
-
-`announce_candidacy`
-
-**Parameters**
+#### Parameters
 
 | Name | Description |
 | :--- | :--- |
@@ -279,13 +273,7 @@ All users wanting to become a candidate in the next council election have to reg
 
 ### Withdraw Candidacy
 
-Users can revoke their candidacy announcement before the actual election begins. A candidacy stake locked during the [Announce Candidacy](council.md#user-announce-candidacy) will be released when candidacy is withdrawn.
-
-**Extrinsic name**
-
-`withdraw_candidacy`
-
-**Parameters**
+#### Parameters
 
 | Name | Description |
 | :--- | :--- |
@@ -296,19 +284,13 @@ Users can revoke their candidacy announcement before the actual election begins.
 * The Candidacy Announcement phase is running.
 * The user's candidacy is currently announced.
 
-#### **Effect**
+#### Effect
 
 * The user is removed from the list of candidates for the current election and candidacy stake is unlocked.
 
 ### Submit Sealed Vote
 
-A user can cast a vote for the selected candidate and stake currency to increase chances for the candidate's win. Users cast votes for their selected candidate\(s\). A commitment for an invalid vote option can be \(mistakenly\) passed here, but it will be rejected later in [Reveal vote](council.md#user-content-reveal-vote) where an actual check for vote validity is made.
-
-**Extrinsic name**
-
-`vote`
-
-**Parameters**
+#### Parameters
 
 | Name | Description |
 | :--- | :--- |
@@ -329,13 +311,7 @@ A user can cast a vote for the selected candidate and stake currency to increase
 
 ### Reveal Vote
 
-A vote previously cast in the form of sealed commitment can be revealed during the Revealing phase.
-
-**Extrinsic name**
-
-`reveal_vote`
-
-**Parameters**
+#### Parameters
 
 | Name | Description |
 | :--- | :--- |
@@ -357,13 +333,7 @@ A vote previously cast in the form of sealed commitment can be revealed during t
 
 ### Recover Voting Stake
 
-A stake used to support a selected candidate can be released after an election ends.
-
-**Extrinsic name**
-
-`release_voting_stake`
-
-**Parameters**
+#### Parameters
 
 No parameters.
 
@@ -378,13 +348,7 @@ No parameters.
 
 ### Recover Failed Candidacy Stake
 
-A stake used to support a selected candidate can be released after an election ends.
-
-**Extrinsic name**
-
-`release_voting_stake`
-
-**Parameters**
+#### Parameters
 
 No parameters.
 
@@ -399,13 +363,7 @@ No parameters.
 
 ### Submit Candidacy Note
 
-A candidate can set a note about their candidacy.
-
-**Extrinsic name**
-
-`set_candidacy_note`
-
-**Parameters**
+#### Parameters
 
 | Name | Description |
 | :--- | :--- |
@@ -420,4 +378,3 @@ A candidate can set a note about their candidacy.
 #### Effect
 
 * A note is associated with a candidate.
-
