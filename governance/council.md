@@ -15,20 +15,20 @@ The council is a fixed size committee, up for election at regular intervals by t
 The relevant roles in the council system are
 
 * **Voters:** Anyone who stakes for the purposes of influencing the outcome of an election. Is not tied to membership, so a member can vote multiple times for different candidates from different accounts.
-* **Candidate:** A member who has staked and stands as an alternative for council membership in an ongoing election cycle.
-* **Council Member:** A member who has stood as a candidate in an election and won a place in a council. Has the primary responsibility to participate in voting on and deliberating around proposals in the proposal system.
+* **Candidate:** A member who has staked and stands as an alternative for councilorship in an ongoing election cycle.
+* **Councilor:** A member who has stood as a candidate in an election and won a place in a council. Has the primary responsibility to participate in voting on and deliberating around proposals in the proposal system.
 
 ## Concepts
 
 ### Staking
 
-There are two kinds of staking associated with the council: voting and council membership candidacy. Importantly, one of the distinct characteristics of this staking from everything else i the runtime \(see [Staking](../key-concepts/staking.md)\) is that it allows the redeployment of already staked funds in the system for other purposes. This means, for example, that a validator or nominator can vote using some part of that stake. In this same spirit, it is also possible for a council candidate to stake in an election which is already locked up for staking due to being part of the currently active council. Voting periods are non-overlapping, so no reuse considerations are even required.
+There are two kinds of staking associated with the council: **voting and council membership candidacy.** Importantly, one of the distinct characteristics of this staking from everything else i the runtime \(see [Staking](../key-concepts/staking.md)\) is that it allows the redeployment of already staked funds in the system for other purposes. This means, for example, that a validator or nominator can vote using some part of that stake. In this same spirit, it is also possible for a council candidate to stake in an election which is already locked up for staking due to being part of the currently active council. Voting periods are non-overlapping, so no reuse considerations are even required.
 
 The staking is implemented by two set of locks: one voting lock and two council candidacy locks. The two council candidacy locks are meant for odd and even numbered election cycles. Having these distinct locks for adjacent council periods, in combination with the non-stacking behavior of locks, gives a simple way to implement the intended reuse.
 
 ### Budget
 
-The budget of the council is the root resource pool for all token minting on the platform, _with the exception of validator rewards_. The lifetime of the budget is divided into periods, called _budget periods_, which occurs every `BUDGET_PERIOD_LENGTH` blocks. The number of tokens added to the budget at the end of each such period is held in a mutable paramter denoted as `budget_increment` .
+The budget of the council is the root resource pool for all token minting on the platform, _with the exception of validator rewards_. The lifetime of the budget is divided into periods, called _budget periods_, which occurs every `BUDGET_PERIOD_LENGTH` blocks. The number of tokens added to the budget at the end of each such period is held in a mutable parameter denoted as `budget_increment` .
 
 Whenever one of the following actions occur, the budget is impacted as described.
 
@@ -63,9 +63,7 @@ If someone voted for a candidate in an election, they will and can free their st
 
 #### Rewards
 
-Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate and any possibly outstanding owed reward. This rate is held in a mutable parameter, called the _councilor reward_, denoted as `councilor_reward` . During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss.
-
-
+Every `REWARD_PERIOD_LENGTH` blocks all councilors are paid out the same flat reward rate and any possibly outstanding owed reward. This rate is held in a mutable parameter, called the _councilor reward_, denoted as `councilor_reward` . During this payout, where councilors are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a councilors cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the councilor suffers the loss.
 
 ### Candidacy
 
@@ -73,22 +71,22 @@ A candidacy is defined by the following information
 
 * **Member:** The member behind the candidacy.
 * **Program:** A human readable description of the candidacy. Some socially enforced schema for the encoding of the program.
-* **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails - either because the election cycle fails or the candidate receives too few votes, then this lock can be removed by the candidate, otherwise it remains on into the council membership.
+* **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails - either because the election cycle fails or the candidate receives too few votes, then this lock can be removed by the candidate, otherwise it remains on into the councilorship.
 
 Note that, while there is no explicit identifier, a candidacy can be implicitly identified by a combination of the member, the order of this announcement for this member - as one could in principle announce and withdraw multiple times, and finally the election cycle number.
 
-### Council Member
+### Councilor
 
-A council membership is defined by the following information
+A councilor is defined by the following information
 
 * **Member:** The membership to which this role corresponds.
 * **Role account**: The account currently used to authenticate as this role.
 * **Reward account**: The destination account to which periodic rewards are paid out.
-* **Staking account:** Holds the stake currently associated with the role. Locks`REQUIRED_CANDIDACY_STAKE` under the relevant council lock which is recoverable when council membership ends.
-* **Owed reward:** The total reward this council member was not paid over a number of payout periods where there was not sufficient funds in the council budget.
-* **Ending statement:** An optional mutable human readable statement a council member can provide which reflects their view on the council period. Can be updated multiple times during council membership.
+* **Staking account:** Holds the stake currently associated with the role. Locks`REQUIRED_CANDIDACY_STAKE` under the relevant council lock which is recoverable when councilorship ends.
+* **Owed reward:** The total reward this councilor was not paid over a number of payout periods where there was not sufficient funds in the council budget.
+* **Ending statement:** An optional mutable human readable statement a councilor can provide which reflects their view on the council period. Can be updated multiple times during councilorship.
 
-Notice that, while there is no explicit identifier, a council membership can be implicitly identified by a combination of the member and the election cycle number.
+Notice that, while there is no explicit identifier, a councilorship can be implicitly identified by a combination of the member and the election cycle number.
 
 ### Vote
 
@@ -173,7 +171,7 @@ The following constants are hard coded into the system, they can only be updated
       <td style="text-align:left"><code>REWARD_PERIOD_LENGTH</code>
       </td>
       <td style="text-align:left">The number or blocks between each reward
-        <br />payout to council members.</td>
+        <br />payout to councilors.</td>
       <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
@@ -230,7 +228,7 @@ The following constants are hard coded into the system, they can only be updated
 | :--- | :--- |
 | `membership_id` | Membership id uniquely identifying the user. |
 | `staking_account_id` | Staking account. |
-| `reward_account_id` | Account receiving council member rewards in the case candidate gets elected. |
+| `reward_account_id` | Account receiving councilors rewards in the case candidate gets elected. |
 | `stake` | Amount of currency user wants to stake for the candidacy. |
 
 #### Conditions
@@ -352,3 +350,4 @@ No parameters.
 #### Effect
 
 * A note is associated with a candidate.
+
