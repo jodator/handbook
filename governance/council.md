@@ -73,7 +73,7 @@ A candidacy is defined by the following information
 
 * **Member:** The member behind the candidacy.
 * **Program:** A human readable description of the candidacy. Some socially enforced schema for the encoding of the program.
-* **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails - either becaue the election cycle fails or the candidate receives too few votes, then this lock can be removed by the candidate, otherwise it remains on into the council membership.
+* **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails - either because the election cycle fails or the candidate receives too few votes, then this lock can be removed by the candidate, otherwise it remains on into the council membership.
 
 Note that, while there is no explicit identifier, a candidacy can be implicitly identified by a combination of the member, the order of this announcement for this member - as one could in principle announce and withdraw multiple times, and finally the election cycle number.
 
@@ -106,7 +106,7 @@ Notice that, while there is no explicit identifier, a vote can be implicitly ide
 Unlocking the voting lock on the staking account requires an active recovery action on the voter, and it follows the following rules
 
 * If the vote is for an ongoing election, then it is not recoverable.
-* If the vote is for the last concluded election, then it is  recoverable only if it was unsealed in favor of a losing candidate, otherwise it is not.
+* If the vote is for the last concluded election, then it is recoverable only if it was unsealed in favor of a losing candidate, otherwise it is not.
 * If the vote is for any election before the last concluded, the it is always recoverable.
 
 ### Election
@@ -115,14 +115,11 @@ An election is the periodic process by which a new council is selected by voters
 
 * **Announcing Period:** This is the first stage in the election cycle. During this time members can announce that they will stand as candidates for the next council. Such an announcement can later be withdrawn within this same period, without consequences. The same member can only have a single candidacy active at any given time, but can in principle announce and withdraw an unlimited number of times. Importantly, if less than the minimum number of candidates have announced by the end of this period, a new election cycle starts. All candidates can recover their stake from such a failed cycle instantly, but it requires action, and anyone wanting to stand for the next election will need to announce again.
 * **Voting Period:** This is the stage where voters can submit votes in favor of candidates. The votes are sealed, meaning that it is only known that some account voted for an unknown, possibly invalid candidate, with a known amount of tokens.
-* **Revealing Period:** During this stage, voters can reveal their sealed votes. Any valid vote which is unsealed is counter, and in the end a winning set of candidates is selected. Importantly, even if there is an insufficient number of valid votes revealed to render a set of winners with non-zero backing stake, the runtime will just pick a winning set deterministically.
+* **Revealing Period:** During this stage, voters can reveal their sealed votes. Any valid vote which is unsealed is counter, and in the end a winning set of candidates is selected. Importantly, even if there is an insufficient number of valid votes revealed to render a set of winners with non-zero backing stake, the runtime will just pick a winning set deterministically. Importantly, if less than `NUMBER_OF_COUNCIL_SEATS` candidates receive at least one vote by the end of this period, a new election cycle starts. All candidates can recover their stake from such a failed cycle instantly, but it requires action, and anyone wanting to stand for the next election will need to announce again.
 
-### Candidacy announcement phase reset
+The stages and transitions, are summarized in the figure below.
 
-In some cases election can be interrupted and reset to the Candidacy Announcement phase. These situations are:
-
-* **Not enough candidates** A minimum number of candidates `MINIMUM_CANDIDATES_COUNT` hasn't announced their candidacy during the Candidacy Announcement phase.
-* **Not enough winners** Not enough candidates received any votes, and a new council with enough members can't be established.
+![Election life-cycle stages.](../.gitbook/assets/election-1.png)
 
 ## Constants
 
@@ -145,7 +142,12 @@ The following constants are hard coded into the system, they can only be updated
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>NORMAL_PERIOD_LENGTH</code>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>IDLE_PERIOD_LENGTH</code>
       </td>
       <td style="text-align:left">The number of blocks in the normal period.</td>
       <td style="text-align:left"><code>fill-in</code>
