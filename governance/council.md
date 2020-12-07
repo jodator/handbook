@@ -28,7 +28,9 @@ The staking is implemented by two set of locks: one voting lock and two council 
 
 ### Budget
 
-The budget of the council is the root resource pool for all token minting on the platform, _with the exception of validator rewards_. The lifetime of the budget is divided into periods, called _budget periods_, which occurs every `BUDGET_PERIOD_LENGTH` blocks. Whenever one of the following actions occur, the budget is impacted as described.
+The budget of the council is the root resource pool for all token minting on the platform, _with the exception of validator rewards_. The lifetime of the budget is divided into periods, called _budget periods_, which occurs every `BUDGET_PERIOD_LENGTH` blocks. The number of tokens added to the budget at the end of each such period is held in a mutable paramter denoted as `budget_increment` .
+
+Whenever one of the following actions occur, the budget is impacted as described.
 
 | Event | Budget Impact |
 | :--- | :--- |
@@ -36,7 +38,7 @@ The budget of the council is the root resource pool for all token minting on the
 | Working group budget decreased by `X > 0` | `+X` |
 | Spending proposal with amount `X > 0` | `-X` |
 | Council reward payout `X > 0` | `-X` |
-| Budget period ends | `+budget_increments` |
+| Budget period ends | `+budget_increment` |
 
 Events that negatively impact the budget balance can only occur if the impact does not occur if they exceed the balance of the budget.
 
@@ -51,17 +53,18 @@ The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by me
 
 During both these stages, the following can or does occur.
 
-#### Unstaking Failed Candidacy
+#### Recover Failed Candidacy Stake
 
 If someone announced their candidacy in an election, but did not end up winning, then they can at any time after the conclusion of that election cycle free their stake
 
-#### Unstaking Vote
+#### Recover Voting Stake
 
-If someone voted for a candidate in an election, they will and can free their stake at a later time. Importantly, a vote which was devoted to a losing candidate can be freed the moment the election cycle is over, while a vote which was devoted to a winner can only be freed after the announcing period of the next election begins. The idea behind this asymmetry is to lock ....
+If someone voted for a candidate in an election, they will and can free their stake at a later time. Importantly, a vote which was devoted to a losing candidate can be freed the moment the election cycle is over, while a vote which was devoted to a winner can only be freed after the announcing period of the next election begins. **The idea behind this asymmetry is to lock ....**
 
 #### Rewards
 
-Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate `council_member_reward` and any possibly outstanding owed reward. During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss.
+Every `REWARD_PERIOD_LENGTH` blocks all council members are paid out the same flat reward rate and any possibly outstanding owed reward. This rate is held in a mutable paramter denoted as   
+`council_member_reward` . During this payout, where council members are processed in some consistent order, the crediting only occurs while the budget constraint is respected. For each payout, the constraint is tightened. If a council member cannot be paid out in full, then the difference is added to their owed reward. When a council period ends, any owed reward and outstanding reward from the last payout, are attempted paid out, however if the budget does not allow it, then the council member suffers the loss.
 
 #### Reign Note
 
@@ -216,34 +219,6 @@ The following constants are hard coded into the system, they can only be updated
       <td
       style="text-align:left"><code>fill-in</code>
         </td>
-    </tr>
-  </tbody>
-</table>
-
-## Parameters
-
-Parameters are on-chain values that can be updated through the proposal system in order to alter the constraints and functionality of the council system.
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>budget_increments</code>
-      </td>
-      <td style="text-align:left">The amount of tokens added to budget at end of each budget period.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>council_member_reward</code>
-      </td>
-      <td style="text-align:left">
-        <p>The number of tokens to be paid to each council member</p>
-        <p>in each reward payout.</p>
-      </td>
     </tr>
   </tbody>
 </table>
