@@ -819,3 +819,69 @@ The membership working group has an assigned lead with membership id `membership
 
 The invitation quota of member is set to `new_invite_count`.
 
+### Set Council Budget Increment
+
+#### Parameters
+
+| Name | Description |
+| :--- | :--- |
+| `new_budget_increment` | New council budget increment. |
+
+#### Constants
+
+| Constant | Value |
+| :--- | :--- |
+| `DECIDING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+The budget increment is set to `new_budget_increment`.
+
+### Set Councilor Reward
+
+#### Parameters
+
+| Name | Description |
+| :--- | :--- |
+| `new_councilor_reward` | New councilor reward. |
+
+#### Constants
+
+| Constant | Value |
+| :--- | :--- |
+| `DECIDING_PERIOD` | `fill-in` |
+| `GRACE_PERIOD` | `fill-in` |
+| `APPROVAL_QUORUM` | `fill-in` |
+| `APPROVAL_THRESHOLD` | `fill-in` |
+| `SLASHING_QUORUM` | `fill-in` |
+| `SLASHING_THRESHOLD` | `fill-in` |
+| `PROPOSAL_STAKE` | `fill-in` |
+| `CONSTITUTIONALITY` | `fill-in` |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+The councilor reward is set to `new_councilor_reward`.
+
