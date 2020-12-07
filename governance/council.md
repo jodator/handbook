@@ -142,14 +142,16 @@ The following constants are hard coded into the system, they can only be updated
       </td>
     </tr>
     <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
       <td style="text-align:left"><code>IDLE_PERIOD_LENGTH</code>
       </td>
       <td style="text-align:left">The number of blocks in the normal period.</td>
+      <td style="text-align:left"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>ANNOUNCING_PERIOD_LENGTH</code>
+      </td>
+      <td style="text-align:left">The number of blocks in the announcing period</td>
       <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
