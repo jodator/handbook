@@ -885,11 +885,151 @@ None.
 
 The councilor reward is set to `new_councilor_reward`.
 
-Extrinsics
+## Extrinsics
 
-Submit Proposal
+### Submit Proposal
 
-xxx
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` | Member identifier of proposer. |
+| `title` | Title for proposal. |
+| `rationale` | Rationale for proposal. |
+| `trigger` | Optional trigger block for executing proposal. |
+| `account` | Optional staking account for proposal. |
+| `type` | The of proposal and all associated type specific parameters. |
+
+#### Conditions
+
+* Signer matches controller account of `proposer`
+* Number of active proposals is no greater than `MAX_ACTIVE_PROPOSALS`.
+* If `PROPOSAL_STAKE` is greater than zero, then `account` must have a free balance no less than that. Also`account` is bound to `proposer`, and only has a voting lock if anything.
+* If `trigger` is provided, it must be no less than current block plus `GRACING LIMIT` + `DECIDING_PERIOD`.
+* Creation conditions for `type` are satisfied.
+
+#### Effect
+
+A new proposal , of type `type` , is created in the deciding period stage, and a new discussion thread is opened in the open mode. Moreover, if `PROPOSAL_STAKE`is greater than zero, a new lock with id `PROPOSAL_LOCK_ID` and amount `PROPOSAL_STAKE` is set.
+
+### Withdraw Proposal
+
+TBD.
+
+### Vote
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposal` | Identifier for proposal. |
+| `vote_type` | The type of vote. |
+| `rationale` | The rationale for the vote. |
+| `councilor` | Identifier for council member. |
+
+#### Conditions
+
+* `proposal` corresponds to an existing proposal in **Deciding** stage.
+* Signer is role account of councilor identified by `councilor`.
+* Councilor has not yet voted on this proposal.
+
+#### Effect
+
+See [Proposals](proposals.md#proposal-type).
+
+### Post to Thread
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposal` | Identifier for proposal. |
+| `text` | Post text. |
+| `author` | Either identifier of council member or of a member. |
+
+#### Conditions
+
+* `proposal` corresponds to an existing proposal in where discussion is active, that is either the proposal is active, or no more than `DISCUSSION_LINGERING_DURATION` blocks have passed since it became inactive.
+* `author` corresponds to signer.
+* If `author` is a member,  either is the proposer, or the discussion mode is open,  or it is closed and the `author` is on the whitelist for this thread.
+* The current number of posts in this thread is less than `MAX_POSTS_PER_THREAD`.
+
+#### Effect
+
+Post is added to thread.
+
+### Edit to Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposal` | Identifier for proposal. |
+| `post` | Identifier for post. |
+| `text` | New post text. |
+| `author` | Identifier for either council member |
+
+#### Conditions
+
+* ....
+* Note
+
+Note: its important to notice that a council member cannot edit the post of another council member in the same, or a prior, council.
+
+#### Effect
+
+...
+
+### Change Thread Mode
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
+
+### Add Member to Thread Whitelist
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
+
+### Remove Member from Thread Whitelist
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposer` |  |
+| `title` |  |
+
+#### Conditions
+
+* ....
+
+#### Effect
+
+...
 
 
 
