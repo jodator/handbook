@@ -188,13 +188,13 @@ The stages and transitions, excluding SUDO dynamics, are summarized in the image
 
 ![Proposal life-cycle stages.](../.gitbook/assets/proposal_3.png)
 
-### Discussion
-
-A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be updated in any way \(mode, posting, edits, etc.\) when `DISCUSSION_LINGERING_DURATION` have passed since being rejected or executed. Lastly, at most `MAX_POSTS_PER_THREAD` can be posted in a single thread.
-
 ### Staking
 
 As described, proposals may require staking to be submitted. A single account must be used to provide the stake for a proposal, and it cannot be used to hold stake for any other proposals or purpose, except voting, at the same time. The staking is implemented as a lock with id `PROPOSAL_LOCK_ID`.
+
+### Discussion
+
+A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be updated in any way \(mode, posting, edits, etc.\) when `DISCUSSION_LINGERING_DURATION` have passed since being rejected or executed. Lastly, at most `MAX_POSTS_PER_THREAD` can be posted in a single thread.
 
 ## Proposals
 
@@ -884,4 +884,14 @@ None.
 #### Effect
 
 The councilor reward is set to `new_councilor_reward`.
+
+Extrinsics
+
+Submit Proposal
+
+xxx
+
+
+
+
 
