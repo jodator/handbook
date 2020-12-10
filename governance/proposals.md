@@ -452,7 +452,6 @@ Same as when filling opening in group for worker with given inputs, except `appl
 | `group` | Identifier for working group. |
 | `worker_id` | Worker identifier. |
 | `slashing_amount` | Amount to be slashed. |
-| `rationale` | Human readable text. |
 
 #### Constants
 
