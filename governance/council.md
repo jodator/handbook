@@ -22,15 +22,32 @@ The relevant roles in the council system are
 
 ### Staking
 
-There are two kinds of staking associated with the council: **voting and council membership candidacy.** 
+The main idea behind how stake is managed is that we want to allow reuse of stake in ways that encourage participation, so specifically
 
+1. any stake that has been deployed for voting, should be reusable for any other purpose, and vice versa.
+2. stake used to sit on the council should be reusable for being a candidate in the next.
 
+One easy way to manage reuse across purposes, where the new use may require more or less stake than the existing use, is to take advantage of the non-stacking property of locks. For this reason, there are three kinds of locks associated with the council, as described below.
 
-Importantly, one of the distinct characteristics of this staking from everything else i the runtime \(see [Staking](../key-concepts/staking.md)\) is that it allows the redeployment of already staked funds in the system for other purposes. 
+#### Voting
 
-This means, for example, that a validator or nominator can vote using some part of that stake. In this same spirit, it is also possible for a council candidate to stake in an election which is already locked up for staking due to being part of the currently active council. Voting periods are non-overlapping, so no reuse considerations are even required.
+When voting, one votes simply with an account, and it does not matter what other locks exist, except for voting, on that account, whatever amount you lock fully counts towards the election outcome. A single member can of course vote multiple times with different accounts on different candidates.
 
-The staking is implemented by two set of locks: one voting lock and two council candidacy locks. The two council candidacy locks are meant for odd and even numbered election cycles. Having these distinct locks for adjacent council periods, in combination with the non-stacking behavior of locks, gives a simple way to implement the intended reuse.
+If someone voted for a candidate in an election, they will and can free their stake at a later time. Importantly, a vote which was devoted to a losing candidate can be freed the moment the election cycle is over, while a vote which was devoted to a winner can only be freed after the announcing period of the next election begins. The idea behind this asymmetry is to more closely expose the winners to the consequences of their decision.
+
+####  Candidacy
+
+When voting, one does so as a member, and one can only do so a single time per election. One has to stake with an account bound to the membership, and, this account can only be simultaneously locked for 
+
+1. voting in some past election, using lock id `VOTING_LOCK_ID`.
+2. candidacy in some past election, using lock id `CANDIDACY_LOCK_ID`.
+3. council member in the current council, using lock id `COUNCILOR_LOCK_ID`.
+
+The candidacy lock can of course be a different amount to any of these locks. If someone announced their candidacy in an election, but did not end up winning, then they can at any time after the conclusion of that election cycle free their stake
+
+#### Council
+
+When winning an election, your candidacy lock will be automatically removed, and a council specific lock will be applied, with the same amount locked. When that council is replaced, this lock is removed, if you did not get re-elected.
 
 ### Budget
 
@@ -56,16 +73,6 @@ The council has a fixed number of seats `NUMBER_OF_COUNCIL_SEATS` occupied by me
 
 * **Normal:** During this stage the council operates normally. After `NORMAL_PERIOD_LENGTH` blocks have passed since this period started, a transition is made to the election stage.
 * **Election:** During this stage, not only does the council operate, but there is an election ongoing. Read more about elections the [Council](council.md#election) section below.
-
-During both these stages, the following can or does occur.
-
-#### Recover Failed Candidacy Stake
-
-If someone announced their candidacy in an election, but did not end up winning, then they can at any time after the conclusion of that election cycle free their stake
-
-#### Recover Voting Stake
-
-If someone voted for a candidate in an election, they will and can free their stake at a later time. Importantly, a vote which was devoted to a losing candidate can be freed the moment the election cycle is over, while a vote which was devoted to a winner can only be freed after the announcing period of the next election begins. **The idea behind this asymmetry is to lock ....**
 
 #### Rewards
 
@@ -220,6 +227,27 @@ The following constants are hard coded into the system, they can only be updated
       <td
       style="text-align:left"><code>fill-in</code>
         </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>VOTING_LOCK_ID</code>
+      </td>
+      <td style="text-align:left">The Id for the lock used to vote.</td>
+      <td style="text-align:left"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>CANDIDACY_LOCK_ID</code>
+      </td>
+      <td style="text-align:left">The Id for the lock used for candidacy.</td>
+      <td style="text-align:left"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>COUNCILOR_LOCK_ID</code>
+      </td>
+      <td style="text-align:left">The Id for the lock used for councilorship.</td>
+      <td style="text-align:left"><code>fill-in</code>
+      </td>
     </tr>
   </tbody>
 </table>
