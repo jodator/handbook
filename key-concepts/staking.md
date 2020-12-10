@@ -69,8 +69,8 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 | Purpose | Binding | ID |
 | :--- | :---: | :---: |
 | Voting | No | 0 |
-| Council/E | Yes | 1 |
-| Council/O | Yes | 2 |
+| Council Candidate | Yes | 1 |
+| Councilor | Yes | 2 |
 | Validation | No | 3 |
 | Nomination | No | 4 |
 | Proposals | Yes | 5 |
