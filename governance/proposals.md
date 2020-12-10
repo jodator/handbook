@@ -194,7 +194,7 @@ As described, proposals may require staking to be submitted. A single account mu
 
 ### Discussion
 
-A single threaded discussion is opened for each successfully created discussion. A thread can be in two modes, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be updated in any way \(mode, posting, edits, etc.\) when `DISCUSSION_LINGERING_DURATION` have passed since being rejected or executed. Lastly, at most `MAX_POSTS_PER_THREAD` can be posted in a single thread.
+A single threaded discussion is opened for each successfully created discussion. A thread can be in two _discussion modes_, open or closed. In open mode, any member can post a message, while in closed mode, only the active council, the original proposer, or one among a set of whitelisted members can post. Mode can be changed by member or council member at any time, and default mode is open. Both council members and proposer can curate whitelist by adding and removing members. A poster can edit a post an unlimited number of times, but only if they have access. A thread can no longer be updated in any way \(mode, posting, edits, etc.\) when `DISCUSSION_LINGERING_DURATION` have passed since being rejected or executed. Lastly, at most `MAX_POSTS_PER_THREAD` can be posted in a single thread.
 
 ## Proposals
 
@@ -898,7 +898,7 @@ The following constants are hard coded into the system, they can only be updated
 | `MAX_ACTIVE_PROPOSALS` | Max active proposals allowed at any given time. | `fill-in` |
 | `PROPOSAL_LOCK_ID` | The lock id used for proposal staking locks. | `fill-in` |
 | `MIN_VALIDATOR_COUNT` | The minimum number of validators accepted by validator staking system. | `fill-in` |
-| `MAX_VALIDATOR_COUNT` | The maximum acceptable number of validators. | `fill-in` |
+| `MAX_WHITELIST_SIZE` | The maximum number of whitelisted participants in a closed  propsoal discussion. | `fill-in` |
 
 ## Extrinsics
 
@@ -946,7 +946,7 @@ A new proposal , of type `type` , is created in the deciding period stage, and a
 
 #### Effect
 
-See [Proposals](proposals.md#proposal-type).
+Record vote of `councilor`, and follow steps in **Deciding** stage for processing a vote.
 
 ### Post to Thread
 
@@ -956,7 +956,7 @@ See [Proposals](proposals.md#proposal-type).
 | :--- | :--- |
 | `proposal` | Identifier for proposal. |
 | `text` | Post text. |
-| `author` | Either identifier of council member or of a member. |
+| `author` | Either identifier of council member, or of a member. |
 
 #### Conditions
 
@@ -969,7 +969,7 @@ See [Proposals](proposals.md#proposal-type).
 
 Post is added to thread.
 
-### Edit to Post
+### Update Post
 
 **Parameters**
 
@@ -978,18 +978,18 @@ Post is added to thread.
 | `proposal` | Identifier for proposal. |
 | `post` | Identifier for post. |
 | `text` | New post text. |
-| `author` | Identifier for either council member |
 
 #### Conditions
 
-* ....
-* Note
+* `proposal` corresponds to an existing proposal in where discussion is active, that is either the proposal is active, or no more than `DISCUSSION_LINGERING_DURATION` blocks have passed since it became inactive.
+* `post` corresponds to an existing post on proposal.
+* author of post corresponds to signer.
 
-Note: its important to notice that a council member cannot edit the post of another council member in the same, or a prior, council.
+Note that editing is possible, regardless of mode, so long as the `author` is owner.
 
 #### Effect
 
-...
+Update text of post.
 
 ### Change Thread Mode
 
@@ -997,48 +997,18 @@ Note: its important to notice that a council member cannot edit the post of anot
 
 | Name | Description |
 | :--- | :--- |
-| `proposer` |  |
-| `title` |  |
+| `proposer` | Identifier for proposal. |
+| `member_id` | Identifier of member initiating action. |
+| `mode` | New discussion mode. |
 
 #### Conditions
 
-* ....
+* `proposal` corresponds to an existing proposal in where discussion is active, that is either the proposal is active, or no more than `DISCUSSION_LINGERING_DURATION` blocks have passed since it became inactive.
+* signer corresponds to member identified with `member_id`
+* member is either proposal author or council member.
+* `mode` respects `MAX_WHITELIST_SIZE`.
 
 #### Effect
 
-...
-
-### Add Member to Thread Whitelist
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `proposer` |  |
-| `title` |  |
-
-#### Conditions
-
-* ....
-
-#### Effect
-
-...
-
-### Remove Member from Thread Whitelist
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `proposer` |  |
-| `title` |  |
-
-#### Conditions
-
-* ....
-
-#### Effect
-
-...
+Update thread discussion mode to `mode`.
 
