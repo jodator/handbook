@@ -79,6 +79,7 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 | Storage Worker | Yes | 6 |
 | Content Directory Worker | Yes | 7 |
 | Forum Worker | Yes | 8 |
+| Membership Worker | Yes | 9 |
 
 ## Slashing
 
