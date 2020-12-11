@@ -84,6 +84,7 @@ A candidacy is defined by the following information
 
 * **Member:** The member behind the candidacy.
 * **Program:** A human readable description of the candidacy. Some socially enforced schema for the encoding of the program.
+* **Cycle Id:** The election cycle to which this candidacy corresponds.
 * **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails - either because the election cycle fails or the candidate receives too few votes, then this lock can be removed by the candidate, otherwise it remains on into the councilorship.
 
 Note that, while there is no explicit identifier, a candidacy can be implicitly identified by a combination of the member, the order of this announcement for this member - as one could in principle announce and withdraw multiple times, and finally the election cycle number.
@@ -97,7 +98,6 @@ A councilor is defined by the following information
 * **Reward account**: The destination account to which periodic rewards are paid out.
 * **Staking account:** Holds the stake currently associated with the role. Locks`REQUIRED_CANDIDACY_STAKE` under the relevant council lock which is recoverable when councilorship ends.
 * **Owed reward:** The total reward this councilor was not paid over a number of payout periods where there was not sufficient funds in the council budget.
-* **Ending statement:** An optional mutable human readable statement a councilor can provide which reflects their view on the council period. Can be updated multiple times during councilorship.
 
 Notice that, while there is no explicit identifier, a councilorship can be implicitly identified by a combination of the member and the election cycle number.
 
@@ -267,15 +267,17 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Candidacy Announcement phase is running.
-* Candidacy is not announced repeatedly.
+* Signer is controller account of member with identifier `membership_id`.
+* There is an active election in the **Announcement Period**.
+* There is no prior candidacy in this election for `membership_id`.
+* `staking_account_id` has no conflicting locks \(see [Staking](../key-concepts/staking.md#reuse)\).
 * `staking_account_id` has enough balance to be locked as candidacy stake.
-* `staking_account_id` and `reward_account_id` are both associated with the member via `membership_id`
+* `staking_account_id` is associated with the member.
 * The `stake` must be at least `REQUIRED_CANDIDACY_STAKE`.
 
 #### Effect
 
-* The user is added to the list of candidates for the current election and candidacy stake is locked for the duration of election.
+Any past candidacy and lock is removed, and a new candidacy is created for the given election cycle, and a candidacy lock is applied with the amount `stake`.
 
 ### Withdraw Candidacy
 
@@ -287,12 +289,13 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* The Candidacy Announcement phase is running.
-* The user's candidacy is currently announced.
+* Signer is controller account of member with identifier `membership_id`.
+* There is an active election in the **Announcement Period**.
+* The member has announced candidacy for this election cycle.
 
 #### Effect
 
-* The user is removed from the list of candidates for the current election and candidacy stake is unlocked.
+The candidacy and candidacy lock is removed.
 
 ### Submit Sealed Vote
 
@@ -300,20 +303,20 @@ The following constants are hard coded into the system, they can only be updated
 
 | Name | Description |
 | :--- | :--- |
-| `staking_account_id` | Staking account. Derived from the Origin. |
 | `commitment` | The sealed vote representation. |
 | `stake` | Amount of currency user wants to stake for the vote. |
 
 #### Conditions
 
-* The Voting phase is running.
-* The `staking_account_id` hasn't been used for voting in the current election yet. \(If you want to vote for multiple candidates, repeat vote with a different staking account\(s\).\)
-* The `staking_account_id` has enough balance to be locked as a voting stake.
+* Is signed with some account `staking_account_id`.
+* There is an active election in **Voting Period**.
+* The `staking_account_id` account  has no associated vote for the current election cycle.
+* The `staking_account_id` total balance no less than `stake`.
 * The `stake` must be at least `MINIUMUM_VOTING_STAKE`.
 
 #### Effect
 
-* The sealed commitment is remembered, and the voting stake is locked until this election ends.
+A sealed vote for the current cycle is created, including `commitment`.
 
 ### Reveal Vote
 
