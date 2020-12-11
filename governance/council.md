@@ -86,6 +86,7 @@ A candidacy is defined by the following information
 * **Program:** A human readable description of the candidacy. Some socially enforced schema for the encoding of the program.
 * **Cycle Id:** The election cycle to which this candidacy corresponds.
 * **Staking account:** The account holding the stake for the candidate. After announcing the staking account will have locked up `REQUIRED_CANDIDACY_STAKE` under the relevant council lock. If the candidacy fails - either because the election cycle fails or the candidate receives too few votes, then this lock can be removed by the candidate, otherwise it remains on into the councilorship.
+* **Votes Received:** The total amount token votes received by this candidate in revealing period ofthe election, is zero before that time.
 
 Note that, while there is no explicit identifier, a candidacy can be implicitly identified by a combination of the member, the order of this announcement for this member - as one could in principle announce and withdraw multiple times, and finally the election cycle number.
 
@@ -324,42 +325,46 @@ A sealed vote for the current cycle is created, including `commitment`.
 
 | Name | Description |
 | :--- | :--- |
-| `staking_account_id` | Staking account. |
-| `salt` | The \(cryptographic\) salt used to calculate the sealed commitment. |
-| `vote_option_id` | The user id of the candidate you voted for. |
+| `salt` | The salt used to verify the sealed commitment. |
+| `candidate_id` | Member identifier for candidate. |
 
 #### Conditions
 
-* The Revealing phase is running.
-* The vote's sealed commitment has been previously cast via [Submit Sealed Vote](council.md#user-content-submit-sealed-vote) using `staking_account_id` in the current election.
-* The sealed commitment cast via [Submit Sealed Vote](council.md#user-content-submit-sealed-vote) must target valid candidate.
-* The vote hasn't been revealed yet.
-* `salt`'s length is not higher than `MAX_SALT_LENGTH`.
+* There is an active election in the **Revealing Period**.
+* Is signed with some account `staking_account_id` which has vote in the current election cycle.
+* Vote is in **Sealed** stage.
+* `salt`length is not higher than `MAX_SALT_LENGTH`.
+* `candidate_id` __identifies a candidate in the current election.
+* The commitment in the vote is verified to correspond to the provided `salt` and `candidate_id`.
 
 #### Effect
 
-* Power proportional to the value staked for the vote is added to the candidate voted for.
+The amount of the voting lock is added to votes received of the candidate, and the vote has stage updated to **Unsealed**.
 
 ### Recover Voting Stake
 
 #### Parameters
 
-No parameters.
+None.
 
 #### Conditions
 
-* A stake can be released only after the new council election ends.
-* There exists a still locked voting stake associated with the authorizing account.
+* Is signed with some account `staking_account_id` which has vote.
+* Vote is either for
+  * a prior election cycle
+  * the current election cycle, and is **Unsealed** for a candidate which did not make it into the council
 
 #### Effect
 
-* A stake used for vote is unlocked.
+Voting lock is removed from  account and vote is removed.
 
 ### Recover Failed Candidacy Stake
 
 #### Parameters
 
-No parameters.
+| Name | Description |
+| :--- | :--- |
+| `candidate_id` | Member identifier for candidate. |
 
 #### Conditions
 
@@ -376,7 +381,7 @@ No parameters.
 
 | Name | Description |
 | :--- | :--- |
-| `membership_id` | Membership id uniquely identifying the user. |
+| `membership_id` | Membership identifier. |
 | `note` | A note describing a candidate. |
 
 #### Conditions
