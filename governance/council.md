@@ -368,12 +368,13 @@ Voting lock is removed from  account and vote is removed.
 
 #### Conditions
 
-* A stake can be released only after the new council election ends.
-* There exists a still locked voting stake associated with the authorizing account.
+* Signer matches controller account of member identified with `candidate_id`.
+* Member has existing candidacy.
+* If candidacy is for the current election cycle, the there election must be in the idle phase.
 
 #### Effect
 
-* A stake used for vote is unlocked.
+Candidate lock is removed from staking account of candidate, and candidate is removed.
 
 ### Submit Candidacy Note
 
@@ -386,10 +387,11 @@ Voting lock is removed from  account and vote is removed.
 
 #### Conditions
 
-* The candidacy announcement or election period is running.
-* The user is candidating in the current election.
+* Signer is controller account of member corresponding to `membership_id`.
+* Member has existing candidacy.
+* The candidacy is for the current election cycle, and the election phase is not idle.
 
 #### Effect
 
-* A note is associated with a candidate.
+The note is associated with a candidate.
 
