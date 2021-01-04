@@ -317,7 +317,7 @@ The candidacy and candidacy lock is removed.
 
 #### Effect
 
-A sealed vote for the current cycle is created, including `commitment`.
+Any possible vote and corresponding voting lock from a prior election is removed. A sealed vote for the current cycle is created, including `commitment`.
 
 ### Reveal Vote
 
