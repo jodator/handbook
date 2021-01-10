@@ -28,6 +28,7 @@
 * [EVM](subsystems/evm.md)
 * [Content Finance](subsystems/content-finance.md)
 * [Validation](subsystems/validation.md)
+* [Interoperability](subsystems/interoperability.md)
 
 ## Guides
 
