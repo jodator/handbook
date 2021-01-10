@@ -26,5 +26,20 @@
 * [Gateways](subsystems/gateways.md)
 * [Builders](subsystems/builders.md)
 * [EVM](subsystems/evm.md)
+* [Content Finance](subsystems/content-finance.md)
 * [Validation](subsystems/validation.md)
+
+## Guides
+
+* [Runtime Upgrade](guides/runtime-upgrade.md)
+
+## Applications
+
+* [Atlas](applications/atlas.md)
+* [Pioneer](applications/pioneer.md)
+* [Hydra](applications/hydra.md)
+* [Colossus](applications/colossus.md)
+* [Orion](applications/orion.md)
+* [Charon](applications/charon.md)
+* [CLI](applications/cli.md)
 
