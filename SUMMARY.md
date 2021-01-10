@@ -25,4 +25,6 @@
 * [Bandwidth](subsystems/bandwidth.md)
 * [Gateways](subsystems/gateways.md)
 * [Builders](subsystems/builders.md)
+* [EVM](subsystems/evm.md)
+* [Validation](subsystems/validation.md)
 
