@@ -7,6 +7,7 @@
 * [Staking](key-concepts/staking.md)
 * [Encodings](key-concepts/encodings.md)
 * [Glossary](key-concepts/glossary.md)
+* [Metaprotocols](key-concepts/metaprotocols.md)
 
 ## Governance
 
