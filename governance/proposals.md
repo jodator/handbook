@@ -294,7 +294,6 @@ None.
 
 * `amount` is greater than zero.
 * `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
-* the council budget is no less than `amount`.
 
 #### Execution Conditions
 
