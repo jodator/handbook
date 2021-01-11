@@ -78,6 +78,7 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 | Content Directory Worker | Yes | 7 |
 | Forum Worker | Yes | 8 |
 | Membership Worker | Yes | 9 |
+| Invitation | Yes | 10 |
 
 ## Slashing
 
