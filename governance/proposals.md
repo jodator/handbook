@@ -642,7 +642,7 @@ If `budget_update` is non-negative, then this amount is reduced from the council
 
 #### Creation Conditions
 
-`new_validator_count` is no less than `MIN_VALIDATOR_COUNT` and no greater than `MAX_VALIDATOR_COUNT`.
+`new_validator_count` is no less than the `MinimumValidatorCount` value in `pallet_staking` module storage and no greater than `MAX_VALIDATOR_COUNT`.
 
 #### Execution Conditions
 
