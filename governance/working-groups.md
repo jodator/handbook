@@ -284,6 +284,7 @@ Worker reward rate per block is set to `reward_per_block`.
 | Name | Description |
 | :--- | :--- |
 | `worker_id` | Worker identifier. |
+| `rationale` | Human readable text. |
 
 #### Conditions
 
@@ -304,6 +305,7 @@ Worker reward rate per block is set to `reward_per_block`.
 | :--- | :--- |
 | `member_id` | Member identifier. |
 | `slashing_amount` | Optional amount to be slashed. |
+| `rationale` | Human readable text. |
 
 #### Conditions
 
