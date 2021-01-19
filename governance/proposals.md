@@ -294,7 +294,6 @@ None.
 
 * `amount` is greater than zero.
 * `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
-* the council budget is no less than `amount`.
 
 #### Execution Conditions
 
@@ -643,7 +642,7 @@ If `budget_update` is non-negative, then this amount is reduced from the council
 
 #### Creation Conditions
 
-`new_validator_count` is no less than `MIN_VALIDATOR_COUNT` and no greater than `MAX_VALIDATOR_COUNT`.
+`new_validator_count` is no less than the `MinimumValidatorCount` value in `pallet_staking` module storage and no greater than `MAX_VALIDATOR_COUNT`.
 
 #### Execution Conditions
 
