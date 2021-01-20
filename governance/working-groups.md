@@ -275,7 +275,7 @@ Worker reward account is updated to `reward_account`.
 
 #### Effect
 
-Worker reward rate per block is set to `reward_per_block`. 
+Worker reward rate per block is set to `reward_per_block`.
 
 ### Leave Worker Role
 
