@@ -39,7 +39,7 @@ The membership subsystem has a working group. The purpose of the group is to eff
 
 ### Buying a Membership
 
-The primary means of establishing a membership is buying one by burning tokens, the number of which is held in a mutable parameter denoted as `membership_price`. When purchasing a membership, another member, called a _reference,_ can be referenced, resulting in a portion of the burned funds being credited to the reference. This portion is a mutable parameter denoted as `referral_cut`.
+The primary means of establishing a membership is buying one by burning tokens, the number of which is held in a mutable parameter denoted as `membership_price`. When purchasing a membership, another member, called a _reference,_ can be referenced, resulting in a portion of the burned funds being credited to the reference. This portion is a mutable parameter denoted as `referral_cut` and defined as the membership fee percentage. Currently, there is a limit of 50% for the referral cut. 
 
 ### Invitations
 
@@ -87,7 +87,7 @@ The following constants are hard coded into the system, they can only be updated
 #### Effect
 
 * A new membership is created with the provided information, and initial invites set to `default_invite_count`.
-* If `referer_id` is provided, then the corresponding member has`X = mi(referral_cut, membership_price)` credited to their controller account and `membership_price - X` is burned, otherwise `membership_price` is burned.
+* If `referer_id` is provided, then the corresponding member has`X =  membership_price * referral_cut / 100%` credited to their controller account and `membership_price - X` is burned, otherwise `membership_price` is burned.
 
 ### Invite a Member
 

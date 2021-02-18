@@ -691,7 +691,7 @@ The membership price is set to `new_membership_price`.
 
 | Name | Description |
 | :--- | :--- |
-| `new_referral_cut` | New referral cut. |
+| `new_referral_cut` | New referral cut percentage. |
 
 #### Constants
 
