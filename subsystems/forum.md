@@ -8,7 +8,7 @@ description: >-
 
 ## Introduction
 
-The forum is the primary place for community-wide asynchronous written communication about all topics relevant to the platform among members. It is hierarchically organized into a tree of categories, each with designated moderators responsible for policing and encouraging effective and beneficial interactions among members. The moderators are part of a designated forum working group, and the lead of that working group can decide what moderators are responsible for what categories. Categories contain subcategories, and threaded topic-based discussions, called _threads_, where any member can open a thread, and others can come and make replies in the form of _posts_. Some threads can also include a poll, allowing any member to weight in on a question.
+The forum is the primary place for community-wide asynchronous written communication about all topics relevant to the platform among members. It is hierarchically organized into a tree of categories, each with designated moderators responsible for policing and encouraging effective and beneficial interactions among members. The moderators are part of a designated forum working group, and the lead of that working group can decide what moderators are responsible for what categories. Categories contain subcategories, and threaded topic-based discussions, called _threads_, where any member can open a thread, and others can come and make replies in the form of _posts_. Some threads can also include a poll, allowing any member to weight in on a question. To create a thread an initial deposit is needed that goes into a thread account, all posts also requires a deposit that goes into the thread account related to the post, whenever a thread is deleted the funds from the thread account are transfered to the caller of the delete extrinsic.
 
 ## Roles
 
@@ -144,6 +144,27 @@ The following constants are hard coded into the system, they can only be updated
       <td style="text-align:left"><code>MAX_NUMBER_OF_WORKERS</code>
       </td>
       <td style="text-align:left"></td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>BASE_PAY_OFF_FOR_THREAD_CLEANUP</code>
+      </td>
+      <td style="text-align:left">Base deposit for a thread</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>THREAD_DEPOSIT</code>
+      </td>
+      <td style="text-align:left">Base deposit for creating a thread</td>
+      <td style="text-align:center"><code>fill-in</code>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>POST_DEPOSIT</code>
+      </td>
+      <td style="text-align:left">Base deposit for creating a post</td>
       <td style="text-align:center"><code>fill-in</code>
       </td>
     </tr>
@@ -320,10 +341,12 @@ The category is dropped.
 * If poll information is provided, make sure 
   * limit `MAX_POLL_ALTERNATIVES` is respected, and that there are at least two alternatives.
   * the end time is in the future.
+* Signer's account has at least `THREAD_DEPOSIT + POST_DEPOSIT` free balance.
 
 #### Effect
 
-A thread is created.
+* A thread is created.
+* `THREAD_DEPOSIT + POST_DEPOSIT` is discounted from signer's account and added to thread account.
 
 ### Update Thread Archival Status
 
@@ -423,7 +446,8 @@ The thread has relocated to category corresponding to `new_category_id`.
 
 #### Effect
 
-The thread and all corresponding posts are removed.
+* The thread and all corresponding posts are removed.
+* All balance from thread account is transfered to signer's account.
 
 ### Create Post
 
@@ -444,10 +468,12 @@ The thread and all corresponding posts are removed.
 * category is not archived.
 * thread is not archived.
 * Limit `MAX_POSTS_IN_THREAD` is respected.
+* Signer's account has at least `POST_DEPOSIT` free balance.
 
 #### Effect
 
-A new post is created in thread with text `text`and author is `member_id`.
+* A new post is created in thread with text `text`and author is `member_id`.
+* `POST_DEPOSIT` is discounted from signer's account.
 
 ### Edit Post
 
