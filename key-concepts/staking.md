@@ -24,6 +24,7 @@ One can currently stake funds for a range of activities, and the table below lis
 | Activity | Exposure | Punishment |
 | :--- | :---: | :---: |
 | Voting | Yes | No |
+| Staking Candidate | Yes | No |
 | Council | Yes | No |
 | Validation | Yes | Yes |
 | Nomination | Yes | Yes |
@@ -47,16 +48,17 @@ Reusability does imply that if there is a slashing event in the context of one o
 
 The table below summarizes the current reusability relationships, changing them currently requires a runtime upgrade.
 
-|  | Invitation | Voting | Council Candidate | Councilor | Validation | Nomination | Proposals | Worker\* |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Invitation | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| Voting | - | No | Yes | Yes | Yes | Yes | Yes | Yes |
-| Council Candidate | - | - | No | Yes | No | No | No | No |
-| Councilor | - | - | - | No | No | No | No | No |
-| Validation | - | - | - | - | No | No | No | No |
-| Nomination | - | - | - | - | - | No | No | No |
-| Proposals | - | - | - | - | - | - | No | No |
-| Worker\* | - | - | - | - | - | - | - | No |
+|  | Staking Candidate |Invitation | Voting | Council Candidate | Councilor | Validation | Nomination | Proposals | Worker\* |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Staking Candidate | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| Invitation | - | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| Voting | - | - | No | Yes | Yes | Yes | Yes | Yes | Yes |
+| Council Candidate | - | - | - | No | Yes | No | No | No | No |
+| Councilor | - | - | - | - | No | No | No | No | No |
+| Validation | - | - | - | - | - | No | No | No | No |
+| Nomination | - | - | - | - | - | - | No | No | No |
+| Proposals | - | - | - | - | - | - | - | No | No |
+| Worker\* | - | - | - | - | - | - | - | - | No |
 
 The table is symmetric, as all reuse relationships are symmetric, hence cells are omitted beyond the diagonal to ignore duplicate specification.
 
@@ -79,6 +81,7 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 | Forum Worker | Yes | 8 |
 | Membership Worker | Yes | 9 |
 | Invitation | Yes | 10 |
+| Staking Candidate | Yes | 11 |
 
 ## Slashing
 
