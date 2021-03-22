@@ -20,6 +20,7 @@
 * [Membership](subsystems/membership.md)
 * [Content Directory](subsystems/content-directory.md)
 * [Forum](subsystems/forum.md)
+* [Council Blog](subsystems/council-blog.md)
 * [Bounties](subsystems/bounties.md)
 * [Storage](subsystems/storage.md)
 * [Bandwidth](subsystems/bandwidth.md)
