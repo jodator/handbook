@@ -72,10 +72,8 @@ The following constants are hard coded into the system, they can only be updated
 | :--- | :--- |
 | `root_account` | To be root account of membership. |
 | `controller_account` | To be controller account of membership. |
-| `name` | To be name of membership. |
 | `handle` | To be handle of membership. |
-| `avatar_uri` | To be avatar URI of membership. |
-| `about` | To be about field of membership. |
+| `metadata` | Encoded [membership metadata](/key-concepts/encodings.md#membership-metadata) |
 | `referer_id` | Optional identifier of some existing member. |
 
 #### Conditions
@@ -98,10 +96,8 @@ The following constants are hard coded into the system, they can only be updated
 | `member_id` | Identifier of inviting member. |
 | `root_account` | To be root account of membership. |
 | `controller_account` | To be controller account of membership. |
-| `name` | To be name of membership. |
 | `handle` | To be handle of membership. |
-| `avatar_uri` | To be avatar URI of membership. |
-| `about` | To be about field of membership. |
+| `metadata` | Encoded [membership metadata](/key-concepts/encodings.md#membership-metadata) |
 
 #### Conditions
 
@@ -124,10 +120,8 @@ The following constants are hard coded into the system, they can only be updated
 | Name | Description |
 | :--- | :--- |
 | `member_id` | Identifier of member wishing to update profile. |
-| `name` | Optional new name for membership. |
 | `handle` | Optional new handle for membership. |
-| `avatar_uri` | Optional new avatar URI for membership. |
-| `about` | Optional new about field for membership. |
+| `new_metadata` | Optional new encoded [membership metadata](/key-concepts/encodings.md#membership-metadata) (only the provided fields will be updated) |
 
 #### Conditions
 

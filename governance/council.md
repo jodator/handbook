@@ -383,7 +383,7 @@ Candidate lock is removed from staking account of candidate, and candidate is re
 | Name | Description |
 | :--- | :--- |
 | `membership_id` | Membership identifier. |
-| `note` | A note describing a candidate. |
+| `note` | Encoded [candidacy note](/key-concepts/encodings.md#candidacy-note) metadata (subsequent calls will only affect explicitly provided metadata fields) |
 
 #### Conditions
 

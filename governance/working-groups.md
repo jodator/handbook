@@ -82,7 +82,7 @@ An application has the following information
 * **Role account:** A required account that is used to authenticate as the worker if selected, in other parts of the platform. Need not be unique across workers, but in practice probably will be.
 * **Staking account:** If set, the account holding the stake of the application.
 * **Member:** Identifier of member from which application originates.
-* **Description:** A human readable description of the application.
+* **Description:** [Application description metadata](/key-concepts/encodings.md#working-group-application-description).
 
 #### Opening
 
@@ -90,7 +90,7 @@ An opening has the following information associated
 
 * **Id:** A unique immutable non-negative integer identifying an individual opening, is automatically assigned when an opening is created.
 * **Type:** Whether the opening is for the lead or for a non-lead worker.
-* **Description:** A human readable description.
+* **Description:** [Opening description metadata](/key-concepts/encodings.md#working-group-opening-description).
 * **Staking policy:** If set, the policy is defined by the following
   * **Balance:** The required non-zero balance required.
   * **Leaving unstaking period:** The number of blocks required from a worker initiating leaving the group until their staked funds are unlocked.
@@ -119,7 +119,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `description` | Human readable text of new opening. |
+| `description` | Endoded [opening description](/key-concepts/encodings.md#working-groups-opening-description) metadata. |
 | `staking_policy` | Staking policy of new opening. |
 | `reward_per_block` | Initial per reward block. |
 
@@ -144,7 +144,7 @@ A new opening is added with the given information and for hiring a worker, not l
 | `role_account` | Role account of future worker. |
 | `staking_account` | Optional account holding stake if required. |
 | `staking_balance` | Optional balance to stake if required. |
-| `description` | Human readable description for application. |
+| `description` | Endoded [application description](/key-concepts/encodings.md#working-group-application-description) metadata. |
 
 #### Conditions
 
@@ -414,7 +414,7 @@ Account balance is increased by `amount`, and `budget` is reduced correspondingl
 
 | Name | Description |
 | :--- | :--- |
-| `new_status` | New working group status. |
+| `new_status` | Encoded [working group status](/key-concepts/encodings.md#working-group-status) new status metadata. |
 
 #### Conditions
 
