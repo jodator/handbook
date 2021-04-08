@@ -20,7 +20,6 @@ The relevant actors in the forum are
 
 ## Concepts
 
-
 ### Archiving
 
 Both categories and threads can be _archived._ When a category is directly archived, or is an ancestor of a directly archived category, it is considered archived. If not, its considered _active_. If not, its considered active. In either case, being archived prevents normal users from updating any associated forum state, for example through user level interactions like creating threads, creating posts, reacting to posts, etc. However, actions associated with moderators and the lead are still unconstrained.
@@ -51,6 +50,7 @@ A thread is defined by the following
   * **Deadline:** Some block before which is the only time anyone can participate in the poll.
   * **Alternatives:** A list of alternatives, each with its own explainer text, vote count and members who have voted in favor of it.
 * **Number of posts:** Number of posts in thread
+* **Cleanup Payoff:** Payoff for deleting thread from storage.
 
 ### Post
 
@@ -60,6 +60,7 @@ A post in a thread is defined by the following
 * **Text:** The post thread
 * **Author:** Member who created the pot.
 * **Last edited:** Last time the post was modified by the author
+* **Cleanup Payoff:** Payoff for deleting thread from storage.
 
 ### Editable/Non-Editable
 
