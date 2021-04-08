@@ -83,7 +83,7 @@ The following constants are hard coded into the system, they can only be updated
 | `root_account` | To be root account of membership. |
 | `controller_account` | To be controller account of membership. |
 | `handle` | To be handle of membership. |
-| `meta_data` | To be metadata of membership. |
+| `metadata` | Encoded [membership metadata](/key-concepts/encodings.md#membership-metadata) |
 | `referer_id` | Optional identifier of some existing member. |
 
 #### Conditions
@@ -107,7 +107,7 @@ The following constants are hard coded into the system, they can only be updated
 | `root_account` | To be root account of membership. |
 | `controller_account` | To be controller account of membership. |
 | `handle` | To be handle of membership. |
-| `meta_data` | To be metadata of membership. |
+| `metadata` | Encoded [membership metadata](/key-concepts/encodings.md#membership-metadata) |
 
 #### Conditions
 
@@ -131,7 +131,7 @@ The following constants are hard coded into the system, they can only be updated
 | :--- | :--- |
 | `member_id` | Identifier of member wishing to update profile. |
 | `handle` | Optional new handle for membership. |
-| `meta_data` | Optional new metadata of membership. |
+| `new_metadata` | Optional new encoded [membership metadata](/key-concepts/encodings.md#membership-metadata) (only the provided fields will be updated) |
 
 #### Conditions
 
