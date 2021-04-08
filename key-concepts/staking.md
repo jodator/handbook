@@ -14,8 +14,8 @@ Staking, or bonding, is the act of locking up funds under some terms so that the
 
 Staking is used in two modes to serve the system as a whole by attempting to providing more robust incentives for socially optimal conduct in some role that impacts the overall success of the system.
 
-1. **Exposure:** By requiring that someone who occupies a role that impacts the value of the system has exposure to that value in their portfolio. For this requirement to be effective, this exposure should not be hedgeable, and it is generally assumed that markets for this are missing. It is also assumed that any harm or benefit that results from the actions of the actor will capitalize in the value of the platform, and thus be partially reflected in the value of the stake. This should in total discourage harmful conduct and encourage beneficial conduct. 
-2. **Punishment:** In cases where it is possible to, if only imperfectly, have the system adjudicate whether an actor has acted harmfully, the ability to slash funds as a result of such detection can generate very strong incentives for pro-social behavior. The adjudication may be purely cryptographic, or it may require some level of social consensus. In either case, to the extent that it reliably can detect failure - that is avoiding false positives and negatives, it is a very cost-effective means of generating incentives compared to the first approach. It's cheaper because it allows for less capital to be locked for a given level of deterrence effect. 
+1. **Exposure:** By requiring that someone who occupies a role that impacts the value of the system has exposure to that value in their portfolio. For this requirement to be effective, this exposure should not be hedgeable, and it is generally assumed that markets for this are missing. It is also assumed that any harm or benefit that results from the actions of the actor will capitalize in the value of the platform, and thus be partially reflected in the value of the stake. This should in total discourage harmful conduct and encourage beneficial conduct.
+2. **Punishment:** In cases where it is possible to, if only imperfectly, have the system adjudicate whether an actor has acted harmfully, the ability to slash funds as a result of such detection can generate very strong incentives for pro-social behavior. The adjudication may be purely cryptographic, or it may require some level of social consensus. In either case, to the extent that it reliably can detect failure - that is avoiding false positives and negatives, it is a very cost-effective means of generating incentives compared to the first approach. It's cheaper because it allows for less capital to be locked for a given level of deterrence effect.
 
 ## Activities
 
@@ -31,7 +31,7 @@ One can currently stake funds for a range of activities, and the table below lis
 | Proposals | Yes | Yes\* |
 | Worker\*\* | Yes | Yes |
 
-_\* It varies across_ [_proposal types_](../governance/proposals.md#proposal-type) _whether punishment is actually used, but in the interest of keeping the staking model simple, it is assumed it always is.  
+_\* It varies across_ [_proposal types_](../governance/proposals.md#proposal-type) _whether punishment is actually used, but in the interest of keeping the staking model simple, it is assumed it always is.
 \*\* Can be both lead an non lead workers in a working group._
 
 ## Implementation
@@ -87,3 +87,21 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 
 Slashing is the act of reducing the balance of an account by some amount, and also reducing the size of the lock which represents the use case under which the slashing occurs.
 
+## State bloat
+
+Some modules such as forum and working group allows user to call extrinsics that allows them to occupy storage. This can be a problem since some malicious users could use this to fill up the storage, either taking all the alloted space for that given storage map or unboundedly claim storage space until no single node has enough storage. Furthermore, there is no incentive even for regular users to cleanup their storage use.
+
+That's why when a user can use up storage on top of the transaction fee we require either a deposit or additional stake.
+
+When no longer using up the storage the stake is released or the deposit is paid off.
+
+While staking is easier to implement when we are already requiring an stake account, a deposit allows to incentivize other users cleaning up by paying the deposit to them instead of the original person making the deposit.
+
+As it stands now the modules require a deposit to prevent the state bloat are:
+* Forum pallet
+* Pallet Discussion
+* Blog
+
+The pallets requiring a stake to prevent state bloat are:
+* Working Group
+* Membership
