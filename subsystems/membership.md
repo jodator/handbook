@@ -31,7 +31,17 @@ A membership includes the following
 * **Avatar:** A mutable URI for an avatar image.
 * **About:** A mutable human readable text description.
 * **Founding Member**: A signifier that this member holds some specific historical significance to the launch of the platform. This value will be stored in the chain state when mainnet launches, but for now, since we want to grant founding member status on an ongoing member through a SUDO call, this is in history.
-* **Staking Accounts:** A set of accounts that have been bound to this membership for the purpose of holding staked funds. One account can only be used to stake for at most two separate purposes simultaneously, and one of them has to be an election related purpose, i.e. voting or council candidacy. One account can only be a staking account for a single member, and once associated in this way, it cannot be de-associated and associated with another member.
+* **Staking Accounts:** A set of accounts that have been bound to this membership for the purpose of holding staked funds. One account can only be used to stake for at most two separate purposes simultaneously, and one of them has to be an election related purpose, i.e. voting or council candidacy. One account can only be a staking account for a single member, and once associated in this way, it cannot be de-associated and associated with another member. Every candidate as an staking account requires staking to stay as such.
+
+#### Metadata
+
+For the sake of the runtime the following fields are completely opaque:
+
+* Name
+* Avatar
+* About
+
+Therefore these fields aren't saved into the storage, aren't checked, and in the extrinsics parameters they are all bundled together in a single `meta_data` field.
 
 ### Working Group
 
@@ -39,7 +49,7 @@ The membership subsystem has a working group. The purpose of the group is to eff
 
 ### Buying a Membership
 
-The primary means of establishing a membership is buying one by burning tokens, the number of which is held in a mutable parameter denoted as `membership_price`. When purchasing a membership, another member, called a _reference,_ can be referenced, resulting in a portion of the burned funds being credited to the reference. This portion is a mutable parameter denoted as `referral_cut`.
+The primary means of establishing a membership is buying one by burning tokens, the number of which is held in a mutable parameter denoted as `membership_price`. When purchasing a membership, another member, called a _reference,_ can be referenced, resulting in a portion of the burned funds being credited to the reference. This portion is a mutable parameter denoted as `referral_cut` and defined as the membership fee percentage. Currently, there is a limit of 50% for the referral cut. 
 
 ### Invitations
 
@@ -85,7 +95,7 @@ The following constants are hard coded into the system, they can only be updated
 #### Effect
 
 * A new membership is created with the provided information, and initial invites set to `default_invite_count`.
-* If `referer_id` is provided, then the corresponding member has`X = mi(referral_cut, membership_price)` credited to their controller account and `membership_price - X` is burned, otherwise `membership_price` is burned.
+* If `referer_id` is provided, then the corresponding member has`X =  membership_price * referral_cut / 100%` credited to their controller account and `membership_price - X` is burned, otherwise `membership_price` is burned.
 
 ### Invite a Member
 

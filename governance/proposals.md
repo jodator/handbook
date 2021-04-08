@@ -274,8 +274,8 @@ None.
 
 | Name | Description |
 | :--- | :--- |
-| `amount` | The amount of tokens requested. |
-| `account` | Recipient of funds. |
+| `amounts` | The amount of tokens requested to each account. |
+| `accounts` | Recipients of funds. |
 
 #### Constants
 
@@ -292,17 +292,18 @@ None.
 
 #### Creation Conditions
 
-* `amount` is greater than zero.
-* `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
+* each `amount` is greater than zero.
+* each `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
+* there is at least one account
 
 #### Execution Conditions
 
-* the council budget is no less than `amount`.
+* the council budget is no less than the sum of `amounts`.
 
 #### Effect
 
-* the council budget is reduced by `amount`.
-* `amount` is deposited in account `account`.
+* the council budget is reduced by the sum of `amounts`.
+* for each account in `accounts` its fund is augmented by its corresponding amount in `amounts`.
 
 ### Runtime Upgrade
 
@@ -691,7 +692,7 @@ The membership price is set to `new_membership_price`.
 
 | Name | Description |
 | :--- | :--- |
-| `new_referral_cut` | New referral cut. |
+| `new_referral_cut` | New referral cut percentage. |
 
 #### Constants
 
@@ -1010,3 +1011,108 @@ Update text of post.
 
 Update thread discussion mode to `mode`.
 
+
+### Create Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `title` | Title of the blog post |
+| `text` | Text of the blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+A blog post is created.
+
+### Edit Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `post_id` | Id of the blog edited blog post |
+| `title` | New title of the blog post |
+| `text` | New text of the blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+Blog post with id `post_id` with new `title` and `text`
+
+### Edit Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `post_id` | Id of the blog edited blog post |
+| `title` | New title of the blog post |
+| `text` | New text of the blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+Blog post with id `post_id` with new `title` and `text`
+
+### Lock Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `post_id` | Id of the blog edited blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+Locks the post with `post_id` for modification
+
+### Unlock Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `post_id` | Id of the blog edited blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+Unlocks the post with `post_id` allowing for modification
