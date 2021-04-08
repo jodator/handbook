@@ -274,8 +274,8 @@ None.
 
 | Name | Description |
 | :--- | :--- |
-| `amount` | The amount of tokens requested. |
-| `account` | Recipient of funds. |
+| `amounts` | The amount of tokens requested to each account. |
+| `accounts` | Recipients of funds. |
 
 #### Constants
 
@@ -292,17 +292,18 @@ None.
 
 #### Creation Conditions
 
-* `amount` is greater than zero.
-* `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
+* each `amount` is greater than zero.
+* each `amount` is  no more than `MAX_SPENDING_PROPOSAL_VALUE`
+* there is at least one account
 
 #### Execution Conditions
 
-* the council budget is no less than `amount`.
+* the council budget is no less than the sum of `amounts`.
 
 #### Effect
 
-* the council budget is reduced by `amount`.
-* `amount` is deposited in account `account`.
+* the council budget is reduced by the sum of `amounts`.
+* for each account in `accounts` its fund is augmented by its corresponding amount in `amounts`.
 
 ### Runtime Upgrade
 
