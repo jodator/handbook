@@ -33,6 +33,16 @@ A membership includes the following
 * **Founding Member**: A signifier that this member holds some specific historical significance to the launch of the platform. This value will be stored in the chain state when mainnet launches, but for now, since we want to grant founding member status on an ongoing member through a SUDO call, this is in history.
 * **Staking Accounts:** A set of accounts that have been bound to this membership for the purpose of holding staked funds. One account can only be used to stake for at most two separate purposes simultaneously, and one of them has to be an election related purpose, i.e. voting or council candidacy. One account can only be a staking account for a single member, and once associated in this way, it cannot be de-associated and associated with another member.
 
+#### Metadata
+
+For the sake of the runtime the following fields are completely opaque:
+
+* Name
+* Avatar
+* About
+
+Therefore these fields aren't saved into the storage, aren't checked, and in the extrinsics parameters they are all bundled together in a single `meta_data` field.
+
 ### Working Group
 
 The membership subsystem has a working group. The purpose of the group is to effectively distribute invitation quotas and verified status. The lead, called the _membership lead_  has the extra task of refreshing the quotas to workers, which they can in turn then distribute to other members. Workers are referred to as _membership evangelists_.
@@ -72,10 +82,8 @@ The following constants are hard coded into the system, they can only be updated
 | :--- | :--- |
 | `root_account` | To be root account of membership. |
 | `controller_account` | To be controller account of membership. |
-| `name` | To be name of membership. |
 | `handle` | To be handle of membership. |
-| `avatar_uri` | To be avatar URI of membership. |
-| `about` | To be about field of membership. |
+| `meta_data` | To be metadata of membership. |
 | `referer_id` | Optional identifier of some existing member. |
 
 #### Conditions
@@ -98,10 +106,8 @@ The following constants are hard coded into the system, they can only be updated
 | `member_id` | Identifier of inviting member. |
 | `root_account` | To be root account of membership. |
 | `controller_account` | To be controller account of membership. |
-| `name` | To be name of membership. |
 | `handle` | To be handle of membership. |
-| `avatar_uri` | To be avatar URI of membership. |
-| `about` | To be about field of membership. |
+| `meta_data` | To be metadata of membership. |
 
 #### Conditions
 
@@ -124,10 +130,8 @@ The following constants are hard coded into the system, they can only be updated
 | Name | Description |
 | :--- | :--- |
 | `member_id` | Identifier of member wishing to update profile. |
-| `name` | Optional new name for membership. |
 | `handle` | Optional new handle for membership. |
-| `avatar_uri` | Optional new avatar URI for membership. |
-| `about` | Optional new about field for membership. |
+| `meta_data` | Optional new metadata of membership. |
 
 #### Conditions
 
