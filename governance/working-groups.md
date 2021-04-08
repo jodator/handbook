@@ -31,7 +31,7 @@ A has the following information associated
 * **Id:** A unique non-negative integer identifier.
 * **Membership**: The membership to which this role corresponds. Comes from the initial application to the opening by which worker is hired.
 * **Role account**: The account currently used to authenticate as this role in the relevant subsystem. Authentication in the working group is done using the controller account of the member, so as to allow for division of labor behind a single membership across multiple roles, while not requiring full trust. Is updatable by member.
-* **Staking profile:** Is only set if the role initially required stake in the opening from which it was hired, and includes
+* **Staking profile:**
   * **Staking account:** Holds the stake currently associated with the role. .
   * **Leaving unstaking period:** The number of blocks required from a worker initiating leaving the group until their staked funds are unlocked.
 * **Reward account**: The destination account to which periodic rewards are paid out.
@@ -40,7 +40,7 @@ A has the following information associated
 
 * **Reward rate per block:** The number of tokens the worker earns per block, although payouts do not occur per block, but every `REWARD_PAYOUT_PERIOD` blocks. This is earned for every block from being hired to being terminated, or initiating leaving the group. It is not earned during unstaking.
 * **Owed reward:** The total reward this worker was not paid over a number of payout periods where there was not sufficient funds in the working group budget.
-* **Unstaking status:** Is either _normal_, or _unstaking_. The initial status is the former, and the latter is only entered into when the worker attempts to leave while staking with some non-zero balance at stake.
+* **Unstaking status:** Is either _normal_, or _unstaking_. The initial status is the former, and the latter is only entered into when the worker attempts to leave.
 
 ### Lead
 
@@ -60,7 +60,7 @@ In addition to rewards, the lead can spend from this budget for arbitrary purpos
 
 ### Staking
 
-Some worker roles may require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead. The staking requirement could be decreased by the lead \(or by the council for leaders\). The worker is able to increase their own stake, for example, in response for leader demand. Consult the [Staking](../key-concepts/staking.md#reuse) article to see a list of other staking purposes, and corresponding locks, which can be combined with staking for a given working group.
+Worker roles require staking in order to apply and remain in the role. Staking for worker roles is done using a designated working group lock on a single account per worker role. The amount required is set by the discretion of the lead. The staking requirement could be decreased by the lead \(or by the council for leaders\). The worker is able to increase their own stake, for example, in response for leader demand. Consult the [Staking](../key-concepts/staking.md#reuse) article to see a list of other staking purposes, and corresponding locks, which can be combined with staking for a given working group.
 
 #### Staking Policy
 
@@ -80,7 +80,7 @@ An application has the following information
 
 * **Id:** A unique immutable non-negative integer identifying an individual application across all openings, is automatically assigned when an application is created.
 * **Role account:** A required account that is used to authenticate as the worker if selected, in other parts of the platform. Need not be unique across workers, but in practice probably will be.
-* **Staking account:** If set, the account holding the stake of the application.
+* **Staking account:** The account holding the stake of the application.
 * **Member:** Identifier of member from which application originates.
 * **Description:** A human readable description of the application.
 
@@ -91,7 +91,7 @@ An opening has the following information associated
 * **Id:** A unique immutable non-negative integer identifying an individual opening, is automatically assigned when an opening is created.
 * **Type:** Whether the opening is for the lead or for a non-lead worker.
 * **Description:** A human readable description.
-* **Staking policy:** If set, the policy is defined by the following
+* **Staking policy:**
   * **Balance:** The required non-zero balance required.
   * **Leaving unstaking period:** The number of blocks required from a worker initiating leaving the group until their staked funds are unlocked.
 * **Applications:** All applications created, but not yet withdrawn.
@@ -110,6 +110,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `REWARD_PAYOUT_PERIOD` | The number of blocks between each time workers are paid their total reward for the period. |
 | `LOCK_ID` | The Id for the lock used to stake in this working group. |
 | `MIN_UNSTAKING_PERIOD_LIMIT` | Minimum unstaking period in this working group. |
+| `MINIMUM_STAKE_FOR_OPENING` | Minimum stake required for any opening. |
 
 ## Extrinsics
 
@@ -127,7 +128,8 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 * A lead worker is set.
 * Signer uses role account of lead worker.
-* If `staking_policy` is set, then the balance is greater than zero.
+* `stake` for `staking_policy` is equal to or more than `MINIMUM_STAKE_FOR_OPENING`
+* `leaving_unstaking_period` is more than `MIN_UNSTAKING_PERIOD_LIMIT`
 
 #### Effect
 
@@ -142,15 +144,15 @@ A new opening is added with the given information and for hiring a worker, not l
 | `member_id` | Member identifier. |
 | `opening_id` | Identifier of opening being applied to. |
 | `role_account` | Role account of future worker. |
-| `staking_account` | Optional account holding stake if required. |
-| `staking_balance` | Optional balance to stake if required. |
+| `staking_account` | Account holding stake. |
+| `staking_balance` | Balance to stake. |
 | `description` | Human readable description for application. |
 
 #### Conditions
 
 * Signer uses controller account of member corresponding to `member_id`.
 * `opening_id` corresponds to an existing opening.
-* `staking_account`is set only if opening has staking policy, and
+* `staking_account`is set and
   * `staking_balance` is no less than balance in staking policy
   * is bound to the member,
   * has free balance no `staking_balance`
@@ -175,7 +177,7 @@ A new application is created for the opening, using the provided information, an
 
 #### Effect
 
-If application has staking, then the staking is removed by removing the lock on the staking account. The application is removed.
+The staking is removed by removing the lock on the staking account. The application is removed.
 
 ### Fill an Opening for Workers
 
@@ -294,8 +296,8 @@ Worker reward rate per block is set to `reward_per_block`.
 
 #### Effect
 
-* If worker has owed reward, then as much as is possible under the current budget is paid out, and whatever could be paid out is used to updated the owed field.
-* If worker has a staking profile, then staking status is set to unstaking - where final removal of worker and staking lock occurs after leaving unstaking period, otherwise the worker is removed.
+* Staking status is set to unstaking - where final removal of worker and staking lock occurs after leaving unstaking period.
+* When the worker leaves, if worker has owed reward, then as much as is possible under the current budget is paid out, and whatever could be paid out is used to updated the owed field.
 
 ### Terminate Worker
 
@@ -313,7 +315,6 @@ Worker reward rate per block is set to `reward_per_block`.
 * Signer uses role account of lead worker.
 * `worker_id` corresponds to existing worker, not lead.
 * If `slashing_amount` is set, then it is greater than zero and the worker
-  * has staking profile set,
   * staked balance is no less than `slashing_amount`,
   * staking status is normal.
 
@@ -338,7 +339,6 @@ Worker reward rate per block is set to `reward_per_block`.
 * A lead worker is set.
 * Signer uses role account of lead worker.
 * `worker_id` corresponds to existing worker, not lead.
-* worker has staking profile set.
 * `slashing_amount` is greater than zero.
 * staked balance is no less than `slashing_amount`.
 
