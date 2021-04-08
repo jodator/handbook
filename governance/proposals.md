@@ -1011,3 +1011,108 @@ Update text of post.
 
 Update thread discussion mode to `mode`.
 
+
+### Create Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `title` | Title of the blog post |
+| `text` | Text of the blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+A blog post is created.
+
+### Edit Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `post_id` | Id of the blog edited blog post |
+| `title` | New title of the blog post |
+| `text` | New text of the blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+Blog post with id `post_id` with new `title` and `text`
+
+### Edit Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `post_id` | Id of the blog edited blog post |
+| `title` | New title of the blog post |
+| `text` | New text of the blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+Blog post with id `post_id` with new `title` and `text`
+
+### Lock Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `post_id` | Id of the blog edited blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+Locks the post with `post_id` for modification
+
+### Unlock Blog Post
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `post_id` | Id of the blog edited blog post |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+None.
+
+#### Effect
+
+Unlocks the post with `post_id` allowing for modification
