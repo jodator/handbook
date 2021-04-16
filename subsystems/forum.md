@@ -22,7 +22,7 @@ The relevant actors in the forum are
 
 ### Archiving
 
-Both categories and threads can be _archived._ When a category is directly archived, or is an ancestor of a directly archived category, it is considered archived. If not, its considered _active_. Likewise, when a thread can be directly archived, or is in a category which is archived, it is considered archived. If not, its considered active. In either case, being archived prevents normal users from updating any associated forum state, for example through user level interactions like creating threads, creating posts, reacting to posts, etc. However, actions associated with moderators and the lead are still unconstrained.
+Both categories and threads can be _archived._ When a category is directly archived, or is an ancestor of a directly archived category, it is considered archived. If not, its considered _active_. If not, its considered active. In either case, being archived prevents normal users from updating any associated forum state, for example through user level interactions like creating threads, creating posts, reacting to posts, etc. However, actions associated with moderators and the lead are still unconstrained.
 
 ### Category
 
@@ -50,7 +50,6 @@ A thread is defined by the following
   * **Description:** A human readable description of what question is being polled.
   * **Deadline:** Some block before which is the only time anyone can participate in the poll.
   * **Alternatives:** A list of alternatives, each with its own explainer text, vote count and members who have voted in favor of it.
-* **Archival Status:** Whether thread is archived or not.
 
 ### Post
 
@@ -347,29 +346,6 @@ The category is dropped.
 
 * A thread is created.
 * `THREAD_DEPOSIT + POST_DEPOSIT` is discounted from signer's account and added to thread account.
-
-### Update Thread Archival Status
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `actor` | Either lead or working group identifier of moderator. |
-| `category_id` | Category identifier. |
-| `thread_id` | Thread identifier. |
-| `new_archival_status` | Whether new status is archived or active. |
-
-#### Conditions
-
-* Signer uses role account of `actor`.
-* `category_id` corresponds to an existing category.
-* `thread_id` corresponds to an existing thread.
-* If signer is moderator, then this moderator must be assigned have control of the category.
-* The thread has archival status different from `new_archival_status`.
-
-#### Effect
-
-Archival status of thread corresponding to `thread_id` is updated to `new_archival_status`.
 
 ### Edit Thread Title
 
