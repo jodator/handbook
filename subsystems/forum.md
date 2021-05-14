@@ -72,7 +72,7 @@ The following constants are hard coded into the system, they can only be updated
     <tr>
       <th style="text-align:left">Name</th>
       <th style="text-align:left">Description</th>
-      <th style="text-align:center">Value</th>
+      <th style="text-align:left">Value</th>
     </tr>
   </thead>
   <tbody>
@@ -81,7 +81,7 @@ The following constants are hard coded into the system, they can only be updated
       </td>
       <td style="text-align:left">Maximum allowed subcategories in any
         <br />category to be created.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
@@ -89,7 +89,7 @@ The following constants are hard coded into the system, they can only be updated
       </td>
       <td style="text-align:left">Maximum number of threads in any category for
         <br />any new thread.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
@@ -99,7 +99,7 @@ The following constants are hard coded into the system, they can only be updated
         <p>Maximum number of posts allowed in any thread for</p>
         <p>any new post.</p>
       </td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
@@ -109,7 +109,7 @@ The following constants are hard coded into the system, they can only be updated
         <p>Maximum number of moderators allowed in a category</p>
         <p>for any new assignment of the moderator to category.</p>
       </td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
@@ -119,14 +119,14 @@ The following constants are hard coded into the system, they can only be updated
         <p>Maximum number of categories allowed in total for</p>
         <p>any new category to be created.</p>
       </td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>MAX_POLL_ALTERNATIVES</code>
       </td>
       <td style="text-align:left">Upper bound on the number of alternatives in a new poll.</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
@@ -136,35 +136,35 @@ The following constants are hard coded into the system, they can only be updated
         <p>Maximum category tree depth allowed for any</p>
         <p>new category to be created.</p>
       </td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>MAX_NUMBER_OF_WORKERS</code>
       </td>
       <td style="text-align:left"></td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>BASE_PAY_OFF_FOR_THREAD_CLEANUP</code>
       </td>
       <td style="text-align:left">Base deposit for a thread</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>THREAD_DEPOSIT</code>
       </td>
       <td style="text-align:left">Base deposit for creating a thread</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
     <tr>
       <td style="text-align:left"><code>POST_DEPOSIT</code>
       </td>
       <td style="text-align:left">Base deposit for creating a post</td>
-      <td style="text-align:center"><code>fill-in</code>
+      <td style="text-align:left"><code>fill-in</code>
       </td>
     </tr>
   </tbody>
@@ -559,8 +559,4 @@ The member is registered as having voted for alternative `aleternative_index`
 ## Examples
 
 **WIP**
-
-
-
-
 
