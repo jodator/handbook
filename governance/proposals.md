@@ -1115,3 +1115,23 @@ None.
 
 A blog post is created.
 
+### Veto Proposal
+
+**Parameters**
+
+| Name | Description |
+| :--- | :--- |
+| `proposal_id` | Identifier for proposal. |
+
+#### Creation Conditions
+
+None.
+
+#### Execution Conditions
+
+* Proposal corresponding to `proposal_id` is either in Vote period, Grace period or pending constitution.
+
+#### Effect
+
+* Proposal corresponding to `proposal_id` is automatically discarded.
+
