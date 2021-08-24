@@ -22,12 +22,10 @@
 * [Forum](subsystems/forum.md)
 * [Council Blog](subsystems/council-blog.md)
 * [Bounties](subsystems/bounties.md)
-* [Storage](subsystems/storage.md)
-* [Bandwidth](subsystems/bandwidth.md)
+* [Storage & Bandwidth](subsystems/storage.md)
 * [Gateways](subsystems/gateways.md)
 * [Builders](subsystems/builders.md)
 * [EVM](subsystems/evm.md)
-* [Content Finance](subsystems/content-finance.md)
 * [Validation](subsystems/validation.md)
 * [Interoperability](subsystems/interoperability.md)
 

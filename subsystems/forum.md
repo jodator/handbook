@@ -64,10 +64,7 @@ A post in a thread is defined by the following
 
 ### Editable/Non-Editable
 
-A thread and a post can be either editable or not editable. A non-editable thread/post doesn't take any space in the runtime's storage. When a thread or post is being deleted it just indicates that you no longer want to edit it. To indicate that you want it to be hidden, similar to deletion in a classical forum, you need to set `hidden` to true. The first post in a thread is by default editable as well as any thread at creation.
-To create a thread or an editable post you require an initial deposit for the usage of storage space.
-Non-editable posts doesn't require an initial deposit.
-Furthermore, by deleting a thread/post you can reclaim the initial deposit.
+A thread and a post can be either editable or not editable. A non-editable thread/post doesn't take any space in the runtime's storage. When a thread or post is being deleted it just indicates that you no longer want to edit it. To indicate that you want it to be hidden, similar to deletion in a classical forum, you need to set `hidden` to true. The first post in a thread is by default editable as well as any thread at creation. To create a thread or an editable post you require an initial deposit for the usage of storage space. Non-editable posts doesn't require an initial deposit. Furthermore, by deleting a thread/post you can reclaim the initial deposit.
 
 ### Reaction
 
@@ -344,7 +341,7 @@ The category is dropped.
 #### Conditions
 
 * Signer uses role account of member corresponding to `member_id`.
-* Signer has enough balance to cover deposit for thread creation and post creation(`ThreadDeposit` + `PostDeposit`)
+* Signer has enough balance to cover deposit for thread creation and post creation\(`ThreadDeposit` + `PostDeposit`\)
 * `category_id` corresponds to an existing category.
 * Limit `MAX_THREADS_IN_CATEGORY` is respected.
 * The category is not archived.
@@ -554,8 +551,8 @@ Reaction with value `reaction_value`is accepted.
 * `post_id` corresponds to an existing post.
 * post is not first post in thread.
 * `forum_user_id` is member of forum and is either
-    * Post author
-    * Or Post's thread has been deleted and `PostLifeTime` has happened since post's `last_edited`
+  * Post author
+  * Or Post's thread has been deleted and `PostLifeTime` has happened since post's `last_edited`
 * If `forum_user_id` is not author `hidden` must be false.
 
 #### Effect
