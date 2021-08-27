@@ -17,10 +17,12 @@ An assurance contract is a funding scheme which is intended to override the inhe
 
 ## Roles
 
-* **Creator:** A member who creates a given bounty.
+* **Creator:** The agent responsible for creating the bounty, is either a specific member, or the council.
 * **Oracle:** The agent responsible for deciding the outcome of a bounty where entrants have submitted work. Is either a specific member, or the council as whole.
-* **Contributor:** An agent  responsible for contributing funds that finance the bounty. Is either a specific member.
+* **Contributor:** An agent responsible for contributing funds that finance the bounty. Is either a specific member or the council as a whole.
 * **Worker:** A member who has announced their participation in producing deliverable in a given bounty.
+
+Notice that when the council is an actor, it means that if the lifetime of a bounty spans the boundry of two councils, then a different set of council members are likely in place to exercise control over the same bounty.
 
 ## Concepts
 
@@ -33,20 +35,24 @@ The funding period type refers to how funds are collected for the benefit of a b
 
 ### Bounty Type
 
-There are two types of bounties in terms of who can participate as worker. There are _open_ bounties, where any member can participate, and there are _closed_ bounties, where the creator can pre-determine a set of member who can participate. The primary purpose of closed bounties is to enable dominant assurance contracts, where the creator combines setting themselves as the only feasible worker with also 
+There are two types of bounties in terms of who can participate as worker. There are _open_ bounties, where any member can participate, and there are _closed_ bounties, where the creator can pre-determine a set of member who can participate. The primary purpose of closed bounties is to enable dominant assurance contracts, where the creator combines setting themselves as the only feasible worker with also..
+
+### Entry
+
+xxxx &lt; WIP &gt; define later.
 
 ### Bounty
 
 A bounty is defined is defined by the following information
 
-* Oracle: 
-* Type: ..
-* Creator: 
-* Cherry:
-* Work Period Length:
-* Judging Period Length:
-* Funding:
-* Stage: The stage of the bounty see next subsection
+* **Oracle:** Bounty oracle, is either a member or the council.
+* **Type:** Bounty type, is open or closed.
+* **Creator:** Bounty creator, is either a member or the council.
+* **Cherry:** Amount of funds contributed by creator as cherry.
+* **Work Period Length:** The number of blocks which must pass, from the end of the funding stage, before the oracle for the bounty can adjudicate the outcome of the bounty.
+* **Judging Period Length:** The maximum number of blocks which can pass, from the end of the working period, while the oracle does not adjudicate a the outcome and funds cannot be withdrawn.
+* **Contributions:** The net amount contributed for each contributor to the bounty.
+* **Stage:** The stage of the bounty see next subsection
 
 #### Stage
 
