@@ -13,7 +13,7 @@ The only other way to fund the production of goods that create benefits to a bro
 
 ## Assurance Contracts and Dominant Assurance Contracts
 
-An assurance contract is a funding scheme which is intended to override the inherent free-riding problem in financing public goods by allowing contributors to enter into binding conditional commitments to provide resources to fund the good if a sufficient level of funding is committed. By setting the level sufficiently high, every public good beneficiary becomes close to pivotal to getting the good produced, which generates a rationale incentive to unilaterally commit. Dominant assurance contracts are such schemes where the funding has to be deployed towards a specific service provider or entrepreneur who will produce the good using the funding, and in exchange for this prividlige to possibly generate a profit from this activity, the entrepreneur has to put up an initial bounty, called a _cherry_ , which is split among all contributors pro-rata. This cherry generates an incentive for contributors, as even when the funding fails, they get a benefit.
+An assurance contract is a funding scheme which is intended to override the inherent free-riding problem in financing public goods by allowing contributors to enter into binding conditional commitments to provide resources to fund the good if a sufficient level of funding is committed. By setting the level sufficiently high, every public good beneficiary becomes close to pivotal to getting the good produced, which generates a rationale incentive to unilaterally commit. Dominant assurance contracts are such schemes where the funding has to be deployed towards a specific service provider or entrepreneur who will produce the good using the funding, and in exchange for this privileged to possibly generate a profit from this activity, the entrepreneur has to put up an initial bounty, called a _cherry_ , which is split among all contributors pro-rata. This cherry generates an incentive for contributors, as even when the funding fails, they get a benefit.
 
 ## Roles
 
@@ -33,7 +33,7 @@ The funding period type refers to how funds are collected for the benefit of a b
 
 ### Bounty Type
 
-There are two types of bounties in terms of who can particpate as worker. There are _open_ bounties, where any member can participate, and there are _closed_ bounties, where the creator can pre-determine a set of member who can participate. The primary purpose of closed bounties is to enable dominant assurance contracts, where the creator combines setting themselves as the only feasible worker with also 
+There are two types of bounties in terms of who can participate as worker. There are _open_ bounties, where any member can participate, and there are _closed_ bounties, where the creator can pre-determine a set of member who can participate. The primary purpose of closed bounties is to enable dominant assurance contracts, where the creator combines setting themselves as the only feasible worker with also 
 
 ### Bounty
 
@@ -46,27 +46,23 @@ A bounty is defined is defined by the following information
 * Work Period Length:
 * Judging Period Length:
 * Funding:
-* Stage: 
+* Stage: The stage of the bounty see next subsection
 
+#### Stage
 
+Below is a list of the stages a bounty can be in, and what each of them mean:
 
+* **Funding Period:** x...
+* **Working Period:** xx.
+* **Judgement Period:** ..
+* **Expired Funding Period:** ..
+* **Withdrawal Period:**  zz
+  * **Bounty Successful:** xx
+  * **Bounty Failed:** xx
 
+The stages and transitions are summarized in the image below.
 
-
-
-
-
-An actor who decides the outcome of a bounty where there are entrants who have submitted work
-
-
-
-
-
-
-
-
-
-![](../.gitbook/assets/bounties_statechart.png)
+![Bounty life-cycle stages.](../.gitbook/assets/bounties_statechart.png)
 
 ## Constants
 
