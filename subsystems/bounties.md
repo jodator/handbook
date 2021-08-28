@@ -31,7 +31,7 @@ Notice that when the council is an actor, it means that if the lifetime of a bou
 The funding period type refers to how funds are collected for the benefit of a bounty, and there are fundamentally two types:
 
 * **Perpetual:** The funding has not preset termination date, and new contributors can join on an ongoing basis. There is however a _target_ which sets the upper bound for how much can be contributed.
-* **Limited:** The funding lasts for no longer than a given number of blocks, called the _funding period_ . There is a lower bound for how much must be contributed
+* **Limited:** The funding lasts for no longer than a given number of blocks, called the _funding period_ . There is a lower bound and upper bounfor how much must be contributed
 
 ### Bounty Type
 
@@ -59,7 +59,7 @@ A bounty is defined is defined by the following information
 
 Below is a list of the stages a bounty can be in, and what each of them mean:
 
-* **Funding Period:** This is the initial stage of a bounty once it is created, and it is during this stage that the bounty can accept funding contributions. It is also during this stage the bounty can be vetoed by the council. The creator can also cancel the bounty in this stage if there are no contributions. If a contribution is made that brings the cumulative funding equal to or above the ..
+* **Funding Period:** This is the initial stage of a bounty once it is created, and it is during this stage that the bounty can accept funding contributions. It is also during this stage the bounty can be vetoed by the council. The creator can also cancel the bounty in this stage if there are no contributions. If a contribution is made that brings the cumulative funding equal to or above the upper bound, then the difference is returned, and the bounty proceeds to the `Working Period` stage. Lastly if the funding period is limited and the time passes this time, then the bounty proceeds to the `Experied Funding Period`stage.
 * **Working Period:** xx.
 * **Judgement Period:** ..
 * **Expired Funding Period:** ..
