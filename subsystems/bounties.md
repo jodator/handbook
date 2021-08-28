@@ -52,13 +52,14 @@ A bounty is defined is defined by the following information
 * **Work Period Length:** The number of blocks which must pass, from the end of the funding stage, before the oracle for the bounty can adjudicate the outcome of the bounty.
 * **Judging Period Length:** The maximum number of blocks which can pass, from the end of the working period, while the oracle does not adjudicate a the outcome and funds cannot be withdrawn.
 * **Contributions:** The net amount contributed for each contributor to the bounty.
+* **Metadata:** Structured data encoding the purpose and terms of the bounty.
 * **Stage:** The stage of the bounty see next subsection
 
 #### Stage
 
 Below is a list of the stages a bounty can be in, and what each of them mean:
 
-* **Funding Period:** x...
+* **Funding Period:** This is the initial stage of a bounty once it is created, and it is during this stage that the bounty can accept funding contributions. It is also during this stage the bounty can be vetoed by the council. The creator can also cancel the bounty in this stage if there are no contributions. If a contribution is made that brings the cumulative funding equal to or above the ..
 * **Working Period:** xx.
 * **Judgement Period:** ..
 * **Expired Funding Period:** ..
