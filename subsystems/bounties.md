@@ -26,6 +26,10 @@ Notice that when the council is an actor, it means that if the lifetime of a bou
 
 ## Concepts
 
+### Bounty Actor
+
+For the act of creating, or contributing funds to a bounty, they can be done by either a member or the council as a whole, the concept of a _bounty actor_  refers therefore to either a specific member or the council, and represents this actor in a unified way.
+
 ### Funding Period Type
 
 The funding period type refers to how funds are collected for the benefit of a bounty, and there are fundamentally two types:
@@ -57,7 +61,7 @@ A bounty is defined is defined by the following information
 
 * **Oracle:** Bounty oracle, is either a member or the council.
 * **Type:** Bounty type, is open or closed.
-* **Creator:** Bounty creator, is either a member or the council.
+* **Creator:** Bounty creator, is a bounty actor.
 * **Cherry:** Amount of funds contributed by creator as cherry.
 * **Work Period Length:** The number of blocks which must pass, from the end of the funding stage, before the oracle for the bounty can adjudicate the outcome of the bounty.
 * **Judging Period Length:** The maximum number of blocks which can pass, from the end of the working period, while the oracle does not adjudicate a the outcome and funds cannot be withdrawn.
@@ -83,7 +87,14 @@ The stages and transitions are summarized in the image below.
 
 ## Constants
 
-xxx
+Hard-coded values are defined _for each working group_, and they can only be altered with a runtime upgrade.
+
+| Name | Description |
+| :--- | :--- |
+| `ClosedContractSizeLimit` | Max work entry number for a closed assurance type contract bounty. |
+| `MinCherryLimit` | Min cherry for a bounty. |
+| `MinFundingLimit` | Min funding amount for a bounty. |
+| `MinWorkEntrantStake` | Min work entrant stake for a bounty. |
 
 ## Extrinsics
 
@@ -93,7 +104,16 @@ xxx
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
+| `origin` | Caller origin. |
+| `oracle` | Member id set as oracle. |
+| `bounty_type` | Bounty type. |
+| `bounty_actor` | Bounty creator. |
+| `cherry` | Amount of funds dedicated as cherry. |
+| `entrant_stake` | Amount of stake required for prospective workers to create entry. |
+| `funding_period_type` | xx |
+| `working_period_length` | xx |
+| `judging_period_length` | xx |
+| `metadata` | ... |
 
 #### Conditions
 
