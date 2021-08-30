@@ -73,9 +73,9 @@ Below is a list of the stages a bounty can be in, and what each of them mean:
 * **Expired Funding Period:** During this stage the bounty is only waiting to get cancelled by the creator, terminating the bounty.
 * **Working Period:** This is the stage where workers announce their entries and submit their work, and optionally also withdraw. After the working period length has expired since the initiation of the working period, the stage transitions to the `Judgement Period`.
 * **Judgement Period:** This is the stage during which the oracle can evaluate the submitted work entries during the working periods. The judgement identifies a set of winning contributors, possibly empty, each with a non-zero number of tokens as a reward. The total reward must perfectly consume the contributed funding to the bounty, but reward distribution need not be uniform. If the oracle selects an empty set of winners, or does not provide a judgement within the end of the judgement period, a transition is made to the `Bounty Failed` stage, otherwise a transition to `Bounty Successful` stage is made if the set is non-empty.
-* **Withdrawal Period:**  This represents the stage where funds can be withdrawn from the bounty, eventually leading to the bounty getting terminated.
-  * **Bounty Successful:** This represents the case where the some subset of workers have been selected as winners, and each must cash out to claim their reward. Workers who did not win also have to cash out their possible prior stake.....  When the last cashout is made, the bounty is terminated.
-  * **Bounty Failed:** xx
+* **Withdrawal Period:**  This represents the stage where funds can be withdrawn from the bounty, eventually leading to the bounty getting terminated. 
+  * **Bounty Successful:** This represents the case where the some subset of workers have been selected as winners, and each must cash out to claim their reward. Workers who did not win also have to cash out their possible prior stake. When the last cashout is made, the bounty is terminated.
+  * **Bounty Failed:** This represents the case where no winners were selected, and all contributed funds need to be returned to fund contributors, including a portion of a possible cherry. Workers who did not win also have to cash out their possible prior stake.
 
 The stages and transitions are summarized in the image below.
 
