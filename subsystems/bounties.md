@@ -98,6 +98,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `MinCherryLimit` | Min cherry for a bounty. |
 | `MinFundingLimit` | Min funding amount for a bounty. |
 | `MinWorkEntrantStake` | Min work entrant stake for a bounty. |
+| `ModuleAccountId` | Account id of built in account used to hold funds and cherries contributed across all bounties. |
 
 ## Extrinsics
 
@@ -134,7 +135,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 #### Effect
 
 * A new bounty is created in the `Funding Period`.
-* Deduct `cherry` from either the council budget or controller account of the creator.
+* Deduct `cherry` from either the council budget or controller account of the creator, and credited to account `ModuleAccountId`.
 
 ### Cancel Bounty
 
@@ -156,7 +157,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 #### Effect
 
 * A xx
-
+* 
 
 
 ### Veto Bounty
