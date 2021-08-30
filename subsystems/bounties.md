@@ -52,6 +52,7 @@ For someone to be able to participate as a worker, with the opportunity to captu
 * **Work:** List of work submissions made during the `Working Period`, encoded as structure data in a standardized format.
 * **Status:** The status of a bounty has three disjoint variants
   * **Working:** During `Working Period`.
+  * **Withdrawn:** Entry was withdrawn during the `Working Period`.
   * **Winner:** When selected a a winner of the bounty, hence in the `Bounty Successful` stage.
   * **Rejected:** When selected as a lower in the bounty, hence in `Withdrawal Period` stage.
 
