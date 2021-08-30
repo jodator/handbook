@@ -41,6 +41,16 @@ There are two types of bounties in terms of who can participate as worker. There
 
 xxxx &lt; WIP &gt; define later.
 
+* Member
+* Staking Account:
+* Submitted At
+* Work: List of ....
+* ...
+* Status: ...judgement result: ...
+  * None
+  * winner
+  * rejected
+
 ### Bounty
 
 A bounty is defined is defined by the following information
@@ -61,7 +71,7 @@ Below is a list of the stages a bounty can be in, and what each of them mean:
 
 * **Funding Period:** This is the initial stage of a bounty once it is created, and it is during this stage that the bounty can accept funding contributions. It is also during this stage the bounty can be vetoed by the council. The creator can also cancel the bounty in this stage if there are no contributions. If a contribution is made that brings the cumulative funding equal to or above the upper bound, then the difference is returned, and the bounty proceeds to the `Working Period` stage. Lastly if the funding period is limited and the time passes this time, then the bounty proceeds to the `Experied Funding Period`stage.
 * **Working Period:** This is the stage where workers announce their entries and submit their work, and optionally also withdraw. After the working period length has expired since the initiation of the working period, the stage transitions to the `Judgement Period`.
-* **Judgement Period:** This is the stage during which the oracle can evaluate 
+* **Judgement Period:** This is the stage during which the oracle can evaluate the submitted work entries during the working periods, and 
 * **Expired Funding Period:** ..
 * **Withdrawal Period:**  zz
   * **Bounty Successful:** xx
