@@ -143,11 +143,15 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | Name | Description |
 | :--- | :--- |
 | `origin` | Caller origin. |
-| `bounty_id` | .... |
+| `bounty_actor` | Bounty creator. |
+| `bounty_id` | Bounty identifier. |
 
 #### Conditions
 
-* xxx
+* `origin` corresponds to `bounty_actor`.
+* `bounty_id` corresponds to an existing bounty `bounty`.
+* `bounty_actor`created bounty identified by `bounty_id`. 
+* `bounty` is either in stage `Funding Period` without any contributions, or is in stage `Funding Expired`.
 
 #### Effect
 
