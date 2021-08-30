@@ -31,25 +31,25 @@ Notice that when the council is an actor, it means that if the lifetime of a bou
 The funding period type refers to how funds are collected for the benefit of a bounty, and there are fundamentally two types:
 
 * **Perpetual:** The funding has not preset termination date, and new contributors can join on an ongoing basis. There is however a _target_ which sets the upper bound for how much can be contributed.
-* **Limited:** The funding lasts for no longer than a given number of blocks, called the _funding period_ . There is a lower bound and upper bounfor how much must be contributed
+* **Limited:** The funding lasts for no longer than a given number of blocks, called the _funding period_ . There is a lower bound and upper bound for how much must be contributed
 
 ### Bounty Type
 
-There are two types of bounties in terms of who can participate as worker. There are _open_ bounties, where any member can participate, and there are _closed_ bounties, where the creator can pre-determine a set of member who can participate. The primary purpose of closed bounties is to enable dominant assurance contracts, where the creator combines setting themselves as the only feasible worker with also..
+There are two types of bounties in terms of who can participate as worker. There are _open_ bounties, where any member can participate, and there are _closed_ bounties, where the creator can pre-select a set of member who can participate. The primary purpose of closed bounties is to enable dominant assurance contracts, where the creator combines setting themselves as the only feasible worker with also providing a cherry.
 
 ### Entry
 
-xxxx &lt; WIP &gt; define later.
+For someone to be able to participate as a worker, with the opportunity to capture some portion of the funds accumulated for the bounty, they have to announce their participation in the bounty in the form of an _entry_. It describes the status of the involvement of a worker in a bounty, and it is defined by the following information:  
+  
+&lt;bug!&gt;
 
-* Member
-* Staking Account:
-* Submitted At
-* Work: List of ....
-* ...
-* Status: ...judgement result: ...
-  * None
-  * winner
-  * rejected
+* **Worker:** Member Id of worker.
+* **Staking Account:** Account holding funds used to stake for participation in bounty.
+* **Work:** List of work submissions made during the `Working Period`, encoded as structure data in a standardized format.
+* **Status:** The status of a bounty has three disjoint variants
+  * **Working:** During `Working Period`.
+  * **Winner:** When selected a a winner of the bounty, hence in the `Bounty Successful` stage.
+  * **Rejected:** When selected as a lower in the bounty, hence in `Withdrawal Period` stage.
 
 ### Bounty
 
