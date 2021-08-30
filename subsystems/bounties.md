@@ -22,7 +22,7 @@ An assurance contract is a funding scheme which is intended to override the inhe
 * **Contributor:** An agent responsible for contributing funds that finance the bounty. Is either a specific member or the council as a whole.
 * **Worker:** A member who has announced their participation in producing deliverable in a given bounty.
 
-Notice that when the council is an actor, it means that if the lifetime of a bounty spans the boundry of two councils, then a different set of council members are likely in place to exercise control over the same bounty.
+Notice that when the council is an actor, it means that if the lifetime of a bounty spans the boundary of two councils, then a different set of council members are likely in place to exercise control over the same bounty.
 
 ## Concepts
 
@@ -110,18 +110,28 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `bounty_actor` | Bounty creator. |
 | `cherry` | Amount of funds dedicated as cherry. |
 | `entrant_stake` | Amount of stake required for prospective workers to create entry. |
-| `funding_period_type` | xx |
-| `working_period_length` | xx |
-| `judging_period_length` | xx |
-| `metadata` | ... |
+| `funding_period_type` | The number of blocks in the funding period. |
+| `working_period_length` | The number of blocks in the working period. |
+| `judging_period_length` | The number of blocks in the judging period. |
+| `metadata` | Structured metadata describing the bounty in a human readable form. |
 
 #### Conditions
 
-* xxx
+* `origin` corresponds to `bounty_actor`.
+* If `bounty_actor` is
+  * a member, then the controller account of the member must have sufficient balance for the `cherry`.
+  * the council, then the council budget must accommodate the `cherry`.
+* `cherry` is no less than `MinCherryLimit`.
+* `entrant_stake` is no less than `MinWorkEntrantStake`.
+* If `bounty_type` is closed, the number of members is no greater than `ClosedContractSizeLimit`, and not zero.
+* If `funding_period_type` is
+  * perpetual, then the target is greater than zero.
+  * limited, then the minimum funding amount, max amount and funding period length all must be non-zero, and the max funding amount must be greater than the minimum funding amount.
 
 #### Effect
 
-* A xx
+* A new bounty is created in the `Funding Period`.
+* Deduct `cherry` from either the council budget or controller account of the creator.
 
 ### Cancel Bounty
 
