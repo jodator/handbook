@@ -111,7 +111,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `origin` | Caller origin. |
 | `oracle` | Member id set as oracle. |
 | `bounty_type` | Bounty type. |
-| `bounty_actor` | Bounty creator. |
+| `creator` | Bounty actor for creator. |
 | `cherry` | Amount of funds dedicated as cherry. |
 | `entrant_stake` | Amount of stake required for prospective workers to create entry. |
 | `funding_period_type` | The number of blocks in the funding period. |
@@ -122,7 +122,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 #### Conditions
 
 * `origin` corresponds to `bounty_actor`.
-* If `bounty_actor` is
+* If `creator` is
   * a member, then the controller account of the member must have sufficient balance for the `cherry`.
   * the council, then the council budget must accommodate the `cherry`.
 * `cherry` is no less than `MinCherryLimit`.
@@ -144,39 +144,20 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | Name | Description |
 | :--- | :--- |
 | `origin` | Caller origin. |
-| `bounty_actor` | Bounty creator. |
+| `creator` | Bounty actor for creator. |
 | `bounty_id` | Bounty identifier. |
 
 #### Conditions
 
-* `origin` corresponds to `bounty_actor`.
+* `origin` corresponds to `creator`.
 * `bounty_id` corresponds to an existing bounty `bounty`.
-* `bounty_actor`created bounty identified by `bounty_id`. 
+* `creator`created bounty identified by `bounty_id`. 
 * `bounty` is either in stage `Funding Period` without any contributions, or is in stage `Funding Expired`.
 
 #### Effect
 
-* A xx
-* 
-
-
-### Veto Bounty
-
-**Parameters**
-
-| Name | Description |
-| :--- | :--- |
-| `xxx` | To be root account of membership. |
-
-#### Conditions
-
-* xxx
-
-#### Effect
-
-* A xx
-
-
+* `cherry` is credited to `creator` and deducted from `ModuleAccountId`.
+* `bounty` is terminated.
 
 ### Fund Bounty
 
@@ -184,7 +165,8 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
+| `origin` | Caller origin. |
+| \`un |  |
 
 #### Conditions
 
