@@ -47,6 +47,7 @@ For someone to be able to participate as a worker, with the opportunity to captu
   
 &lt;bug!&gt;
 
+* **EntryId:** Unique non-negative integer identifier across all entries.
 * **Worker:** Member Id of worker.
 * **Staking Account:** Account holding funds used to stake for participation in bounty.
 * **Work:** List of work submissions made during the `Working Period`, encoded as structure data in a standardized format.
@@ -60,6 +61,7 @@ For someone to be able to participate as a worker, with the opportunity to captu
 
 A bounty is defined is defined by the following information
 
+* **BountyId:** Unique non-negative integer identifier across all bounties.
 * **Oracle:** Bounty oracle, is either a member or the council.
 * **Type:** Bounty type, is open or closed.
 * **Creator:** Bounty creator, is a bounty actor.
@@ -140,8 +142,8 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
-| `metadata` | .... |
+| `origin` | Caller origin. |
+| `bounty_id` | .... |
 
 #### Conditions
 
