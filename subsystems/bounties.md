@@ -100,6 +100,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `MinFundingLimit` | Min funding amount for a bounty. |
 | `MinWorkEntrantStake` | Min work entrant stake for a bounty. |
 | `ModuleAccountId` | Account id of built in account used to hold funds and cherries contributed across all bounties. |
+| `LOCK_ID` | The Id for the lock used to stake in bounty system. |
 
 ## Extrinsics
 
@@ -110,9 +111,9 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | Name | Description |
 | :--- | :--- |
 | `origin` | Caller origin. |
-| `oracle` | Member id set as oracle. |
+| `oracle` | Bounty actor that is oracle. |
 | `bounty_type` | Bounty type. |
-| `creator` | Bounty actor for creator. |
+| `creator` | Bounty actor that is creator. |
 | `cherry` | Amount of funds dedicated as cherry. |
 | `entrant_stake` | Amount of stake required for prospective workers to create entry. |
 | `funding_period_type` | The number of blocks in the funding period. |
@@ -230,8 +231,8 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 #### Effect
 
-* bounty lock xxx
-* Lock is applied
+* A work entry is added for the member to the bounty, in the `Working` state.
+* Account with id `staking_account_id` has lock with Id `LOCK_ID` and of size`MinWorkEntrantStake`set.
 
 ### Withdraw Work Entry
 
@@ -239,7 +240,10 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
+| `origin` | Caller origin. |
+| `member_id` | Member identifier for worker. |
+| `bounty_id` | Identifier for bounty to which work entry corresponds. |
+| `entry_id`  | Identifier for work entry. |
 
 #### Conditions
 
@@ -255,7 +259,11 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
+| `origin` | Caller origin. |
+| `member_id` | Member identifier for worker. |
+| `bounty_id` | Identifier for bounty to which work entry corresponds. |
+| `entry_id` | Identifier for work entry. |
+| `work_data` | Encoded work metadata. |
 
 #### Conditions
 
@@ -271,7 +279,8 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
+| `origin` | Caller origin. |
+| `caller`  |  |
 
 #### Conditions
 
