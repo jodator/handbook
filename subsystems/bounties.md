@@ -68,7 +68,7 @@ A bounty is defined is defined by the following information
 * **Cherry:** Amount of funds contributed by creator as cherry.
 * **Work Period Length:** The number of blocks which must pass, from the end of the funding stage, before the oracle for the bounty can adjudicate the outcome of the bounty.
 * **Judging Period Length:** The maximum number of blocks which can pass, from the end of the working period, while the oracle does not adjudicate a the outcome and funds cannot be withdrawn.
-* **Contributions:** The net amount contributed for each contributor to the bounty.
+* **Contributions:** The set of all contributions made, each identified with a unique bounty actor, and having an associated positive balance contribution.
 * **Metadata:** Structured data encoding the purpose and terms of the bounty.
 * **Stage:** The stage of the bounty see next subsection
 
@@ -166,17 +166,23 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | Name | Description |
 | :--- | :--- |
 | `origin` | Caller origin. |
-| \`un |  |
+| `funder` | Bounty actor for funder. |
+| `bounty_id` | Identifier for bounty to be funded. |
+| `amount` | Balance to be contributed towards bounty from funder. |
 
 #### Conditions
 
-* xxx
+* `origin` corresponds to `funder`.
+* `bounty_id` corresponds to an existing bounty `bounty`.
+* `bounty` is in stage `Funding Period`.
+* `funder` can cover `amount`.
+* `amount` is no less than `MinFundingLimit`.
 
 #### Effect
 
-* A xx
-
-
+* `amount` would bring the total amount funded so far, denoted by `current_funding`, equal to or over the target or max value, denoted by `limit`, and transition to the `Working Period` . Let `_amount` denote the quantity of funds that can be contributed to the bounty without overflowing the limit, that is `min(limit - current_funding, amount)` .
+* `_amount` is debited from `funder` and credited towards account ****`ModuleAccountId`.
+* If `funder` has already contributed to the bounty, then add `_amount` to their net contribution, otherwise note their total contribution to be `_amount`.
 
 ### Withdraw Funding
 
@@ -184,15 +190,22 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
+| `origin` | Caller origin. |
+| `funder` | Bounty actor for funder. |
+| `bounty_id` | Identifier for bounty to be funded. |
 
 #### Conditions
 
-* xxx
+* `origin` corresponds to `funder` .
+* `bounty_id` corresponds to an existing bounty `bounty` .
+* `bounty` is in stage `Bounty Failed` .
+* `funder`has made a contribution to the `bounty` that has not been withdrawn.
 
 #### Effect
 
-* A xx
+* Remove contribution of balance `amount` made by `funder` to `bounty`.
+* Credit `funder` with `amount` and debit `ModuleAccountId`  the corresponding amount.
+* If there is no outstanding contributions or entries to the bounty, then terminate the bounty.
 
 ### Announce Work Entry
 
@@ -200,15 +213,20 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
+| `origin` | Caller origin. |
+| `member_id` | Member identifier of prospective worker. |
+| `bounty_id` | Identifier for bounty in which member wants to join. |
+| `staking_account_id` | Account balance. |
 
 #### Conditions
 
 * xxx
+* xx
 
 #### Effect
 
-* A xx
+* xxx
+* xx
 
 ### Withdraw Work Entry
 
