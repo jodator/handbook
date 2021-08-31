@@ -45,17 +45,19 @@ There are two types of bounties in terms of who can participate as worker. There
 
 For someone to be able to participate as a worker, with the opportunity to capture some portion of the funds accumulated for the bounty, they have to announce their participation in the bounty in the form of an _entry_. It describes the status of the involvement of a worker in a bounty, and it is defined by the following information:  
   
-&lt;bug!&gt;
+**&lt;bug: entry id missing&gt;**
 
 * **EntryId:** Unique non-negative integer identifier across all entries.
 * **Worker:** Member Id of worker.
 * **Staking Account:** Account holding funds used to stake for participation in bounty.
 * **Work:** List of work submissions made during the `Working Period`, encoded as structure data in a standardized format.
-* **Status:** The status of a bounty has three disjoint variants
-  * **Working:** During `Working Period`.
-  * **Withdrawn:** Entry was withdrawn during the `Working Period`.
-  * **Winner:** When selected a a winner of the bounty, hence in the `Bounty Successful` stage.
-  * **Rejected:** When selected as a lower in the bounty, hence in `Withdrawal Period` stage.
+* **Status:** The status of an entry has the following disjoint variants.
+  * **Working:** Initial status during creation in `Working Period`.
+  * **Withdrawn:** When withdrawn during the `Working Period`.
+  * **Winner:** Selected as winner during `Judgement Period` , and therefore is due an outstanding share of the bounty funds.
+  * **Passed:** Not referenced by oracle in `Judgement Period` judgement, and therefore is not owed any share of the bounty funds, but has outstanding stake that can be recovered.
+  * **Rejected:** Rejected by oracle in `Judgement Period` as a malicious entry, and thus has had stake slashed.
+  * **CashedOut:** Worker cashed out stake and/or share of bounty reward.
 
 ### Bounty
 
@@ -281,9 +283,9 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | Name | Description |
 | :--- | :--- |
 | `origin` | Caller origin. |
-| `caller`  |  |
+| `oracle`  | Bounty actor that is oracle. |
 | `bounty_id` | Identifier for bounty for which judgement is being submitted. |
-| `judgement` | ... |
+| `judgement` | Set of enties to be identified as winners, and set of entries to be identified as lo |
 
 #### Conditions
 
