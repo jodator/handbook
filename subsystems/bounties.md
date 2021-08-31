@@ -69,6 +69,7 @@ A bounty is defined is defined by the following information
 * **Work Period Length:** The number of blocks which must pass, from the end of the funding stage, before the oracle for the bounty can adjudicate the outcome of the bounty.
 * **Judging Period Length:** The maximum number of blocks which can pass, from the end of the working period, while the oracle does not adjudicate a the outcome and funds cannot be withdrawn.
 * **Contributions:** The set of all contributions made, each identified with a unique bounty actor, and having an associated positive balance contribution.
+* **Entries:** The set of all active entries in the bounty.
 * **Metadata:** Structured data encoding the purpose and terms of the bounty.
 * **Stage:** The stage of the bounty see next subsection
 
@@ -220,8 +221,10 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 #### Conditions
 
-* xxx
-* xx
+* `origin` corresponds to identifier `member_id` for a member.
+* `bounty_id` corresponds to an existing bounty `bounty` .
+* `bounty` is in stage `Working Period` .
+* `staking_account_id` is a staking accoutn associated with the member.
 
 #### Effect
 
