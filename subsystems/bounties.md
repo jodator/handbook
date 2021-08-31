@@ -219,6 +219,7 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `member_id` | Member identifier of prospective worker. |
 | `bounty_id` | Identifier for bounty in which member wants to join. |
 | `staking_account_id` | Account balance. |
+| `metadata` | Structured metadata describing the work entry in a human readable form. |
 
 #### Conditions
 
@@ -281,6 +282,8 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | :--- | :--- |
 | `origin` | Caller origin. |
 | `caller`  |  |
+| `bounty_id` | Identifier for bounty for which judgement is being submitted. |
+| `judgement` | ... |
 
 #### Conditions
 
@@ -296,7 +299,10 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 | Name | Description |
 | :--- | :--- |
-| `xxx` | To be root account of membership. |
+| `origin` | Caller origin. |
+| `member_id` | Member identifier for worker. |
+| `bounty_id` | Identifier for bounty to which work entry corresponds. |
+| `entry_id` | Identifier for work entry. |
 
 #### Conditions
 
