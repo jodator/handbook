@@ -224,12 +224,13 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 * `origin` corresponds to identifier `member_id` for a member.
 * `bounty_id` corresponds to an existing bounty `bounty` .
 * `bounty` is in stage `Working Period` .
-* `staking_account_id` is a staking accoutn associated with the member.
+* If `bounty` is a closed bounty, then `memeber_id` is among the permitted participants.
+* `staking_account_id` is a staking account associated with the member, and has a free balance no less than `MinWorkEntrantStake` .
 
 #### Effect
 
 * xxx
-* xx
+* Lock is applied
 
 ### Withdraw Work Entry
 
