@@ -41,9 +41,9 @@ The funding period type refers to how funds are collected for the benefit of a b
 
 There are two types of bounties in terms of who can participate as worker. There are _open_ bounties, where any member can participate, and there are _closed_ bounties, where the creator can pre-select a set of member who can participate. The primary purpose of closed bounties is to enable dominant assurance contracts, where the creator combines setting themselves as the only feasible worker with also providing a cherry.
 
-### Entry
+### Work Entry
 
-For someone to be able to participate as a worker, with the opportunity to capture some portion of the funds accumulated for the bounty, they have to announce their participation in the bounty in the form of an _entry_. It describes the status of the involvement of a worker in a bounty, and it is defined by the following information:  
+For someone to be able to participate as a worker, with the opportunity to capture some portion of the funds accumulated for the bounty, they have to announce their participation in the bounty in the form of a _work entry_. It describes the status of the involvement of a worker in a bounty, and it is defined by the following information:  
   
 **&lt;bug: entry id missing&gt;**
 
@@ -250,11 +250,15 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 #### Conditions
 
-* xxx
+* `origin` corresponds to identifier `member_id` for a member.
+* `bounty_id` corresponds to an existing bounty `bounty`.
+* `bounty` is in stage `Working Period`.
+* `entry_id` corresponds to an entry `entry` with status `Working`  and where the worker has identifier 
 
 #### Effect
 
-* A xx
+* The `entry` status is set to `Withdrawn` .
+* The staking account of the entry has lock with Id `LOCK_ID` removed, and the account is slashed a share of the staked balance equal to the share of the working period length for which the entry had the status `Working`.
 
 ### Submit Work
 
@@ -270,11 +274,14 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 #### Conditions
 
-* xxx
+* `origin` corresponds to identifier `member_id` for a member.
+* `bounty_id` corresponds to an existing bounty `bounty`.
+* `bounty` is in stage `Working Period`.
+* `entry_id` corresponds to an entry `entry` with status `Working`  and where the worker has identifier 
 
 #### Effect
 
-* A xx
+`None` .
 
 ### Submit Oracle Judgement
 
@@ -285,15 +292,22 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 | `origin` | Caller origin. |
 | `oracle`  | Bounty actor that is oracle. |
 | `bounty_id` | Identifier for bounty for which judgement is being submitted. |
-| `judgement` | Set of enties to be identified as winners, and set of entries to be identified as lo |
+| `judgement` | Set of entries to be identified as winners, and set of entries to be identified as rejected. |
 
 #### Conditions
 
-* xxx
+* `origin` corresponds to identifier `member_id` for a member.
+* `bounty_id` corresponds to an existing bounty `bounty`.
+* `bounty` is in stage `Working Period`.
+* `judgement` references two disjoint sets of entries that all have status `Working`
+  * a, possibly empty, set of entries designated as winners, each having submitted at least one work submission, and each with an associated non-zero balance designated as the reward, and where all rewards add up to the total funding of the bounty.
+  * a set of entries designated as rejected, to be slashed.
 
 #### Effect
 
-* A xx
+* ... for each rejected entry references by `judgement` , apply slashing, remove lock with Id `LOCK_ID` , and set status to `Rejected`.
+* for each rejected entry references by `judgement` , apply slashing, remove lock with Id `LOCK_ID` , and set status to `Rejected`.
+* transition bounty to stage `Bounty  Failed` if there are no winners, otherwise transition to `Bounty Successful`.
 
 ### Withdraw Work Entrant Funds
 
