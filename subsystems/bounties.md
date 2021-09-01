@@ -305,8 +305,8 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 #### Effect
 
-* ... for each rejected entry references by `judgement` , apply slashing, remove lock with Id `LOCK_ID` , and set status to `Rejected`.
-* for each rejected entry references by `judgement` , apply slashing, remove lock with Id `LOCK_ID` , and set status to `Rejected`.
+* for each winner entry referenced by `judgement` , credit worker account, remove lock with Id `LOCK_ID` , and set status to `Winner`.
+* for each rejected entry referenced by `judgement` , apply slashing, remove lock with Id `LOCK_ID` , and set status to `Rejected`.
 * transition bounty to stage `Bounty  Failed` if there are no winners, otherwise transition to `Bounty Successful`.
 
 ### Withdraw Work Entrant Funds
