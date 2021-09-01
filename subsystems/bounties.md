@@ -54,7 +54,7 @@ For someone to be able to participate as a worker, with the opportunity to captu
 * **Status:** The status of an entry has the following disjoint variants.
   * **Working:** Initial status during creation in `Working Period`.
   * **Withdrawn:** When withdrawn during the `Working Period`.
-  * **Winner:** Selected as winner during `Judgement Period` , and therefore is due an outstanding share of the bounty funds.
+  * **Winner:** Selected as winner during `Judgement Period` , and therefore is due an outstanding share of the bounty funds, called _reward_  .
   * **Passed:** Not referenced by oracle in `Judgement Period` judgement, and therefore is not owed any share of the bounty funds, but has outstanding stake that can be recovered.
   * **Rejected:** Rejected by oracle in `Judgement Period` as a malicious entry, and thus has had stake slashed.
   * **CashedOut:** Worker cashed out stake and/or share of bounty reward.
@@ -305,11 +305,11 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 #### Effect
 
-* for each winner entry referenced by `judgement` , credit worker account, remove lock with Id `LOCK_ID` , and set status to `Winner`.
+* for each winner entry referenced by `judgement` , credit worker account and debited from `ModuleAccountId` , remove lock with Id `LOCK_ID` , and set status to `Winner`.
 * for each rejected entry referenced by `judgement` , apply slashing, remove lock with Id `LOCK_ID` , and set status to `Rejected`.
-* transition bounty to stage `Bounty  Failed` if there are no winners, otherwise transition to `Bounty Successful`.
+* transition bounty to stage `Bounty Failed` if there are no winners, otherwise transition to `Bounty Successful`.
 
-### Withdraw Work Entrant Funds
+### Cashout Work Entrant Funds
 
 **Parameters**
 
@@ -322,11 +322,18 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 #### Conditions
 
-* xxx
+* `origin` corresponds to identifier `member_id` for a member.
+* `bounty_id` corresponds to an existing bounty `bounty`.
+* `entry_id` corresponds to an entry `entry` where worker has identifier `member_id` and the status is not `CashedOut`or `Rejected` or `Withdrawn` .
+* `bounty` is in stage`Withdrawal Period`. 
 
 #### Effect
 
-* A xx
+* if `entity` has status `Winner` , then the associated reward is credited to `member_id` controller account and debited from `ModuleAccountId`.
+* `entity` staking account has lock with Id `LOCK_ID` removed.
+* `entity` status is updated to `CashedOut`.
+
+ 
 
 
 
