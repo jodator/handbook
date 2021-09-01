@@ -43,9 +43,7 @@ There are two types of bounties in terms of who can participate as worker. There
 
 ### Work Entry
 
-For someone to be able to participate as a worker, with the opportunity to capture some portion of the funds accumulated for the bounty, they have to announce their participation in the bounty in the form of a _work entry_. It describes the status of the involvement of a worker in a bounty, and it is defined by the following information:  
-  
-**&lt;bug: entry id missing&gt;**
+For someone to be able to participate as a worker, with the opportunity to capture some portion of the funds accumulated for the bounty, they have to announce their participation in the bounty in the form of a _work entry_. It describes the status of the involvement of a worker in a bounty, and it is defined by the following information:
 
 * **EntryId:** Unique non-negative integer identifier across all entries.
 * **Worker:** Member Id of worker.
@@ -332,8 +330,4 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 * if `entity` has status `Winner` , then the associated reward is credited to `member_id` controller account and debited from `ModuleAccountId`.
 * `entity` staking account has lock with Id `LOCK_ID` removed.
 * `entity` status is updated to `CashedOut`.
-
- 
-
-
 
