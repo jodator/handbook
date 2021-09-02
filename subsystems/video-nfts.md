@@ -1,4 +1,4 @@
-# Video NFTs
+# NFTs
 
 ## Introduction
 
