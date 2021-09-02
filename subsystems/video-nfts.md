@@ -11,6 +11,12 @@ This article will be incorporated into the `Content Directory` article later.
 * English: ..
 * Open: ...
 
+### Buy Now
+
+xxxx
+
+
+
 ## Constants
 
 The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
