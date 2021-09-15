@@ -11,6 +11,10 @@ This article will be incorporated into the `Content Directory` article later.
 * English: ..
 * Open: ...
 
+### Content Actor
+
+xxx
+
 ### Buy Now
 
 xxxx
@@ -132,7 +136,14 @@ The following constants are hard coded into the system, they can only be updated
 
 | Name | Description |
 | :--- | :--- |
-| `root_account` | To be root account of membership. |
+| `auctioneer` | ContentActor who owns NFT. |
+| `video_id` | Video identifier for video to which NFT corresponds. |
+| `auction_type` | AuctionType designating what kind of auction should be used. |
+| `starting_price` | Balance that sets lower bound for first valid bid amount. |
+| `minimal_bid_step` | Balance that sets lower bound for how much each new bid must exceed last valid bid amount, if it exists. |
+| `buy_now_price` | If provided, the Balance at which one would instantly be able to buy the NFT. |
+| `starts_at` | If provided, the BlockNumber at which it becomes possible to bid in the auction or buy now. |
+| `whitelist` | Set of memberiship identifiers which, at leats one is provided, restricts bidders or buyers to be among these. |
 
 #### Conditions
 
