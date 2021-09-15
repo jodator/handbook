@@ -21,6 +21,10 @@ This article will be incorporated into the `Content Directory` article later.
 
 xxxx
 
+### NFT Status
+
+xxx
+
 
 
 ## Constants
@@ -145,11 +149,12 @@ The following constants are hard coded into the system, they can only be updated
 | `minimal_bid_step` | Balance that sets lower bound for how much each new bid must exceed last valid bid amount, if it exists. |
 | `buy_now_price` | If provided, the Balance at which one would instantly be able to buy the NFT. |
 | `starts_at` | If provided, the BlockNumber at which it becomes possible to bid in the auction or buy now. |
-| `whitelist` | Set of memberiship identifiers which, at leats one is provided, restricts bidders or buyers to be among these. |
+| `whitelist` | Set of membership identifiers which, at leats one is provided, restricts bidders or buyers to be among these. |
 
 #### Conditions
 
 * `video_id` corresponds to to existing video `video` .
+* `video` 
 * signer
 
 #### Effect
