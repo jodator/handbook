@@ -13,7 +13,9 @@ This article will be incorporated into the `Content Directory` article later.
 
 ### Content Actor
 
-xxx
+* Curator\(CuratorGroupId, CuratorId\)
+* Member\(MemberId\)
+* Lead
 
 ### Buy Now
 
@@ -147,7 +149,8 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Frexx
+* `video_id` corresponds to to existing video `video` .
+* signer
 
 #### Effect
 
