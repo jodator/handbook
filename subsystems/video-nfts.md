@@ -25,7 +25,23 @@ xxxx
 
 xxx
 
+## Parameters
 
+The following mutable parameters.
+
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| `MinRoundTime` | `BlockNumber` | Min auction round time. |
+| `MaxRoundTime` | `BlockNumber` | Max auction round time. |
+| `MinBidLockDuration` | `BlockNumber` | Min bid lock duration. |
+| `MaxBidLockDuration` | `BlockNumber` | Max bid lock duration. |
+| `MinStartingPrice` | `Balance` | Min auction staring price. |
+| `MinCreatorRoyalty` | `Perbill` | Min creator royalty percentage. |
+| `MaxCreatorRoyalty` | `Perbill` | Max creator royalty percentage. |
+| `MinBidStep` | `Balance` | Min auction bid step. |
+| `MaxBidStep` | `Balance` | Max auction bid step. |
+| `AuctionFeePercentag` | `Perbill` | Auction platform fee percentage. |
+| `AuctionStartsAtMaxDelta` | `BlockNumber` | Max delta between current block and starts at. |
 
 ## Constants
 
