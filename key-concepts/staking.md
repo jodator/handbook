@@ -47,17 +47,18 @@ Reusability does imply that if there is a slashing event in the context of one o
 
 The table below summarizes the current reusability relationships, changing them currently requires a runtime upgrade.
 
-|  | Staking Candidate | Invitation | Voting | Council Candidate | Councilor | Validation | Nomination | Proposals | Worker\* |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Staking Candidate | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| Invitation | - | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| Voting | - | - | No | Yes | Yes | Yes | Yes | Yes | Yes |
-| Council Candidate | - | - | - | No | Yes | No | No | No | No |
-| Councilor | - | - | - | - | No | No | No | No | No |
-| Validation | - | - | - | - | - | No | No | No | No |
-| Nomination | - | - | - | - | - | - | No | No | No |
-| Proposals | - | - | - | - | - | - | - | No | No |
-| Worker\* | - | - | - | - | - | - | - | - | No |
+|  | Staking Candidate | Invitation | Voting | Council Candidate | Councilor | Validation | Nomination | Proposals | Bounties | Worker\* |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Staking Candidate | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| Invitation | - | No | Yes | Yes | Yes | Yes | Yes | Yes | No | Yes |
+| Voting | - | - | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| Council Candidate | - | - | - | No | Yes | No | No | No | No | No |
+| Councilor | - | - | - | - | No | No | No | No | No | No |
+| Validation | - | - | - | - | - | No | No | No | No | No |
+| Nomination | - | - | - | - | - | - | No | No | No | No |
+| Proposals | - | - | - | - | - | - | - | No | No | No |
+| Bounties | - | - | - | - | - | - | - | - | No | No |
+| Worker\* | - | - | - | - | - | - | - | - | - | No |
 
 The table is symmetric, as all reuse relationships are symmetric, hence cells are omitted beyond the diagonal to ignore duplicate specification.
 
@@ -78,13 +79,12 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 | Storage Worker | Yes | 6 |
 | Content Directory Worker | Yes | 7 |
 | Forum Worker | Yes | 8 |
-|  |  |  |
-|  |  |  |
 | Membership Worker | Yes | 9 |
-| Operations Worker |  |  |
 | Invitation | Yes | 10 |
 | Staking Candidate | Yes | 11 |
-| Bounties |  |  |
+| Bounties |  | 12 |
+| Operations Worker | Yes | 13 |
+| Gateway Worker | Yes | 14 |
 
 ## Slashing
 
