@@ -82,7 +82,7 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 | Membership Worker | Yes | 9 |
 | Invitation | Yes | 10 |
 | Staking Candidate | Yes | 11 |
-| Bounties |  | 12 |
+| Bounties | Yes | 12 |
 | Operations Worker | Yes | 13 |
 | Gateway Worker | Yes | 14 |
 
