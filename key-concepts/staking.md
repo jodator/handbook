@@ -21,15 +21,15 @@ Staking is used in two modes to serve the system as a whole by attempting to pro
 
 One can currently stake funds for a range of activities, and the table below lists them, along with
 
-| Activity | Exposure | Punishment |
-| :--- | :---: | :---: |
-| Voting | Yes | No |
-| Staking Candidate | Yes | No |
-| Council | Yes | No |
-| Validation | Yes | Yes |
-| Nomination | Yes | Yes |
-| Proposals | Yes | Yes\* |
-| Worker\*\* | Yes | Yes |
+| Activity          | Exposure | Punishment |
+| ----------------- | :------: | :--------: |
+| Voting            |    Yes   |     No     |
+| Staking Candidate |    Yes   |     No     |
+| Council           |    Yes   |     No     |
+| Validation        |    Yes   |     Yes    |
+| Nomination        |    Yes   |     Yes    |
+| Proposals         |    Yes   |    Yes\*   |
+| Worker\*\*        |    Yes   |     Yes    |
 
 _\* It varies across_ [_proposal types_](../governance/proposals.md#proposal-type) _whether punishment is actually used, but in the interest of keeping the staking model simple, it is assumed it always is. \*\* Can be both lead an non lead workers in a working group._
 
@@ -41,23 +41,23 @@ The way staking is implemented is with the use of account [locks](staking.md). E
 
 Given staking purposes A and B, we can say that stake is reusable across A and B if a token staked towards one can simultaneously count as staked towards the other. Since staking is implemented with locks, and locks do not stack, this means that a single account cannot be used for staking across two non-reusable purposes.
 
-&lt;figure?&gt;
+\<figure?>
 
 Reusability does imply that if there is a slashing event in the context of one of the two, stake in both has been reduced. This must be accounted for by platform actors, and for this reason it is currently not possible to reuse stake across two activities where both are subject to slashing. In fact, the only reuse allowed currently is when exactly one of A or B is voting. This is primarily to counteract the fact that voting is not incentivized, hence lowering the cost to vote is critical.
 
 The table below summarizes the current reusability relationships, changing them currently requires a runtime upgrade.
 
-|  | Staking Candidate | Invitation | Voting | Council Candidate | Councilor | Validation | Nomination | Proposals | Worker\* |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Staking Candidate | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| Invitation | - | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| Voting | - | - | No | Yes | Yes | Yes | Yes | Yes | Yes |
-| Council Candidate | - | - | - | No | Yes | No | No | No | No |
-| Councilor | - | - | - | - | No | No | No | No | No |
-| Validation | - | - | - | - | - | No | No | No | No |
-| Nomination | - | - | - | - | - | - | No | No | No |
-| Proposals | - | - | - | - | - | - | - | No | No |
-| Worker\* | - | - | - | - | - | - | - | - | No |
+|                   | Staking Candidate | Invitation | Voting | Council Candidate | Councilor | Validation | Nomination | Proposals | Worker\* |
+| ----------------- | :---------------: | :--------: | :----: | :---------------: | :-------: | :--------: | :--------: | :-------: | :------: |
+| Staking Candidate |         No        |     Yes    |   Yes  |        Yes        |    Yes    |     Yes    |     Yes    |    Yes    |    Yes   |
+| Invitation        |         -         |     No     |   Yes  |        Yes        |    Yes    |     Yes    |     Yes    |    Yes    |    Yes   |
+| Voting            |         -         |      -     |   No   |        Yes        |    Yes    |     Yes    |     Yes    |    Yes    |    Yes   |
+| Council Candidate |         -         |      -     |    -   |         No        |    Yes    |     No     |     No     |     No    |    No    |
+| Councilor         |         -         |      -     |    -   |         -         |     No    |     No     |     No     |     No    |    No    |
+| Validation        |         -         |      -     |    -   |         -         |     -     |     No     |     No     |     No    |    No    |
+| Nomination        |         -         |      -     |    -   |         -         |     -     |      -     |     No     |     No    |    No    |
+| Proposals         |         -         |      -     |    -   |         -         |     -     |      -     |      -     |     No    |    No    |
+| Worker\*          |         -         |      -     |    -   |         -         |     -     |      -     |      -     |     -     |    No    |
 
 The table is symmetric, as all reuse relationships are symmetric, hence cells are omitted beyond the diagonal to ignore duplicate specification.
 
@@ -67,24 +67,24 @@ _\*Any working group, and whether lead or normal worker._
 
 In what follows we attempt to briefly summarizes the what locks exist for what purposes, and on what accounts they are applied.
 
-| Purpose | Binding | ID |
-| :--- | :---: | :---: |
-| Voting | No | 0 |
-| Council Candidate | Yes | 1 |
-| Councilor | Yes | 2 |
-| Validation | No | 3 |
-| Nomination | No | 4 |
-| Proposals | Yes | 5 |
-| Storage Worker | Yes | 6 |
-| Content Directory Worker | Yes | 7 |
-| Forum Worker | Yes | 8 |
-|  |  |  |
-|  |  |  |
-| Membership Worker | Yes | 9 |
-| Operations Worker |  |  |
-| Invitation | Yes | 10 |
-| Staking Candidate | Yes | 11 |
-| Bounties |  |  |
+| Purpose                  | Binding |  ID |
+| ------------------------ | :-----: | :-: |
+| Voting                   |    No   |  0  |
+| Council Candidate        |   Yes   |  1  |
+| Councilor                |   Yes   |  2  |
+| Validation               |    No   |  3  |
+| Nomination               |    No   |  4  |
+| Proposals                |   Yes   |  5  |
+| Storage Worker           |   Yes   |  6  |
+| Content Directory Worker |   Yes   |  7  |
+| Forum Worker             |   Yes   |  8  |
+|                          |         |     |
+|                          |         |     |
+| Membership Worker        |   Yes   |  9  |
+| Operations Worker        |         |     |
+| Invitation               |   Yes   |  10 |
+| Staking Candidate        |   Yes   |  11 |
+| Bounties                 |         |     |
 
 ## Slashing
 
@@ -110,4 +110,3 @@ The pallets requiring a stake to prevent state bloat are:
 
 * Working Group
 * Membership
-

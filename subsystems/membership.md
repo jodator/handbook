@@ -67,10 +67,10 @@ When a member is invited, they are also credited some initial balance to their c
 
 The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
 
-| Name | Description | Value |
-| :--- | :--- | :--- |
-| `INVITE_LOCK_ID` | The identifier value for the lock applied to root account of a new member | `fill-in` |
-| `MAX_NUMBER_OF_WORKERS` |  | `fill-in` |
+| Name                    | Description                                                               | Value     |
+| ----------------------- | ------------------------------------------------------------------------- | --------- |
+| `INVITE_LOCK_ID`        | The identifier value for the lock applied to root account of a new member | `fill-in` |
+| `MAX_NUMBER_OF_WORKERS` |                                                                           | `fill-in` |
 
 ## Extrinsics
 
@@ -78,13 +78,13 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `root_account` | To be root account of membership. |
-| `controller_account` | To be controller account of membership. |
-| `handle` | To be handle of membership. |
-| `metadata` | Encoded [membership metadata](../key-concepts/encodings.md#membership-metadata) |
-| `referer_id` | Optional identifier of some existing member. |
+| Name                 | Description                                                                     |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `root_account`       | To be root account of membership.                                               |
+| `controller_account` | To be controller account of membership.                                         |
+| `handle`             | To be handle of membership.                                                     |
+| `metadata`           | Encoded [membership metadata](../key-concepts/encodings.md#membership-metadata) |
+| `referer_id`         | Optional identifier of some existing member.                                    |
 
 #### Conditions
 
@@ -101,13 +101,13 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Identifier of inviting member. |
-| `root_account` | To be root account of membership. |
-| `controller_account` | To be controller account of membership. |
-| `handle` | To be handle of membership. |
-| `metadata` | Encoded [membership metadata](../key-concepts/encodings.md#membership-metadata) |
+| Name                 | Description                                                                     |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `member_id`          | Identifier of inviting member.                                                  |
+| `root_account`       | To be root account of membership.                                               |
+| `controller_account` | To be controller account of membership.                                         |
+| `handle`             | To be handle of membership.                                                     |
+| `metadata`           | Encoded [membership metadata](../key-concepts/encodings.md#membership-metadata) |
 
 #### Conditions
 
@@ -127,11 +127,11 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Identifier of member wishing to update profile. |
-| `handle` | Optional new handle for membership. |
-| `new_metadata` | Optional new encoded [membership metadata](../key-concepts/encodings.md#membership-metadata) \(only the provided fields will be updated\) |
+| Name           | Description                                                                                                                             |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `member_id`    | Identifier of member wishing to update profile.                                                                                         |
+| `handle`       | Optional new handle for membership.                                                                                                     |
+| `new_metadata` | Optional new encoded [membership metadata](../key-concepts/encodings.md#membership-metadata) (only the provided fields will be updated) |
 
 #### Conditions
 
@@ -147,11 +147,11 @@ Profile of member corresponding to `member_id` is updated with new field values.
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Identifier of member wishing to send invites. |
+| Name                  | Description                                       |
+| --------------------- | ------------------------------------------------- |
+| `member_id`           | Identifier of member wishing to send invites.     |
 | `recipient_member_id` | Identifier of member to be credited with invites. |
-| `number_of_invites` | Number of invites to transfer. |
+| `number_of_invites`   | Number of invites to transfer.                    |
 
 #### Conditions
 
@@ -167,11 +167,11 @@ Profile of member corresponding to `member_id` is updated with new field values.
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `member_id` | Identifier for member wishing to update accounts. |
-| `root_account` | Optional new root account for membership. |
-| `controller_account` | Optional new controller account for membership. |
+| Name                 | Description                                       |
+| -------------------- | ------------------------------------------------- |
+| `member_id`          | Identifier for member wishing to update accounts. |
+| `root_account`       | Optional new root account for membership.         |
+| `controller_account` | Optional new controller account for membership.   |
 
 #### Conditions
 
@@ -186,11 +186,11 @@ Update provided accounts on member.
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `worker_id` | Identifier of membership evangelist. |
-| `member_id` | Identifier of member to have status updated. |
-| `is_verified` | New status of member. |
+| Name          | Description                                  |
+| ------------- | -------------------------------------------- |
+| `worker_id`   | Identifier of membership evangelist.         |
+| `member_id`   | Identifier of member to have status updated. |
+| `is_verified` | New status of member.                        |
 
 #### Conditions
 
@@ -205,10 +205,10 @@ Verification status of member is set to `is_verified`.
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name        | Description                           |
+| ----------- | ------------------------------------- |
 | `member_id` | Identifier of member to bind account. |
-| `account` | Account to be bound. |
+| `account`   | Account to be bound.                  |
 
 #### Conditions
 
@@ -218,4 +218,3 @@ Verification status of member is set to `is_verified`.
 #### Effect
 
 `account` is bound to member.
-

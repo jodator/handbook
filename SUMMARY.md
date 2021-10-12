@@ -23,7 +23,9 @@
 * [Forum](subsystems/forum.md)
 * [Council Blog](subsystems/council-blog.md)
 * [Bounties](subsystems/bounties.md)
-* [Storage & Bandwidth](subsystems/storage.md)
+* [Storage & Bandwidth](subsystems/storage/README.md)
+  * [Storage Node: Colossus](subsystems/storage/storage-node-colossus.md)
+  * [Distributor Node: Argus](subsystems/storage/distributor-node-argus.md)
 * [Gateways](subsystems/gateways.md)
 * [Builders](subsystems/builders.md)
 * [EVM](subsystems/evm.md)
@@ -43,4 +45,3 @@
 * [Orion](applications/orion.md)
 * [Charon](applications/charon.md)
 * [CLI](applications/cli.md)
-

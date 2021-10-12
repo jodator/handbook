@@ -28,14 +28,14 @@ Notice that when the council is an actor, it means that if the lifetime of a bou
 
 ### Bounty Actor
 
-For the act of creating, or contributing funds to a bounty, they can be done by either a member or the council as a whole, the concept of a _bounty actor_  refers therefore to either a specific member or the council, and represents this actor in a unified way.
+For the act of creating, or contributing funds to a bounty, they can be done by either a member or the council as a whole, the concept of a _bounty actor _ refers therefore to either a specific member or the council, and represents this actor in a unified way.
 
 ### Funding Period Type
 
 The funding period type refers to how funds are collected for the benefit of a bounty, and there are fundamentally two types:
 
 * **Perpetual:** The funding has not preset termination date, and new contributors can join on an ongoing basis. There is however a _target_ which sets the upper bound for how much can be contributed.
-* **Limited:** The funding lasts for no longer than a given number of blocks, called the _funding period_ . There is a lower bound and upper bound for how much must be contributed
+* **Limited: **The funding lasts for no longer than a given number of blocks, called the _funding period_ . There is a lower bound and upper bound for how much must be contributed
 
 ### Bounty Type
 
@@ -45,7 +45,7 @@ There are two types of bounties in terms of who can participate as worker. There
 
 For someone to be able to participate as a worker, with the opportunity to capture some portion of the funds accumulated for the bounty, they have to announce their participation in the bounty in the form of a _work entry_. It describes the status of the involvement of a worker in a bounty, and it is defined by the following information:
 
-* **EntryId:** Unique non-negative integer identifier across all entries.
+* **EntryId: **Unique non-negative integer identifier across all entries.
 * **Worker:** Member Id of worker.
 * **Staking Account:** Account holding funds used to stake for participation in bounty.
 * **Work:** List of work submissions made during the `Working Period`, encoded as structure data in a standardized format.
@@ -61,13 +61,13 @@ For someone to be able to participate as a worker, with the opportunity to captu
 
 A bounty is defined is defined by the following information
 
-* **BountyId:** Unique non-negative integer identifier across all bounties.
+* **BountyId: **Unique non-negative integer identifier across all bounties.
 * **Oracle:** Bounty oracle, is either a member or the council.
 * **Type:** Bounty type, is open or closed.
 * **Creator:** Bounty creator, is a bounty actor.
 * **Cherry:** Amount of funds contributed by creator as cherry.
 * **Work Period Length:** The number of blocks which must pass, from the end of the funding stage, before the oracle for the bounty can adjudicate the outcome of the bounty.
-* **Judging Period Length:** The maximum number of blocks which can pass, from the end of the working period, while the oracle does not adjudicate a the outcome and funds cannot be withdrawn.
+* **Judging Period Length: **The maximum number of blocks which can pass, from the end of the working period, while the oracle does not adjudicate a the outcome and funds cannot be withdrawn.
 * **Contributions:** The set of all contributions made, each identified with a unique bounty actor, and having an associated positive balance contribution.
 * **Entries:** The set of all active entries in the bounty.
 * **Metadata:** Structured data encoding the purpose and terms of the bounty.
@@ -93,14 +93,14 @@ The stages and transitions are summarized in the image below.
 
 Hard-coded values are defined _for each working group_, and they can only be altered with a runtime upgrade.
 
-| Name | Description |
-| :--- | :--- |
-| `ClosedContractSizeLimit` | Max work entry number for a closed assurance type contract bounty. |
-| `MinCherryLimit` | Min cherry for a bounty. |
-| `MinFundingLimit` | Min funding amount for a bounty. |
-| `MinWorkEntrantStake` | Min work entrant stake for a bounty. |
-| `ModuleAccountId` | Account id of built in account used to hold funds and cherries contributed across all bounties. |
-| `LOCK_ID` | The Id for the lock used to stake in bounty system. |
+| Name                      | Description                                                                                     |
+| ------------------------- | ----------------------------------------------------------------------------------------------- |
+| `ClosedContractSizeLimit` | Max work entry number for a closed assurance type contract bounty.                              |
+| `MinCherryLimit`          | Min cherry for a bounty.                                                                        |
+| `MinFundingLimit`         | Min funding amount for a bounty.                                                                |
+| `MinWorkEntrantStake`     | Min work entrant stake for a bounty.                                                            |
+| `ModuleAccountId`         | Account id of built in account used to hold funds and cherries contributed across all bounties. |
+| `LOCK_ID`                 | The Id for the lock used to stake in bounty system.                                             |
 
 ## Extrinsics
 
@@ -108,18 +108,18 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `oracle` | Bounty actor that is oracle. |
-| `bounty_type` | Bounty type. |
-| `creator` | Bounty actor that is creator. |
-| `cherry` | Amount of funds dedicated as cherry. |
-| `entrant_stake` | Amount of stake required for prospective workers to create entry. |
-| `funding_period_type` | The number of blocks in the funding period. |
-| `working_period_length` | The number of blocks in the working period. |
-| `judging_period_length` | The number of blocks in the judging period. |
-| `metadata` | Structured metadata describing the bounty in a human readable form. |
+| Name                    | Description                                                         |
+| ----------------------- | ------------------------------------------------------------------- |
+| `origin`                | Caller origin.                                                      |
+| `oracle`                | Bounty actor that is oracle.                                        |
+| `bounty_type`           | Bounty type.                                                        |
+| `creator`               | Bounty actor that is creator.                                       |
+| `cherry`                | Amount of funds dedicated as cherry.                                |
+| `entrant_stake`         | Amount of stake required for prospective workers to create entry.   |
+| `funding_period_type`   | The number of blocks in the funding period.                         |
+| `working_period_length` | The number of blocks in the working period.                         |
+| `judging_period_length` | The number of blocks in the judging period.                         |
+| `metadata`              | Structured metadata describing the bounty in a human readable form. |
 
 #### Conditions
 
@@ -143,11 +143,11 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `creator` | Bounty actor for creator. |
-| `bounty_id` | Bounty identifier. |
+| Name        | Description               |
+| ----------- | ------------------------- |
+| `origin`    | Caller origin.            |
+| `creator`   | Bounty actor for creator. |
+| `bounty_id` | Bounty identifier.        |
 
 #### Conditions
 
@@ -165,12 +165,12 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `funder` | Bounty actor for funder. |
-| `bounty_id` | Identifier for bounty to be funded. |
-| `amount` | Balance to be contributed towards bounty from funder. |
+| Name        | Description                                           |
+| ----------- | ----------------------------------------------------- |
+| `origin`    | Caller origin.                                        |
+| `funder`    | Bounty actor for funder.                              |
+| `bounty_id` | Identifier for bounty to be funded.                   |
+| `amount`    | Balance to be contributed towards bounty from funder. |
 
 #### Conditions
 
@@ -183,17 +183,17 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 #### Effect
 
 * `amount` would bring the total amount funded so far, denoted by `current_funding`, equal to or over the target or max value, denoted by `limit`, and transition to the `Working Period` . Let `_amount` denote the quantity of funds that can be contributed to the bounty without overflowing the limit, that is `min(limit - current_funding, amount)` .
-* `_amount` is debited from `funder` and credited towards account ****`ModuleAccountId`.
+* `_amount` is debited from `funder` and credited towards account** **`ModuleAccountId`.
 * If `funder` has already contributed to the bounty, then add `_amount` to their net contribution, otherwise note their total contribution to be `_amount`.
 
 ### Withdraw Funding
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `funder` | Bounty actor for funder. |
+| Name        | Description                         |
+| ----------- | ----------------------------------- |
+| `origin`    | Caller origin.                      |
+| `funder`    | Bounty actor for funder.            |
 | `bounty_id` | Identifier for bounty to be funded. |
 
 #### Conditions
@@ -213,13 +213,13 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `member_id` | Member identifier of prospective worker. |
-| `bounty_id` | Identifier for bounty in which member wants to join. |
-| `staking_account_id` | Account balance. |
-| `metadata` | Structured metadata describing the work entry in a human readable form. |
+| Name                 | Description                                                             |
+| -------------------- | ----------------------------------------------------------------------- |
+| `origin`             | Caller origin.                                                          |
+| `member_id`          | Member identifier of prospective worker.                                |
+| `bounty_id`          | Identifier for bounty in which member wants to join.                    |
+| `staking_account_id` | Account balance.                                                        |
+| `metadata`           | Structured metadata describing the work entry in a human readable form. |
 
 #### Conditions
 
@@ -239,12 +239,12 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `member_id` | Member identifier for worker. |
+| Name        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `origin`    | Caller origin.                                         |
+| `member_id` | Member identifier for worker.                          |
 | `bounty_id` | Identifier for bounty to which work entry corresponds. |
-| `entry_id`  | Identifier for work entry. |
+| `entry_id`  | Identifier for work entry.                             |
 
 #### Conditions
 
@@ -262,13 +262,13 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `member_id` | Member identifier for worker. |
+| Name        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `origin`    | Caller origin.                                         |
+| `member_id` | Member identifier for worker.                          |
 | `bounty_id` | Identifier for bounty to which work entry corresponds. |
-| `entry_id` | Identifier for work entry. |
-| `work_data` | Encoded work metadata. |
+| `entry_id`  | Identifier for work entry.                             |
+| `work_data` | Encoded work metadata.                                 |
 
 #### Conditions
 
@@ -285,11 +285,11 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `oracle`  | Bounty actor that is oracle. |
-| `bounty_id` | Identifier for bounty for which judgement is being submitted. |
+| Name        | Description                                                                                  |
+| ----------- | -------------------------------------------------------------------------------------------- |
+| `origin`    | Caller origin.                                                                               |
+| `oracle`    | Bounty actor that is oracle.                                                                 |
+| `bounty_id` | Identifier for bounty for which judgement is being submitted.                                |
 | `judgement` | Set of entries to be identified as winners, and set of entries to be identified as rejected. |
 
 #### Conditions
@@ -311,23 +311,23 @@ Hard-coded values are defined _for each working group_, and they can only be alt
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `origin` | Caller origin. |
-| `member_id` | Member identifier for worker. |
+| Name        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `origin`    | Caller origin.                                         |
+| `member_id` | Member identifier for worker.                          |
 | `bounty_id` | Identifier for bounty to which work entry corresponds. |
-| `entry_id` | Identifier for work entry. |
+| `entry_id`  | Identifier for work entry.                             |
 
 #### Conditions
 
 * `origin` corresponds to identifier `member_id` for a member.
 * `bounty_id` corresponds to an existing bounty `bounty`.
-* `entry_id` corresponds to an entry `entry` where worker has identifier `member_id` and the status is not `CashedOut`or `Rejected` or `Withdrawn` .
+* `entry_id` corresponds to an entry `entry` where worker has identifier `member_id` and the status is not `CashedOut`or `Rejected `or `Withdrawn` .
 * `bounty` is in stage`Withdrawal Period`. 
 
 #### Effect
 
 * if `entity` has status `Winner` , then the associated reward is credited to `member_id` controller account and debited from `ModuleAccountId`.
 * `entity` staking account has lock with Id `LOCK_ID` removed.
-* `entity` status is updated to `CashedOut`.
+*   `entity` status is updated to `CashedOut`.
 

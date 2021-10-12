@@ -13,8 +13,8 @@ This article will be incorporated into the `Content Directory` article later.
 
 ### Content Actor
 
-* Curator\(CuratorGroupId, CuratorId\)
-* Member\(MemberId\)
+* Curator(CuratorGroupId, CuratorId)
+* Member(MemberId)
 * Lead
 
 ### Buy Now
@@ -29,28 +29,28 @@ xxx
 
 The following mutable parameters.
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `MinRoundTime` | `BlockNumber` | Min auction round time. |
-| `MaxRoundTime` | `BlockNumber` | Max auction round time. |
-| `MinBidLockDuration` | `BlockNumber` | Min bid lock duration. |
-| `MaxBidLockDuration` | `BlockNumber` | Max bid lock duration. |
-| `MinStartingPrice` | `Balance` | Min auction staring price. |
-| `MinCreatorRoyalty` | `Perbill` | Min creator royalty percentage. |
-| `MaxCreatorRoyalty` | `Perbill` | Max creator royalty percentage. |
-| `MinBidStep` | `Balance` | Min auction bid step. |
-| `MaxBidStep` | `Balance` | Max auction bid step. |
-| `AuctionFeePercentag` | `Perbill` | Auction platform fee percentage. |
+| Name                      | Type          | Description                                    |
+| ------------------------- | ------------- | ---------------------------------------------- |
+| `MinRoundTime`            | `BlockNumber` | Min auction round time.                        |
+| `MaxRoundTime`            | `BlockNumber` | Max auction round time.                        |
+| `MinBidLockDuration`      | `BlockNumber` | Min bid lock duration.                         |
+| `MaxBidLockDuration`      | `BlockNumber` | Max bid lock duration.                         |
+| `MinStartingPrice`        | `Balance`     | Min auction staring price.                     |
+| `MinCreatorRoyalty`       | `Perbill`     | Min creator royalty percentage.                |
+| `MaxCreatorRoyalty`       | `Perbill`     | Max creator royalty percentage.                |
+| `MinBidStep`              | `Balance`     | Min auction bid step.                          |
+| `MaxBidStep`              | `Balance`     | Max auction bid step.                          |
+| `AuctionFeePercentag`     | `Perbill`     | Auction platform fee percentage.               |
 | `AuctionStartsAtMaxDelta` | `BlockNumber` | Max delta between current block and starts at. |
 
 ## Constants
 
 The following constants are hard coded into the system, they can only be updated with a runtime upgrade.
 
-| Name | Description | Value |
-| :--- | :--- | :--- |
+| Name             | Description                                                               | Value     |
+| ---------------- | ------------------------------------------------------------------------- | --------- |
 | `INVITE_LOCK_ID` | The identifier value for the lock applied to root account of a new member | `fill-in` |
-| `xxx` |  | `fill-in` |
+| `xxx`            |                                                                           | `fill-in` |
 
 ## Extrinsics
 
@@ -58,8 +58,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -74,8 +74,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -92,8 +92,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -108,8 +108,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -124,8 +124,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -140,8 +140,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -156,16 +156,16 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
-| `auctioneer` | ContentActor who owns NFT. |
-| `video_id` | Video identifier for video to which NFT corresponds. |
-| `auction_type` | AuctionType designating what kind of auction should be used. |
-| `starting_price` | Balance that sets lower bound for first valid bid amount. |
-| `minimal_bid_step` | Balance that sets lower bound for how much each new bid must exceed last valid bid amount, if it exists. |
-| `buy_now_price` | If provided, the Balance at which one would instantly be able to buy the NFT. |
-| `starts_at` | If provided, the BlockNumber at which it becomes possible to bid in the auction or buy now. |
-| `whitelist` | Set of membership identifiers which, at leats one is provided, restricts bidders or buyers to be among these. |
+| Name               | Description                                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `auctioneer`       | ContentActor who owns NFT.                                                                                    |
+| `video_id`         | Video identifier for video to which NFT corresponds.                                                          |
+| `auction_type`     | AuctionType designating what kind of auction should be used.                                                  |
+| `starting_price`   | Balance that sets lower bound for first valid bid amount.                                                     |
+| `minimal_bid_step` | Balance that sets lower bound for how much each new bid must exceed last valid bid amount, if it exists.      |
+| `buy_now_price`    | If provided, the Balance at which one would instantly be able to buy the NFT.                                 |
+| `starts_at`        | If provided, the BlockNumber at which it becomes possible to bid in the auction or buy now.                   |
+| `whitelist`        | Set of membership identifiers which, at leats one is provided, restricts bidders or buyers to be among these. |
 
 #### Conditions
 
@@ -181,8 +181,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -197,8 +197,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -213,8 +213,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -229,8 +229,8 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name | Description |
-| :--- | :--- |
+| Name           | Description                       |
+| -------------- | --------------------------------- |
 | `root_account` | To be root account of membership. |
 
 #### Conditions
@@ -240,4 +240,3 @@ The following constants are hard coded into the system, they can only be updated
 #### Effect
 
 * A nexxx
-

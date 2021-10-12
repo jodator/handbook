@@ -33,7 +33,7 @@ The handbook currently covers the following subjects.
 * **Forum:** An immutable, auditable, public forum is the main communication and coordination forum among platform members.
 * **Council Blog:** A blog where different posts can be published through the proposal system and replied to by anyone.
 * **Bounties:** Funding public goods where the community can help with financing, experts can help adjudicate quality of deliverables and service providers have an incentive to find popular initiatives.
-* **Storage&Bandwidth:** ...
+* **Storage\&Bandwidth:** ...
 * **Gateways:** ...
 * **Builders:** ...
 * **EVM:** ...
@@ -42,8 +42,6 @@ The handbook currently covers the following subjects.
 
 ## Contribute
 
-Open a PR to the `master` branch of this repository  
+Open a PR to the `master` branch of this repository\
 [https://github.com/Joystream/handbook](https://github.com/Joystream/handbook)
-
-
 
