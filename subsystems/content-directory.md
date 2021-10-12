@@ -1,5 +1,7 @@
 # Content Directory
 
+## \*\*Warning: documentation of the content directory is stale, new documentation is forthcoming.\*\*
+
 ## Introduction
 
 The content directory is an on-chain index of all content and metadata, and related concepts - such as channels and playlists. The data model was conceived to facilitate publishing and curation objectives inherent to the platform within the constraints of the blockchain environment, as a result, it has the following four major design traits:
