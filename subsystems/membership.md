@@ -54,6 +54,7 @@ The primary means of establishing a membership is buying one by burning tokens, 
 ### Invitations
 
 The long-term objective is to have most memberships established by being purchased, however, currently the various costs associated with gaining access to a digital asset are considerable. As a result, person-to-person invitations is an alternative mechanism for giving new community members direct access to participate on the platform. When buying a membership, an initial number of invitations are granted, the number of which is held in a mutable parameter denoted as `default_invite_count`.
+On accepting membership invitations make sure that you're controlling both controller and root accounts. Losing (or not having in the first place) control of the root account could result in a hostile takeover of your membership.
 
 #### Quotas
 
