@@ -26,7 +26,7 @@
 * [Storage & Bandwidth](subsystems/storage/README.md)
   * [Data Directory](subsystems/storage/data-directory.md)
   * [Storage Node: Colossus](subsystems/storage/storage-node-colossus.md)
-  * [Distributor Node: Argus](subsystems/storage/distributor-node-argus.md)
+  * [Bandwidth Node: Argus](subsystems/storage/distributor-node-argus.md)
 * [Gateways](subsystems/gateways.md)
 * [Builders](subsystems/builders.md)
 * [EVM](subsystems/evm.md)
