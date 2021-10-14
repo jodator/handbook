@@ -42,9 +42,7 @@ Here are some highlighted goals
 
 Perhaps we should drop this section???
 
-* Distinct roles for storage and distributing data.
-* Storage with redundancy and only partial replication in nodes.
-* Bandwidth provisioning with flexible policy space, allowing for Content Delivery Network (CDN) like organisation.
+*
 * Storage providers incentivized by a mix of ....
 * Rich ownership model where members, channels, working groups and even the council as a whole can custody storage assets.
 * **????Somethng about fualt tolerance for both both storing, accepting uploads and bandwidht provisiong to leaders not live& something ab out governacne being a key model????**
@@ -53,21 +51,29 @@ Perhaps we should drop this section???
 
 There are two working groups involved in storage and bandwidth provisioning, one per subsystem. To learn more about working groups in general, please consult the [working-groups.md](../../governance/working-groups.md "mention") document. The roles are here tasked with the following, beyond the normal working groups activities inherent to each:
 
-* Storage Lead: 
-  * xx
-  * x
-* Storage Worker/Provider:
-  * ..
-  * Incentives:
-    * payment for uploads (not in Giza)
+* **Storage Lead: **Briefly stated, the lead manages
+  * what set of storage providers should store what.
+  * what storage workers can actively participate as storage providers, and what they should store
+  * the size sensitive component of the upload price.
+  * the replication factor on future uploads.
+  * the upload blacklist.
+  * whether uploads are globally allowed or not at any given time.
+* **Storage Worker/Provider: **
+  * Accepts and validates data uploaded from users for storage.
+  * Replicates data initially stored with other storage providers.
+  * Shares data with other storage providers and bandwidth providers.
+  * Maintains host resolution metadata.
+  * Is incentivized by a mix of
+    * payment for uploads
     * probabilistic on-chain proof-of-storage challenges (not in Giza)
-    * payment from peer providers & bandwidth providers during synching (not in Giza)
+    * payment from peer providers & bandwidth providers when providing data (not in Giza)
     * slashing by discretion from group lead, with subsequent loss of reputational capital of membership in this role.
     * working group payments
-* Bandwidth Lead:
+* **Bandwidth Lead:**
   * \--
-* Bandwidth Worker/Provider
-  * Incentives:
+* **Bandwidth Worker/Provider:**
+  *
+  * Is incentivized by a mix of
     * slashing by discretion from group lead, with subsequent loss of reputational capital of membership in this role.
     * payment from gateway providers (not in Giza)
     * working group payments
@@ -115,7 +121,17 @@ WIP.
 
 ## Architecture
 
-.... give some big overview ...overview diagram
+The key architectural properties of the system is as follows
+
+* Distinct roles for storage and distributing data.
+* Storage with redundancy and only partial replication in nodes.
+* Bandwidth provisioning with flexible policy space, allowing for Content Delivery Network (CDN) like organization.
+* The blockchain holds index of data, including ownership and metadata, and critical information about what service provider is obliged to perform storage and distribution for a given piece of data.
+* When new data is added to the system, the blockchain has built in policies for deciding how storage and bandwidth services should be provisioned, but there is also room for manual intervention later to augment or change these initial determinations.
+
+This can all be succinctly summarise in the following figure.
+
+**\<image>**
 
 ## Scenarios
 
