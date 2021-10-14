@@ -3,7 +3,6 @@ description: >-
   Storing and distributing static assets, such as videos, avatars, covers and
   attachments, to end users is a key service of the network, and a dedicated
   subset of actors in the DAO operate dedicated nod
-coverY: 0
 ---
 
 # Storage & Bandwidth
@@ -12,12 +11,14 @@ coverY: 0
 
 The system has a variety of static data assets 
 
-* Content Directory: xx
-* Membership: xx
-* Proposals: xx
-* Council: xxx
+* **Content Directory:** xx
+* **Membership:** xx (not in Giza)
+* **Proposals:** xx (not in Giza)
+* **Council:** xxx (not in Giza)
 
+## Note
 
+This subsystem is under active development, and this document attempts to both explain how the current production system (as of Giza) works, as well as give indications about what is expected to be added later before mainnet.
 
 ## Goals
 
@@ -39,31 +40,50 @@ Here are some highlighted goals
 * On-chain host resolution metadata.
 * Rich ownership model where members, channels, working groups and even the council as a whole can custody storage assets.
 
+## Concepts
+
+### Working Groups
+
+ddd
+
+### Data Directory
+
+xxx
+
+### Integrations
+
+xxx
+
+### Storage Node
+
+xxx Explain what it is, link to sub page about this.
+
+### Bandwidth Node
+
+xxx explain what it is, link to sub page about this.
+
 ## Architecture
 
 .... give some big overview ...overview diagram
 
-## Concepts
+## Scenarios
 
-* working groups
-* data directory : entity relationships??
-  * data objects
-  * bags
-  * storage bucket
-  * distributor bucket
-  * distibutor bucket family
-  * blacklists...
-  * vouchers...
-* integraitons on-chain
-  * content, ....
-* Storage Node
-  * Explain what it is, link to sub page about this.
-  * subpage to be unpacked
-    * scenarios. 1,2,3... sequecne diagrams
-* Distributor Node
-  * explain what it is, link to sub page about this.
-  * subpage to be unpacked
-    * scenarios. 1,2,3... sequecne diagrams
+### Upload
 
+xxx
 
+### New storage provider
 
+xxx
+
+### New bandwidth provider
+
+xxx
+
+### Download
+
+xxx
+
+### Deletion
+
+xxx
