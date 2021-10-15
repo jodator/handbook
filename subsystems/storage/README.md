@@ -118,9 +118,9 @@ The key architectural properties of the system is as follows
 * The blockchain holds index of data, including ownership and metadata, and critical information about what service provider is obliged to perform storage and distribution for a given piece of data.
 * When new data is added to the system, the blockchain has built in policies for deciding how storage and bandwidth services should be provisioned, but there is also room for manual intervention later to augment or change these initial determinations.
 
-This can all be succinctly summarise in the following figure.
+This can all be succinctly summarize in the following figure.
 
-**\<image>**
+![](../../.gitbook/assets/storage_v2.png)
 
 ## Scenarios
 
