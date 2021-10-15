@@ -13,47 +13,28 @@ This subsystem is under active development, and this document attempts to both e
 
 ## Introduction
 
-The Joystream network has a variety of static data assets 
+The network has a variety of static data assets used in different context. In the content directory, for example, there are avatars and cover images used for channels, and also preview thumbnail images for videos, as well as the video media itself, which may exist in multiple different resolutions and encodings for the same content. In the membership system images are used for the avatar of a user, and there is also a generalised storage capability. There is also a generalised storage service for the benefit of the council and each individidual working group, which are intended to be used for storing assets that are of use to actors occupying the given roles over time, or to the platform as a whole.
 
-* **Content Directory:** xx
-* **Membership:** xx (not in Giza)
-* **Proposals:** xx (not in Giza)
-* **Council:** xxx (not in Giza)
-
-xxxx
-
-## Terminology
-
-xxx
-
-storage provier, banwidth, distriubtor...
+The purpose of the storage and bandwidth system is to provide the capability for appropriate actors to publish storage assets into the system for the purpose of long term archiving and at scale low-latency distribution of data to end users.
 
 ## Philosophy
 
-Why built in?
+There is an obvious first-principles question of why the network has these capabilities built in, in the sense that it directly finances and coordinates the provisioning of these services internally through its own administrative beuroracy, and using its own custom technolgy stack. Why can't the system just rely on AWS or some other similar offering?
 
-Why not just AWS?
+Address custom tech stack separately from ecnomics!!!!!!!!!
 
-Design: ...fault tolerance, governance maximalism, equivocation things....
-
-## Requirements
-
-Here are some highlighted goals 
-
-Perhaps we should drop this section???
-
-*
-* Storage providers incentivized by a mix of ....
-* Rich ownership model where members, channels, working groups and even the council as a whole can custody storage assets.
-* **????Somethng about fualt tolerance for both both storing, accepting uploads and bandwidht provisiong to leaders not live& something ab out governacne being a key model????**
+Why not some other crypto offering? Arweage, Storj, ...
 
 ## Roles
 
 There are two working groups involved in storage and bandwidth provisioning, one per subsystem. To learn more about working groups in general, please consult the [working-groups.md](../../governance/working-groups.md "mention") document. The roles are here tasked with the following, beyond the normal working groups activities inherent to each:
 
+### Storage
+
 * **Storage Lead: **Briefly stated, the lead manages
-  * what set of storage providers should store what.
-  * what storage workers can actively participate as storage providers, and what they should store
+  * what set of storage providers should store what data.
+  * what storage workers can actively participate as storage providers.
+  * how different categories of data should be automatically stored once uploaded.
   * the size sensitive component of the upload price.
   * the replication factor on future uploads.
   * the upload blacklist.
@@ -62,17 +43,25 @@ There are two working groups involved in storage and bandwidth provisioning, one
   * Accepts and validates data uploaded from users for storage.
   * Replicates data initially stored with other storage providers.
   * Shares data with other storage providers and bandwidth providers.
-  * Maintains host resolution metadata.
+  * Maintains public host resolution metadata.
   * Is incentivized by a mix of
-    * payment for uploads
+    * user payment for uploads
     * probabilistic on-chain proof-of-storage challenges (not in Giza)
     * payment from peer providers & bandwidth providers when providing data (not in Giza)
     * slashing by discretion from group lead, with subsequent loss of reputational capital of membership in this role.
     * working group payments
+
+### Bandwidth
+
 * **Bandwidth Lead:**
-  * \--
+  * what set of bandwidth providers should distribute what data.
+  * what bandwidth providers can actively participate as providers.
+  * how different categories of data should be automatically distributed.
+  * policy metadata for groups 
 * **Bandwidth Worker/Provider:**
-  *
+  * Sends data to users on demand.
+  * Replicates data from storage providers following local caching policy.
+  * Maintains public host resolution metadata.
   * Is incentivized by a mix of
     * slashing by discretion from group lead, with subsequent loss of reputational capital of membership in this role.
     * payment from gateway providers (not in Giza)
@@ -124,7 +113,7 @@ WIP.
 The key architectural properties of the system is as follows
 
 * Distinct roles for storage and distributing data.
-* Storage with redundancy and only partial replication in nodes.
+* Storage with redundancy and only partial replication in nodes, but no erasure coding on individual data.
 * Bandwidth provisioning with flexible policy space, allowing for Content Delivery Network (CDN) like organization.
 * The blockchain holds index of data, including ownership and metadata, and critical information about what service provider is obliged to perform storage and distribution for a given piece of data.
 * When new data is added to the system, the blockchain has built in policies for deciding how storage and bandwidth services should be provisioned, but there is also room for manual intervention later to augment or change these initial determinations.

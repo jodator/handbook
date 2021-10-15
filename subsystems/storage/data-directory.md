@@ -16,16 +16,37 @@ entity relationships??
 
 \<image>
 
-* data objects
-* bags
-* storage bucket
-* distributor bucket
-* distibutor bucket family
-* blacklists: important to explain signififacna nd enforcebility.
-* vouchers...
-* ... other specific things...
+### Data Object
 
-## Integrations
+xxx
+
+### Bag
+
+xxx
+
+### Storage Bucket
+
+xxx
+
+### Distributor Bucket
+
+xxx
+
+### Distributor Bucket Family
+
+xx
+
+### Blacklist
+
+xxx
+
+### Voucher
+
+xxx
+
+blacklists: important to explain signififacna nd enforcebilit
+
+## On-chain Hooks
 
 xxx
 
