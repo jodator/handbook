@@ -29,17 +29,18 @@ There is an obvious first-principles question of why the network has these capab
 
 The reason for this is that the network, as represented by its governance apparatus, cannot enter into traditional contractual arrangements directly with off-chain entities, like the operators of traditional cloud infrastructure. This is a consequence of both the contemporary business model constraints of such operators, and the limits of what most jurisdictions would consider valid counterparties in an enforceable contract. The only way to bridge this gap would be if the platform selected some on-chain intermediary who effectively custodied the business relationship with the platform on behalf of the network, however, this would be prohibitively risky should this actor become faulty or byzantine, as there would be no recourse.
 
-A third alternative would have been to rely on other blockchain systems which have been explicitly built for the purpose of providing these services, this includes offerings such as Arweave, Sia+SkyNet, Filecoin, Storj, Meson and similar systems. Each of these systems have their own idiosynchratic reason for not 
+A third alternative would have been to rely on other middleware blockchain systems which have been explicitly built for the purpose of providing these services, this includes offerings such as [Arweave](https://www.arweave.org), [Sia+SkyNet](https://siasky.net), [Filecoin](https://filecoin.io), [Storj](https://www.storj.io), [Meson](https://meson.network) and similar systems. Each of these systems have their own idiosynchratic reason for why they may not be an ideal fit, or at least complete fit for the Joystream network. Some our pure storage solutions, other are pure CDN solutions, others are mixtures. Some focus on permanent storage, others on  pay-as-you-go. They all provide different security models. However, uniformly, they all have the following problems
 
-but also shared reasons: deep interop..., technical maturiy & stability.
+* **Immature:** All of them are still very technically immature, both in tooling, documentation and community of developers using at any sort of serious scale. It is difficult to commit building anything beyond a prototype or proof-of-concept 
+* **Opaque:** It is notoriously difficult to get a complete and accurate picture of what exact technical and economical guarantees the systems provide, and will provide, in the future. This is largely a consequence of the immaturity, but also that many question are likely unresolved, making it infeasible for the developers to commit to highly specific longer term roadmaps and timeline. The credibility of any actual public commitments are hard to evaluate.
+* **Isolated:** A critical requirement for any efficient platform is that it covers the costs and management on a variety of services on behalf of the users. This applies to the Joystream network as well, which means it must be able to deeply interoperate with any external middleware system, including control funds, issue service provisioning and manage ongoing expenses. This kind of complex interoperability between these systems is not feasible or simple at this time.
+* **Temporary:** When looking at the evolution of other large scale video provisioning platforms, such as YoutTube and Netflix, they invariably start out relying on external infrastructure, but over time they converge to relying on their own internally provisioned infrastructure. This is both because this infrastructure ends up becoming too strategically valuable to risk having to periodically bargain over it, and also because any discrepancy between the ideal cost structure and feature set required by client and their infrastructure ends up becoming prohibitibley costly when magnified by scale.
 
-Long term issue.
+An important nuance to be aware of is that once the immaturity and opacity is no longer an issue, it would be feasible for the Joystream network to adopt, or augment, the technology - in terms of protocol and software - of the most appropriate third party alternative, while sidestepping the latter two problems of isolation and temporaryness. This is because there is a fundamental distinction between using the same technology, and using the same specific instantiated running external system for which that technology was initially built. So as an example, this would be the difference between using Filecoin the network and [Lotus](./#bandwidth) the full node software for that network.
 
 ### Design
 
-Address custom tech stack separately from ecnomics!!!!!!!!!
-
-Why not some other crypto offering? Arweage, Storj, ...
+WIP.
 
 ## Roles
 
@@ -136,7 +137,7 @@ The key architectural properties of the system is as follows
 
 This can all be succinctly summarize in the following figure.
 
-![Network Architecture](../../.gitbook/assets/storage_v2.png)
+![Network Architecture](<../../.gitbook/assets/storage_v2 (3).png>)
 
 ## Scenarios
 
