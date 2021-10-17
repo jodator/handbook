@@ -145,11 +145,11 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 ### Offer NFT
 
@@ -157,18 +157,18 @@ The following constants are hard coded into the system, they can only be updated
 
 | Name       | Description                                                               |
 | ---------- | ------------------------------------------------------------------------- |
-| `video_id` | The video or which offer is to be made.                                   |
+| `video_id` | The video corresponding to the NFT for which offer is to be made.         |
 | `owner_id` | `ContentActor`  identifying caller.                                       |
 | `to`       | The beneficiary member of the offer.                                      |
 | `price`    | If present, the amount which must be paid by beneficiary to accept offer. |
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 
 
@@ -176,33 +176,34 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name       | Description                       |
-| ---------- | --------------------------------- |
-| `owner_id` | To be root account of membership. |
+| `owner_id` | `ContentActor` identifying the caller.                            |
+| ---------- | ----------------------------------------------------------------- |
+| `video_id` | The video corresponding to the NFT for which offer is to be made. |
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
-### Accept NFT
+### Accept Offer
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name           | Description                                                       |
+| -------------- | ----------------------------------------------------------------- |
+| `video_id`     | The video corresponding to the NFT for which offer is to be made. |
+| `recipient_id` | Identifier of beneficiary.                                        |
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 ### Sell NFT
 
@@ -214,11 +215,11 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 ### Buy NFT
 
@@ -230,11 +231,11 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 ### Start NFT Auction
 
@@ -253,13 +254,11 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* `video_id` corresponds to to existing video `video` .
-* `video` 
-* signer
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 ### Cancel NFT Auction
 
@@ -271,11 +270,11 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 ### Make Bid
 
@@ -287,11 +286,11 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 ### Cancel Open Auction Bid
 
@@ -303,11 +302,11 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
 
 ### Complete NFT Auction
 
@@ -319,8 +318,8 @@ The following constants are hard coded into the system, they can only be updated
 
 #### Conditions
 
-* Frexx
+* WIP.
 
 #### Effect
 
-* A nexxx
+* WIP.
