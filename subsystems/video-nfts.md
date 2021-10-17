@@ -45,24 +45,41 @@ Notice that curator groups, curators or the content directory lead cannot direct
 
 An _Auction Type_ refers to one among the two distinct varieties of auctions which can be used to reallocate ownership of an NFT, hence it is either
 
-An auction is structured process for reallocating ownership of an NFT, and there are two types of auctions
-
-There are two types of auctions
-
-*   **English:** An _English Auction_ is an auction where the highest bid, above some possibly set _reservation price_, is maintained and updated over time until some block in the future, called the _finalization block._
-
-    ,_ meaning that ... The auctioneer opens the auction by announcing a suggested opening bid, a starting price or reserve for the item on sale. Then the auctioneer accepts increasingly higher bids from the floor and sometimes from other sources, for example online or telephone bids, consisting of buyers with an interest in the item. The auctioneer usually determines the minimum increment of bids, often making them larger as bidding reaches higher levels. The highest bidder at any given moment is considered to have the standing bid, which can only be displaced by a higher bid from a competing buyer. If no competing bidder challenges the standing bid within the time allowed by the auctioneer, the standing bid becomes the winner, and the item is sold to the highest bidder at a price equal to their bid. If no bidder accepts the starting price, the auctioneer either begins to lower the starting price in increments, or bidders are allowed to bid prices lower than the starting price, or the item is not sold at all, according to the wishes of the seller or protocols of the auction house_
+* **English:** An _English Auction_ is an auction where the highest bid, above some possibly set _reservation price_, is maintained and updated over time until some block in the future, called the _finalization block._
 * **Open:** An _Open Auction_ is an auction which operates the same way as an English auction, except that there is no predefined duration, hence no finalization block. For this reason there is a _bid locking duration_, which is the number of blocks which must pass from the time a bid is submitted until the bidder can withdraw the bid if it is not accepted by the current owner.
 
 In both kinds of auctions, there is the concept of a _buy now_ price, which if set, means that if any bid matches this amount at any time, the auction is automatically concluded in favour of this bid.
 
 ### Bid
 
-xxx
+A _bid_ represents a binding financial commitment from a member to aquire ownership of an NFT from the current owner at a given price in an auction, and it is defined by
+
+* **Bidder:** The identifier of the member who is making the bid.
+* **Account:** The identifier for the account which holds the committed funds, which will be encumbered by a reservation for a slong as the bid exists.
+* **Amount:** The balance of funds comitted in the bid.
+* **MadeAtBlock:** The block number in which the bid was created. 
+
+Notice that only members can be bidders, no other kind of actor.
 
 ### Auction
 
 xxx
+
+pub starting_price: Balance, pub buy_now_price: Option, 
+
+/// Auction type (either english or open) 
+
+pub auction_type: AuctionType, 
+
+pub minimal_bid_step: Balance, 
+
+pub last_bid: Option\<Bid\<MemberId, AccountId, BlockNumber, Balance>>, 
+
+pub starts_at: BlockNumber, 
+
+pub whitelist: BTreeSet,
+
+
 
 ### Content Actor
 
@@ -70,19 +87,31 @@ xxx
 * Member(MemberId)
 * Lead
 
+xxx
+
 ### Transactional Status
 
-xx
+xxx
+
+Idle, 
+
+InitiatedOfferToMember(MemberId, Option), 
+
+Auction(AuctionRecord\<BlockNumber, Balance, MemberId, AccountId>), 
+
+BuyNow(Balance),
 
 
 
-### NFT /\* Owned NFT\*/
+### NFT
 
 An _NFT_ represents ownership title over video, and it is defined by the following information
 
 * **Owner:** The [#nft-owner](video-nfts.md#nft-owner "mention")representing the current owner.
 * **Transactional Status: The **[#transactional-status](video-nfts.md#transactional-status "mention") representing the state of the NFT currently.
 * **Royalty:** If set, it specifies the fraction of the paid value of later transactions which must accrue to the issuer.
+
+####
 
 ## Parameters
 
