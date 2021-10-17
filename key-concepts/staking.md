@@ -86,6 +86,10 @@ In what follows we attempt to briefly summarizes the what locks exist for what p
 | Staking Candidate        |   Yes   |  11 |
 | Bounties                 |         |     |
 
+## Reservation
+
+WIP.
+
 ## Slashing
 
 Slashing is the act of reducing the balance of an account by some amount, and also reducing the size of the lock which represents the use case under which the slashing occurs.

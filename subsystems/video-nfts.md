@@ -63,25 +63,18 @@ Notice that only members can be bidders, no other kind of actor.
 
 ### Auction
 
-xxx
+An _auction_ represents the structured process through which the current owner can transfer ownership of an NFT through an open non-intermediated bidding process, and it is defined by the following
 
-pub starting_price: Balance, pub buy_now_price: Option, 
+* **Reservation Price:** The minimum balance required for amount of any bid to be valid.
+* **Type:** The [#auction-type](video-nfts.md#auction-type "mention") representing what type of auction this is.
+* **Minimal Bid Step:** The minimum difference in amount between two consecutive bids in order for the new bid to be valid.
+* **Last Bid:** If present, is the last [#bid](video-nfts.md#bid "mention")which was successfully submitted.
+* **Starts At:** The block after which point it becomes possible to submit bids in the auction.
+* **Whitelist:** The set, which if non-empty, contains the set of members who are permitted to submit bids in the auction.
 
-/// Auction type (either english or open) 
-
-pub auction_type: AuctionType, 
-
-pub minimal_bid_step: Balance, 
-
-pub last_bid: Option\<Bid\<MemberId, AccountId, BlockNumber, Balance>>, 
-
-pub starts_at: BlockNumber, 
-
-pub whitelist: BTreeSet,
+### Content Actor: we will see!
 
 
-
-### Content Actor
 
 * Curator(CuratorGroupId, CuratorId)
 * Member(MemberId)
@@ -91,15 +84,14 @@ xxx
 
 ### Transactional Status
 
-xxx
+The transactional _status_ of an NFT represents the state of current opportunities to change the ownership, and it has the following distinct varieties
 
-Idle, 
+* **Idle:** There is no currently available opportunity, and the only relevant action is to transition to noe of the other three other statuses.
+* **Offered:** The current owner has extended an offer for a specific other member, called the _beneficiary_ to acquire ownership of the NFT, possibly for some require payment. In this status, the beneficiary can at any time accept the offer, which results in title transfer, or the current owner can withdraw the offer, which results in returning to the idle status.
+* **Auction:** There is a currently active auction of some kind, as represented by an [#auction](video-nfts.md#auction "mention").
+* **Buy Now:** Anyone can instantly become the owner by paying a given amount. The owner can change the status back to idle at any time.
 
-InitiatedOfferToMember(MemberId, Option), 
-
-Auction(AuctionRecord\<BlockNumber, Balance, MemberId, AccountId>), 
-
-BuyNow(Balance),
+The ...
 
 
 
@@ -108,10 +100,8 @@ BuyNow(Balance),
 An _NFT_ represents ownership title over video, and it is defined by the following information
 
 * **Owner:** The [#nft-owner](video-nfts.md#nft-owner "mention")representing the current owner.
-* **Transactional Status: The **[#transactional-status](video-nfts.md#transactional-status "mention") representing the state of the NFT currently.
+* **Status: The **[#transactional-status](video-nfts.md#transactional-status "mention") representing the state of the NFT currently.
 * **Royalty:** If set, it specifies the fraction of the paid value of later transactions which must accrue to the issuer.
-
-####
 
 ## Parameters
 
@@ -146,9 +136,12 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| `actor`    | The `ContentActor` attempting to issue the NFT.                |
+| ---------- | -------------------------------------------------------------- |
+| `video_id` | Video on which NFT is to be issued.                            |
+| `royalty`  | If present, the royalty for all future auctions                |
+| `metadata` | The raw metadata for the issuance.                             |
+| `to`       | If present, the member who should be set as the initial owner. |
 
 #### Conditions
 
@@ -162,9 +155,12 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name       | Description                                                               |
+| ---------- | ------------------------------------------------------------------------- |
+| `video_id` | The video or which offer is to be made.                                   |
+| `owner_id` | `ContentActor`  identifying caller.                                       |
+| `to`       | The beneficiary member of the offer.                                      |
+| `price`    | If present, the amount which must be paid by beneficiary to accept offer. |
 
 #### Conditions
 
@@ -180,9 +176,9 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name       | Description                       |
+| ---------- | --------------------------------- |
+| `owner_id` | To be root account of membership. |
 
 #### Conditions
 
