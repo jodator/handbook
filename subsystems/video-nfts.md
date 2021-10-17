@@ -170,8 +170,6 @@ The following constants are hard coded into the system, they can only be updated
 
 * WIP.
 
-
-
 ### Cancel Offer
 
 **Parameters**
@@ -209,9 +207,11 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name        | Description                                                       |
+| ----------- | ----------------------------------------------------------------- |
+| `video_id`  | The video corresponding to the NFT for which offer is to be made. |
+| `owner_id`  | `ContentActor` identifying the caller.                            |
+| `price`     | Price of buying the NFT.                                          |
 
 #### Conditions
 
@@ -225,9 +225,11 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name              | Description                                                        |
+| ----------------- | ------------------------------------------------------------------ |
+| `video_id`        | The video corresponding to the NFT for which offer is to be made.  |
+| `participant_id`  | Member attempting to buy the NFT.                                  |
+| `metadata`        | User provided metadata associated with the purchase and ownership. |
 
 #### Conditions
 
@@ -241,16 +243,16 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name               | Description                                                                                                   |
-| ------------------ | ------------------------------------------------------------------------------------------------------------- |
-| `auctioneer`       | ContentActor who owns NFT.                                                                                    |
-| `video_id`         | Video identifier for video to which NFT corresponds.                                                          |
-| `auction_type`     | AuctionType designating what kind of auction should be used.                                                  |
-| `starting_price`   | Balance that sets lower bound for first valid bid amount.                                                     |
-| `minimal_bid_step` | Balance that sets lower bound for how much each new bid must exceed last valid bid amount, if it exists.      |
-| `buy_now_price`    | If provided, the Balance at which one would instantly be able to buy the NFT.                                 |
-| `starts_at`        | If provided, the BlockNumber at which it becomes possible to bid in the auction or buy now.                   |
-| `whitelist`        | Set of membership identifiers which, at leats one is provided, restricts bidders or buyers to be among these. |
+| Name                | Description                                                                                                   |
+| ------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `owner_id`          | `ContentActor` who owns the NFT.                                                                              |
+| `video_id`          | Video identifier for video to which NFT corresponds.                                                          |
+| `auction_type`      | AuctionType designating what kind of auction should be used.                                                  |
+| `reservation_price` | Balance that sets lower bound for first valid bid amount.                                                     |
+| `minimal_bid_step`  | Balance that sets lower bound for how much each new bid must exceed last valid bid amount, if it exists.      |
+| `buy_now_price`     | If provided, the Balance at which one would instantly be able to buy the NFT.                                 |
+| `starts_at`         | If provided, the BlockNumber at which it becomes possible to bid in the auction or buy now.                   |
+| `whitelist`         | Set of membership identifiers which, at leats one is provided, restricts bidders or buyers to be among these. |
 
 #### Conditions
 
@@ -264,9 +266,10 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name       | Description                                                       |
+| ---------- | ----------------------------------------------------------------- |
+| `owner_id` | `ContentActor` who owns the NFT.                                  |
+| `video_id` | The video corresponding to the NFT for which offer is to be made. |
 
 #### Conditions
 
@@ -280,9 +283,12 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name             | Description                                                       |
+| ---------------- | ----------------------------------------------------------------- |
+| `participant_id` | Member attempting to buy the NFT.                                 |
+| `video_id`       | The video corresponding to the NFT for which offer is to be made. |
+| `bid_amount`     | The amount of the bid.                                            |
+| `metadata`       | User metadata in the bid.                                         |
 
 #### Conditions
 
@@ -296,9 +302,10 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name             | Description                                                       |
+| ---------------- | ----------------------------------------------------------------- |
+| `participant_id` | Member attempting to buy the NFT.                                 |
+| `video_id`       | The video corresponding to the NFT for which offer is to be made. |
 
 #### Conditions
 
@@ -312,9 +319,29 @@ The following constants are hard coded into the system, they can only be updated
 
 **Parameters**
 
-| Name           | Description                       |
-| -------------- | --------------------------------- |
-| `root_account` | To be root account of membership. |
+| Name        | Description                                                        |
+| ----------- | ------------------------------------------------------------------ |
+| `member_id` | To be root account of membership.                                  |
+| `video_id`  | The video corresponding to the NFT for which offer is to be made.  |
+| `metadata`  | User provided metadata associated with the purchase and ownership. |
+
+#### Conditions
+
+* WIP.
+
+#### Effect
+
+* WIP.
+
+### Settle Open Auction
+
+**Parameters**
+
+| Name        | Description                                                        |
+| ----------- | ------------------------------------------------------------------ |
+| `owner_id`  | `ContentActor` who owns the NFT.                                   |
+| `video_id`  | The video corresponding to the NFT for which offer is to be made.  |
+| `metadata`  | User provided metadata associated with the purchase and ownership. |
 
 #### Conditions
 
