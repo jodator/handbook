@@ -72,15 +72,15 @@ An _auction_ represents the structured process through which the current owner c
 * **Starts At:** The block after which point it becomes possible to submit bids in the auction.
 * **Whitelist:** The set, which if non-empty, contains the set of members who are permitted to submit bids in the auction.
 
-### Content Actor: we will see!
+### Content Actor
 
+A _Content Actor_ represents a potential owner of an NFT, either through direct ownership or control over a channel.
 
+* **Curator:** A given curator in a given curator group. The curator is a valid controller of any channel owned by a curator group in which it is a member.
+* **Member:** A given member.
+* **Lead:** The lead of content directory working group. The lead is a valid controller of any channel owned by a curator group.
 
-* Curator(CuratorGroupId, CuratorId)
-* Member(MemberId)
-* Lead
-
-xxx
+**NB: This is top level content directory concept, so this will def. need to be moved out of the NFT specific section.**
 
 ### Transactional Status
 
