@@ -45,18 +45,18 @@ Notice that curator groups, curators or the content directory lead cannot direct
 
 An _Auction Type_ refers to one among the two distinct varieties of auctions which can be used to reallocate ownership of an NFT, hence it is either
 
-* **English:** An _English Auction_ is an auction where the highest bid, above some possibly set _reservation price_, is maintained and updated over time until some block in the future, called the _finalization block._
+* **English:** An _English Auction_ is an auction where the highest bid, above some possibly set _reservation price_, is maintained and updated over time until some block in the future, called the _finalization block. _Lastly there is an associated notion of an _extension period_, which is a period before the finalization bloc, where submitting any bid below the possible _buy now_ price will result in pushing the finalization block forward by the extension period. This is to avoid sniping.
 * **Open:** An _Open Auction_ is an auction which operates the same way as an English auction, except that there is no predefined duration, hence no finalization block. For this reason there is a _bid locking duration_, which is the number of blocks which must pass from the time a bid is submitted until the bidder can withdraw the bid if it is not accepted by the current owner.
 
-In both kinds of auctions, there is the concept of a _buy now_ price, which if set, means that if any bid matches this amount at any time, the auction is automatically concluded in favour of this bid.
+In both kinds of auctions, there is the concept of a _buy now_ price, which if set, means that if any bid matches this amount at any time, the auction is automatically concluded in favor of this bid.
 
 ### Bid
 
 A _bid_ represents a binding financial commitment from a member to aquire ownership of an NFT from the current owner at a given price in an auction, and it is defined by
 
 * **Bidder:** The identifier of the member who is making the bid.
-* **Account:** The identifier for the account which holds the committed funds, which will be encumbered by a reservation for a slong as the bid exists.
-* **Amount:** The balance of funds comitted in the bid.
+* **Account:** The identifier for the account which holds the committed funds, which will be encumbered by a reservation for as long as the bid exists.
+* **Amount:** The balance of funds committed in the bid.
 * **MadeAtBlock:** The block number in which the bid was created. 
 
 Notice that only members can be bidders, no other kind of actor.
@@ -84,16 +84,18 @@ A _Content Actor_ represents a potential owner of an NFT, either through direct 
 
 ### Transactional Status
 
-The transactional _status_ of an NFT represents the state of current opportunities to change the ownership, and it has the following distinct varieties
+The _transactional status_ of an NFT represents the state of current opportunities to change the ownership, and it has the following distinct varieties
 
-* **Idle:** There is no currently available opportunity, and the only relevant action is to transition to noe of the other three other statuses.
+* **Idle:** There is no currently available opportunity, and the only relevant action is to transition to one of the other three other statuses.
 * **Offered:** The current owner has extended an offer for a specific other member, called the _beneficiary_ to acquire ownership of the NFT, possibly for some require payment. In this status, the beneficiary can at any time accept the offer, which results in title transfer, or the current owner can withdraw the offer, which results in returning to the idle status.
-* **Auction:** There is a currently active auction of some kind, as represented by an [#auction](video-nfts.md#auction "mention").
+* **Auction:** There is a currently active auction of some kind, as represented by an [#auction](video-nfts.md#auction "mention"). The owner can cancel the auction at any time so long as there is no bid currently present in the auction. Anyone, possible screened by the whitelist, is free to submit a bid, which will only be successfully registered if is the amount is no less than the minimum bid step above any prior existing bid, or if it is the first bid, is no less than the reservation price. Beyond this, things work a bit differently depend on on the `AuctionType`
+  * **Open:** Once a bid is submitted, it can also be withdrawn at any time by the bidder, so long as the locking duration has passed since the time of submission of this bid. The winner is selected by being chosen by the owner as the winning bid through.
+  * **English:** A bid cannot be withdrawn, and any bid which still is active when the finalization block has passed, is considered the winner. Any bid submitted within the extension period of the current finalization block results in the finalization block being pushed forward by the extension period. In order to trigger the actual competiton of the auction, causing the ownership transfer and payments, an active call must be made after the finalization block has passed.
 * **Buy Now:** Anyone can instantly become the owner by paying a given amount. The owner can change the status back to idle at any time.
 
-The ...
+The stages and transitions are summarized in the image below.
 
-
+![NFT transactional statuses](../.gitbook/assets/nft\(2\).png)
 
 ### NFT
 
@@ -170,21 +172,7 @@ The following constants are hard coded into the system, they can only be updated
 
 * WIP.
 
-### Cancel Offer
 
-**Parameters**
-
-| `owner_id` | `ContentActor` identifying the caller.                            |
-| ---------- | ----------------------------------------------------------------- |
-| `video_id` | The video corresponding to the NFT for which offer is to be made. |
-
-#### Conditions
-
-* WIP.
-
-#### Effect
-
-* WIP.
 
 ### Accept Offer
 
@@ -262,23 +250,6 @@ The following constants are hard coded into the system, they can only be updated
 
 * WIP.
 
-### Cancel NFT Auction
-
-**Parameters**
-
-| Name       | Description                                                       |
-| ---------- | ----------------------------------------------------------------- |
-| `owner_id` | `ContentActor` who owns the NFT.                                  |
-| `video_id` | The video corresponding to the NFT for which offer is to be made. |
-
-#### Conditions
-
-* WIP.
-
-#### Effect
-
-* WIP.
-
 ### Make Bid
 
 **Parameters**
@@ -324,6 +295,26 @@ The following constants are hard coded into the system, they can only be updated
 | `member_id` | To be root account of membership.                                  |
 | `video_id`  | The video corresponding to the NFT for which offer is to be made.  |
 | `metadata`  | User provided metadata associated with the purchase and ownership. |
+
+#### Conditions
+
+* WIP.
+
+#### Effect
+
+* WIP.
+
+### Cancel Transaction
+
+**Parameters**
+
+| Name        | Description                                                        |
+| ----------- | ------------------------------------------------------------------ |
+| `owner_id`  | `ContentActor` who owns the NFT.                                   |
+| `video_id`  | The video corresponding to the NFT for which offer is to be made.  |
+| `metadata`  | User provided metadata associated with the purchase and ownership. |
+
+
 
 #### Conditions
 
