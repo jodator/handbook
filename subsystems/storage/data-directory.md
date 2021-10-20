@@ -57,31 +57,33 @@ A _data object bag_, or _bag_ for short, is a dynamic collection of data objects
 
 A bag is defined by the following information
 
-* **Id:** an id of type [#bag-id](data-directory.md#bag-id "mention") for this bag.
-* **StoredBy:** set of ids for [#storage-bucket](data-directory.md#storage-bucket "mention") tasked with storing the objects in the bag.
-* **DistribtedBy:** set of ids for [#distributor-bucket](data-directory.md#distributor-bucket "mention")  tasked with distributing the objects in the bag.
-* **DeletionPrize:** amount of money placed in [#undefined](data-directory.md#undefined "mention") as staking bond for cleaning up unused bag.
-* **ObjectSize:** cumulative size of all data objects in the bag.
-* **ObjectCount:** cumulative number of objects in the bag.
+* `id` : an id of type [#bag-id](data-directory.md#bag-id "mention") for this bag.
+* `stored_by`: set of ids for [#storage-bucket](data-directory.md#storage-bucket "mention") tasked with storing the objects in the bag.
+* `distributed_by`: set of ids for [#distributor-bucket](data-directory.md#distributor-bucket "mention")  tasked with distributing the objects in the bag.
+* `deletion_prize`:  amount of money placed in [#undefined](data-directory.md#undefined "mention") as staking bond for cleaning up unused bag.
+* `object_size`: cumulative size of all data objects in the bag.
+* `object_count`: cumulative number of objects in the bag.
 
 ### Storage Bucket
 
 A _storage bucket_ represents a commitment to hold some set of bags for long term storage. A bucket may have a _bucket operator_, which is a single worker in the storage working group. There is distinct _bucket operator metadata_ associated with each, which describes things such as how to resolve the host. The operator of a bucket may change over time. As previously described, when new dynamic bags are created, they are allocated to one or more such buckets, unless the bucket has been temporarily disabled from accepting new bags.&#x20;
 
-* **Id:** A unique immutable non-negative integer identifying an individual storage bucket, is automatically assigned by the blockchain upon creation.
-* OperaturStatus: ...
-* AceeptingNewBags:  ... accepting\_new\_bags: bool, /// Defines whether the bucket accepts new bags.
-* TotalSizeLimit: ...
-* ObjectCountLimtobjects\_limit: u64, /// Object number limit.
-* TotalSize: ...
-* ObjectCount: ...
+* `id` **:** a unique immutable non-negative integer identifying an individual storage bucket, is automatically assigned by the blockchain upon creation.
+* `operator_status`**:** status of bucket operator, is one of the following varieties
+  * `missing`: when there is no operator.
+  * `invited` : with associated [#worker](../../governance/working-groups.md#worker "mention") id in storage working group, when the lead has invited the given worker to operate the bucket.
+* `accepting_new_bags`: whether this this bucket is an acceptable destination for additional bags.
+* `total_size_limit` : upper bound on cumulative size of all data objects in bucket.
+* `object_count_limit` : upper bound on cumulative number of all data objects in bucket.
+* `total_size` : cumulative size of all data objects in bucket.
+* `object_count` : cumulative number of all data objects in bucket.
 
 ### Distributor Bucket
 
 A _distribution bucket_ represents a commitment to distribute a set of bags to end users. A bucket may have multiple _bucket operators_, each being a worker in the distribution working group. The same metadata concept applies here as well, and additionally covers whether the operator is live or not. Bags are assigned to buckets when being uploaded, or later by the lead by manual intervention.&#x20;
 
-* **Id:** A unique immutable non-negative integer identifying an individual distributor bucket, is automatically assigned by the blockchain upon creation.
-* **AcceptingNewBags:** bool, /// Distribution bucket accepts new bags.
+* `id` : a unique immutable non-negative integer identifying an individual distributor bucket, is automatically assigned by the blockchain upon creation.
+* `accepting_new_bags` : whether this bucket is an acceptable destination for additional bags.
 * distributing: bool, /// Distribution bucket serves objects.
 * pending\_invitations: BTreeSet, /// Pending invitations for workers to distribute the bucket.
 * operators: BTreeSet, /// Active operators to distribute the bucket.
