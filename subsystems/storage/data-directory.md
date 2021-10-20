@@ -2,14 +2,12 @@
 description: >-
   An on-chain index of all data stored and distributed in the system, with
   associated information about ownership, what providers are tasked with storing
-  and providing bandwidth, as well as general usag
+  and providing bandwidth, as well as utilization
 ---
 
 # Data Directory
 
 ## Introduction
-
-xxx
 
 The main goal of the system is to retain an index of all such objects, including who owns them, and information about what actors are currently tasked with storing and distributing them to end users. The system is unaware of the underlying content represented by such an object, as it is used by different parts of the system. It can represent assets as diverse as
 
