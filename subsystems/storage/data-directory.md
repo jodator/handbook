@@ -1,5 +1,8 @@
 ---
-description: xxxxx
+description: >-
+  An on-chain index of all data stored and distributed in the system, with
+  associated information about ownership, what providers are tasked with storing
+  and providing bandwidth, as well as general usag
 ---
 
 # Data Directory
@@ -8,73 +11,63 @@ description: xxxxx
 
 xxx
 
-## Concepts
-
-xxx
-
-entity relationships??
-
-\<image>
-
-### Data Object
+The main goal of the system is to retain an index of all such objects, including who owns them, and information about what actors are currently tasked with storing and distributing them to end users. The system is unaware of the underlying content represented by such an object, as it is used by different parts of the system. It can represent assets as diverse as
 
 
-
-The fundamental concept in the system is a _data object_, which represents single static binary object in the system. The main goal of the system is to retain an index of all such objects, including who owns them, and information about what actors are currently tasked with storing and distributing them to end users. The system is unaware of the underlying content represented by such an object, as it is used by different parts of the Joystream system. It can represent assets as diverse as
 
 * Video media, with a particular resolution and encoding, living in the content directory.
 * Image media used for the avatar of a member, an election candidate or for the cover of a channel in the content directory.
 * A data attachment to a blog post, proposal or role application.
 
-xxx
+Utility subsystem... many entry points are not through extrinsics.
 
+## Concepts
 
+entity relationships?? \<image>
 
-* accepted: bool, /// Defines whether the data object was accepted by a liason.
-* deletion_prize: Balance, /// A reward for the data object deletion.
-* size: u64, /// Object size in bytes.
-* pub ipfs_content_id: Vec, /// Content identifier presented as IPFS hash.
+### Data Object
+
+A _data object_ represents a single static data asset, like an image or video media, and it is defined by the following information
+
+* **Id:** A unique immutable non-negative integer identifying an individual data object, is automatically assigned by the blockchain upon creation.
+* **Accepted:** Whether the object has been verified as correctly uploaded to an initial storage providers. The storage provider making such a confirmation for a given object is referred to as the _liason_ for the object.
+* **Deletion Prize:** An amount of funds locked up as a state bloat bond for the object.
+* **Size:** The claimed size of the object, as stupilated during creation by the owner, and implicitly understood to be verified by the liason.
+* **Hash:** The IPFS CID of the object, specifically SS58 format of multihash with blake3 hashing algorithm.
 
 ### Bag
 
 A _data object bag_, or _bag_ for short, is a dynamic collection of data objects which can be treated as one subject in the system. Each bag has an owner, which is established when the bag is created. A data object lives in exactly one bag, but may be moved across bags by the owner of the bag. Only the owner can create new data objects in a bag, or opt into absorbing objects from another bag.
 
-The purpose of the concept of bags is to limit the on-chain footprint of administrating multiple objects which should be treated the same way. This is achieved by establishing a small immutable identifier for these objects. The canonical example would be assets that will be consumed together, such as the cover photo and different video media encodings of a single piece of video content. Storage and distribution nodes have commitments to bags, not individual data objects.
+The purpose of the concept of bags is to limit the on-chain transactional footprint of administrating multiple objects which should be treated the same way. This is achieved by establishing a small immutable identifier for these objects. The canonical example would be assets that will be consumed together, such as the cover photo and different video media encodings of a single piece of video content. Storage and distribution nodes have commitments to bags, not individual data objects. There are two different kinds of bags, _static bags_ and _dynamic bags_. The former are all created when the system goes live and cannot be deleted, and of the latter there are few different types, and new instances of each type can be created over time.&#x20;
 
-There are two different kinds of bags, _static bags_ and _dynamic bags_. The former are all created when the system goes live and cannot be deleted, and of the latter there are few different types, and new instances of each type can be created over time. Specifically there is one static bag for the council and each working group, and there is a member, channel and DAO dynamic bag _type_. When a new member, channel or DAO is created, then a new instance of each such type is created.
+#### Bag Id
 
-A _dynamic bag creation policy_ holds parameter values impacting how exactly the creation of a new dynamic bag occurs, and there is one such policy for each type of dynamic bag. It describes how many storage buckets should store the bag, and from what subset of distribution bucket families (described below) to select a given number of distribution buckets (described below).
+A _Bag Id_ is a value which can identify a specific bag, and it takes one of the following varieties
 
+* **Static:** A _static bag id_ identifies one of the built in bags in the system, and it comes in one of the following subvaries
+  * **Council:** identifes the bag reserved for the council to manage through its proposal system.
+  * Membership Working Group: ...
+  * Storage Working Group: ...
+  * Bandwidth Working Group: ...
+  * Content Directory Working Group: ...
+  * Forum Working Group: ...
+  * Operations Working Group Alfa: ...
+  * Operations Working Group Beta: ..
+  * Operations Working Group Gamma: ...
+* Dynamic: A _dynamic bag id_ identifies one of the dynamic, so not built in, bags in the system, and it comes in one of the following subvarieties:
+  * Member: ...
+  * Channe: ...
 
+#### Bag
 
-dynamic bagtype
+A bag is defined by the following information
 
-Member, /// Member dynamic bag type. Channel, /// Channel dynamic bag type.
-
-
-
-BagID
-
-Static(StaticBagId), Dynamic(DynamicBagIdType\<MemberId, ChannelId>), /// Dynamic bag type.
-
-
-
-pub enum StaticBagId { /// Dedicated bag for a council. Council,
-
-```
-/// Dedicated bag for some working group.
-WorkingGroup(WorkingGroup),
-```
-
-}
-
-
-
-* stored_by: BTreeSet, /// Associated storage buckets.
-* distributed_by: BTreeSet, /// Associated distribution buckets.
-* deletion_prize: Option, /// Bag deletion prize (valid for dynamic bags).
-* objects_total_size: u64, /// Total object size for bag.
-* objects_number: u64, /// Total object number for bag.
+* stored\_by: BTreeSet, /// Associated storage buckets.
+* distributed\_by: BTreeSet, /// Associated distribution buckets.
+* deletion\_prize: Option, /// Bag deletion prize (valid for dynamic bags).
+* objects\_total\_size: u64, /// Total object size for bag.
+* objects\_number: u64, /// Total object number for bag.
 
 ### Storage Bucket
 
@@ -82,29 +75,33 @@ A _storage bucket_ is a commitment to hold some set of bags for long term storag
 
 
 
-* operator_status: StorageBucketOperatorStatus, /// Current storage operator status.
-* accepting_new_bags: bool, /// Defines whether the bucket accepts new bags.
+* operator\_status: StorageBucketOperatorStatus, /// Current storage operator status.
+* accepting\_new\_bags: bool, /// Defines whether the bucket accepts new bags.
 * voucher: Voucher, /// Defines limits for a bucket.
 
 ### Distributor Bucket
 
-A _distribution bucket_ is a commitment to distribute a set of bags to end users. A bucket may have multiple _bucket operators_, each being a worker in the distribution working group. The same metadata concept applies here as well, and additionally covers whether the operator is live or not. Bags are assigned to buckets when being uploaded, or later by the lead by manual intervention. Buckets are partitioned into so called _distribution bucket families_. These families group buckets with interchangeable semantics from distributional point of view, and the purpose of the grouping is to allow sharding over the bag space for a given service level when creating new bags. Here is an example that can make this more clear. A subset of families could for example represent each country in East Asia, where each family corresponds to a specific country. The buckets in a family, say the family for Mongolia, will be operated by infrastructure which can provide sufficiently low latency guarantees w.r.t. the corresponding country. The bag for a channel known to be particularly popular in this area could be setup so as to use these buckets disproportionately.
+A _distribution bucket_ is a commitment to distribute a set of bags to end users. A bucket may have multiple _bucket operators_, each being a worker in the distribution working group. The same metadata concept applies here as well, and additionally covers whether the operator is live or not. Bags are assigned to buckets when being uploaded, or later by the lead by manual intervention.&#x20;
 
 
 
-* accepting_new_bags: bool, /// Distribution bucket accepts new bags.
+* accepting\_new\_bags: bool, /// Distribution bucket accepts new bags.
 * distributing: bool, /// Distribution bucket serves objects.
-* pending_invitations: BTreeSet, /// Pending invitations for workers to distribute the bucket.
+* pending\_invitations: BTreeSet, /// Pending invitations for workers to distribute the bucket.
 * operators: BTreeSet, /// Active operators to distribute the bucket.
-* assigned_bags: u64, /// Number of assigned bags.
+* assigned\_bags: u64, /// Number of assigned bags.
 
 ### Dynamic Bag Creation Policy
 
 xx
 
+A _dynamic bag creation policy_ holds parameter values impacting how exactly the creation of a new dynamic bag occurs, and there is one such policy for each type of dynamic bag. It describes how many storage buckets should store the bag, and from what subset of distribution bucket families (described below) to select a given number of distribution buckets (described below).
+
 ### Distributor Bucket Family
 
 xx
+
+Buckets are partitioned into so called _distribution bucket families_. These families group buckets with interchangeable semantics from distributional point of view, and the purpose of the grouping is to allow sharding over the bag space for a given service level when creating new bags. Here is an example that can make this more clear. A subset of families could for example represent each country in East Asia, where each family corresponds to a specific country. The buckets in a family, say the family for Mongolia, will be operated by infrastructure which can provide sufficiently low latency guarantees w.r.t. the corresponding country. The bag for a channel known to be particularly popular in this area could be setup so as to use these buckets disproportionately.
 
 ### Blacklist
 
@@ -114,10 +111,10 @@ xxx
 
 xxx
 
-* size_limit: u64, /// Total size limit.
-* objects_limit: u64, /// Object number limit.
-* size_used: u64, /// Current size.
-* objects_used: u64, /// Current object number.
+* size\_limit: u64, /// Total size limit.
+* objects\_limit: u64, /// Object number limit.
+* size\_used: u64, /// Current size.
+* objects\_used: u64, /// Current object number.
 
 blacklists: important to explain signififacna nd enforcebilit
 
@@ -135,114 +132,114 @@ type DataObjectDeletionPrize: Get\<BalanceOf>; /// Defines a prize for a data ob
 
 xxx
 
-### create_storage_bucket
+### create\_storage\_bucket
 
 xx
 
-### update_storage_buckets_for_bag
+### update\_storage\_buckets\_for\_bag
 
 xx
 
-### delete_storage_bucket
+### delete\_storage\_bucket
 
 xx
 
-### invite_storage_bucket_operator
+### invite\_storage\_bucket\_operator
 
 xx
 
-### cancel_storage_bucket_operator_invite
+### cancel\_storage\_bucket\_operator\_invite
 
 xx
 
-### remove_storage_bucket_operator
+### remove\_storage\_bucket\_operator
 
 xx
 
-### update_uploading_blocked_status
+### update\_uploading\_blocked\_status
 
 xx
 
-### update_storage_buckets_per_bag_limit
+### update\_storage\_buckets\_per\_bag\_limit
 
 xx
 
-### update_storage_buckets_voucher_max_limits
+### update\_storage\_buckets\_voucher\_max\_limits
 
 xx
 
-### update_number_of_storage_buckets_in_dynamic_bag_creation_policy
+### update\_number\_of\_storage\_buckets\_in\_dynamic\_bag\_creation\_policy
 
 xx
 
-### update_blacklist
+### update\_blacklist
 
 xx
 
-### set_storage_bucket_voucher_limits
+### set\_storage\_bucket\_voucher\_limits
 
 xx
 
-### accept_storage_bucket_invitation
+### accept\_storage\_bucket\_invitation
 
 xx
 
-### set_storage_operator_metadata
+### set\_storage\_operator\_metadata
 
 xx
 
-### accept_pending_data_objects
+### accept\_pending\_data\_objects
 
 xx
 
-### create_distribution_bucket_family
+### create\_distribution\_bucket\_family
 
 xx
 
-### delete_distribution_bucket_family
+### delete\_distribution\_bucket\_family
 
 xx
 
-### create_distribution_bucket
+### create\_distribution\_bucket
 
 xx
 
-### delete_distribution_bucket
+### delete\_distribution\_bucket
 
 xx
 
-### update_distribution_bucket_status
+### update\_distribution\_bucket\_status
 
 xx
 
-### update_distribution_buckets_for_bag
+### update\_distribution\_buckets\_for\_bag
 
 xx
 
-### distribution_buckets_per_bag_limit
+### distribution\_buckets\_per\_bag\_limit
 
 xx
 
-### update_families_in_dynamic_bag_creation_policy
+### update\_families\_in\_dynamic\_bag\_creation\_policy
 
 xx
 
-### cancel_distribution_bucket_operator_invite
+### cancel\_distribution\_bucket\_operator\_invite
 
 xx
 
-### remove_distribution_bucket_operator
+### remove\_distribution\_bucket\_operator
 
 xx
 
-### set_distribution_bucket_family_metadata
+### set\_distribution\_bucket\_family\_metadata
 
 xx
 
-### accept_distribution_bucket_invitation
+### accept\_distribution\_bucket\_invitation
 
 xx
 
-### set_distribution_operator_metadata
+### set\_distribution\_operator\_metadata
 
 xx

@@ -5,6 +5,7 @@
 ## Key Concepts
 
 * [Staking](key-concepts/staking.md)
+* [Module Accounts](key-concepts/module-accounts.md)
 * [Fees](key-concepts/fees.md)
 * [Encodings](key-concepts/encodings.md)
 * [Glossary](key-concepts/glossary.md)
