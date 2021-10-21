@@ -122,7 +122,9 @@ The following mutable parameters are part of the system.
 | `uploading_blocked`             | `Bool`    | Whether all new uploads blocked.            |
 | `data_object_per_mega_byte_fee` | `Balance` | Size based pricing of new objects uploaded. |
 
-## On-chain Hooks
+## Internal Methods
+
+The following set of method can be invoked from within the blockchain itself by other systems, and it is the way that different subsystems unlock the ability to have end-users interact with the storage and bandwidth system, for example allowing channel owners to publish video media into this infrastructure.
 
 ### can\_upload\_data\_objects
 
