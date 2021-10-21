@@ -51,20 +51,20 @@ A _Bag Id_ is a value which can identify a specific bag, see section on [#bag](d
 
 ### Bag
 
-A _data object bag_, or _bag_ for short, is a dynamic collection of data objects which can be treated as one subject in the system. Each bag has an owner, which is established when the bag is created. A data object lives in exactly one bag, but may be moved across bags by the owner of the bag. Only the owner can create new data objects in a bag, or opt into absorbing objects from another bag. The purpose of the concept of bags is to limit the on-chain transactional footprint of administrating multiple objects which should be treated the same way. This is achieved by establishing a small immutable identifier for these objects. The canonical example would be assets that will be consumed together, such as the cover photo and different video media encodings of a single piece of video content. Storage and distribution nodes have commitments to bags, not individual data objects.&#x20;
+A _data object bag_, or _bag_ for short, is a dynamic collection of data objects which can be treated as one subject in the system. Each bag has an owner, which is established when the bag is created. A data object lives in exactly one bag, but may be moved across bags by the owner of the bag. Only the owner can create new data objects in a bag, or opt into absorbing objects from another bag. The purpose of the concept of bags is to limit the on-chain transactional footprint of administrating multiple objects which should be treated the same way. This is achieved by establishing a small immutable identifier for these objects. The canonical example would be assets that will be consumed together, such as the cover photo and different video media encodings of a single piece of video content. Storage and distribution nodes have commitments to bags, not individual data objects.
 
 A bag is defined by the following information
 
 * `id` : an id of type [#bag-id](data-directory.md#bag-id "mention") for this bag.
 * `stored_by`: set of ids for [#storage-bucket](data-directory.md#storage-bucket "mention") tasked with storing the objects in the bag.
-* `distributed_by`: set of ids for [#distributor-bucket](data-directory.md#distributor-bucket "mention")  tasked with distributing the objects in the bag.
-* `deletion_prize`:  amount of money placed in [#undefined](data-directory.md#undefined "mention") as staking bond for cleaning up unused bag.
+* `distributed_by`: set of ids for [#distributor-bucket](data-directory.md#distributor-bucket "mention") tasked with distributing the objects in the bag.
+* `deletion_prize`: amount of money placed in [#undefined](data-directory.md#undefined "mention") as staking bond for cleaning up unused bag.
 * `object_size`: cumulative size of all data objects in the bag.
 * `object_count`: cumulative number of objects in the bag.
 
 ### Storage Bucket
 
-A _storage bucket_ represents a commitment to hold some set of bags for long term storage. A bucket may have a _bucket operator_, which is a single worker in the storage working group. There is distinct _bucket operator metadata_ associated with each, which describes things such as how to resolve the host. The operator of a bucket may change over time. As previously described, when new dynamic bags are created, they are allocated to one or more such buckets, unless the bucket has been temporarily disabled from accepting new bags.&#x20;
+A _storage bucket_ represents a commitment to hold some set of bags for long term storage. A bucket may have a _bucket operator_, which is a single worker in the storage working group. There is distinct _bucket operator metadata_ associated with each, which describes things such as how to resolve the host. The operator of a bucket may change over time. As previously described, when new dynamic bags are created, they are allocated to one or more such buckets, unless the bucket has been temporarily disabled from accepting new bags.
 
 * `id` **:** a unique immutable non-negative integer identifying an individual storage bucket, is automatically assigned by the blockchain upon creation.
 * `operator_status`**:** status of bucket operator, is one of the following varieties
@@ -91,15 +91,15 @@ A _distribution bucket_ represents a commitment to distribute a set of bags to e
 
 Buckets are partitioned into so called _distribution bucket families_. These families group buckets with interchangeable semantics from distributional point of view, and the purpose of the grouping is to allow sharding over the bag space for a given service level when creating new bags. Here is an example that can make this more clear. A subset of families could for example represent each country in East Asia, where each family corresponds to a specific country. The buckets in a family, say the family for Mongolia, will be operated by infrastructure which can provide sufficiently low latency guarantees w.r.t. the corresponding country. The bag for a channel known to be particularly popular in this area could be setup so as to use these buckets disproportionately.
 
-- `id`: a unique immutable non-negative integer identifying an individual distribution bucket family, is automatically assigned by the blockchain upon creation.
-- `distribution_buckets`: a map which sends [#distribution-bucket](data-directory.md#distribution-bucket "mention") `id` to the corresponding bucket, and holds all buckets that are part of this family.
+* `id`: a unique immutable non-negative integer identifying an individual distribution bucket family, is automatically assigned by the blockchain upon creation.
+* `distribution_buckets`: a map which sends [#distribution-bucket](data-directory.md#distribution-bucket "mention") `id` to the corresponding bucket, and holds all buckets that are part of this family.
 
 ### Dynamic Bag Creation Policy
 
 A _dynamic bag creation policy_ holds parameter values impacting how exactly the creation of a new dynamic bag occurs, and there is one such policy for each type of dynamic bag, so two, one for `member` and one for `channel`. It describes how many storage buckets should store the bag, and from what subset of distribution bucket families (described below) to select a given number of distribution buckets, specifically
 
-- `number_of_storage_buckets`:  number of storage buckets which should replicate the new bag.
-- `families`: map of [#distribution bucket family](data-directory.md#distribution-bucket-family "mention") id to the number of distribution buckets in the given family one must assign to a new bag for distribution when subject to this policy.
+* `number_of_storage_buckets`: number of storage buckets which should replicate the new bag.
+* `families`: map of [#distribution-bucket-family](data-directory.md#distribution-bucket-family "mention") id to the number of distribution buckets in the given family one must assign to a new bag for distribution when subject to this policy.
 
 ### Blacklist
 
@@ -109,87 +109,85 @@ The _blacklist_ is a collection hashes, managed by the lead, which are not allow
 
 ### Overview
 
-..
+The following overview summarizes the main relationships between the primary concepts.
 
-### X
-
-.... \<entity relationships image>
+![](../../.gitbook/assets/storage\_and\_distribution.png)
 
 ## Parameters
 
 The following mutable parameters are part of the system.
 
-| Name                      | Type          | Description                                    |
-| ------------------------- | ------------- | ---------------------------------------------- |
-| `uploading_blocked`            | `Bool` | Whether all new uploads blocked.                        |
-| `data_object_per_mega_byte_fee`            | `Balance` | Size based pricing of new objects uploaded.                        |
+| Name                            | Type      | Description                                 |
+| ------------------------------- | --------- | ------------------------------------------- |
+| `uploading_blocked`             | `Bool`    | Whether all new uploads blocked.            |
+| `data_object_per_mega_byte_fee` | `Balance` | Size based pricing of new objects uploaded. |
 
 ## On-chain Hooks
 
-### can_upload_data_objects
+### can\_upload\_data\_objects
 
 Validates upload parameters and conditions (like global uploading block). Validates voucher usage for affected buckets.
 
-### upload_data_objects
+### upload\_data\_objects
 
 Upload new data objects.
 
-### can_move_data_objects
+### can\_move\_data\_objects
 
 Validates moving objects parameters, voucher usage for affected buckets.
 
-### move_data_objects
+### move\_data\_objects
 
 Move data objects to a new bag.
 
-### can_delete_data_objects
+### can\_delete\_data\_objects
 
 Validates `delete_data_objects` parameters, voucher usage for affected buckets.
 
-### delete_data_objects
+### delete\_data\_objects
 
 Delete storage objects. Transfer deletion prize to the provided account.
 
-### delete_dynamic_bag
+### delete\_dynamic\_bag
 
 Delete dynamic bag. Updates related storage bucket vouchers.
 
-### can_delete_dynamic_bag
+### can\_delete\_dynamic\_bag
 
 Validates `delete_dynamic_bag` parameters and conditions.
 
-### create_dynamic_bag
+### create\_dynamic\_bag
 
 Creates dynamic bag. BagId should provide the caller.
 
-### can_create_dynamic_bag
+### can\_create\_dynamic\_bag
 
 Validates `create_dynamic_bag` parameters and conditions.
 
-### ensure_bag_exists
+### ensure\_bag\_exists
 
 Checks if a bag does exists and returns it. Static Always exists
 
-### get_data_objects_id
+### get\_data\_objects\_id
 
 Get all objects id in a bag, without checking its existence
 
 ## Constants
 
-| Name                      | Description                                                                                     |
-| ------------------------- | ----------------------------------------------------------------------------------------------- |
-| `DataObjectDeletionPrize` | A prize for a data object deletion.                              |
-| `BlacklistSizeLimit` | maximum size of the "hash blacklist" collection.                              |
-| `DATA_DIRECTORY_ACCOUNT_ID` | A prize for a data object .                              |
-| `StorageBucketsPerBagValueConstraint` | "Storage buckets per bag" value constraint.                              |
-| `DistributionBucketsPerBagValueConstraint` |  "Distribution buckets per bag" value constraint.                              |
-| `DefaultMemberDynamicBagNumberOfStorageBuckets` | The default dynamic bag creation policy for members (storage bucket number).                              |
-| `DefaultChannelDynamicBagNumberOfStorageBuckets` | The default dynamic bag creation policy for channels (storage bucket number).                              |
-| `MaxRandomIterationNumber` | Max random iteration number (eg.: when picking the storage buckets).                              |
-| `MaxDistributionBucketFamilyNumber` | Max allowed distribution bucket family number.                              |
-| `MaxDistributionBucketNumberPerFamily` | Max allowed distribution bucket number per family.                              |
-| `MaxNumberOfPendingInvitationsPerDistributionBucket` | Max number of pending invitations per distribution bucket.                              |
-| `MaxDataObjectSize` | Max data object size in bytes.                              |
+| Name                                                 | Description                                                                   |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `DataObjectDeletionPrize`                            | A prize for a data object deletion.                                           |
+| `BlacklistSizeLimit`                                 | maximum size of the "hash blacklist" collection.                              |
+| `DATA_DIRECTORY_ACCOUNT_ID`                          | A prize for a data object .                                                   |
+| `StorageBucketsPerBagValueConstraint`                | "Storage buckets per bag" value constraint.                                   |
+| `DistributionBucketsPerBagValueConstraint`           | "Distribution buckets per bag" value constraint.                              |
+| `DefaultMemberDynamicBagNumberOfStorageBuckets`      | The default dynamic bag creation policy for members (storage bucket number).  |
+| `DefaultChannelDynamicBagNumberOfStorageBuckets`     | The default dynamic bag creation policy for channels (storage bucket number). |
+| `MaxRandomIterationNumber`                           | Max random iteration number (eg.: when picking the storage buckets).          |
+| `MaxDistributionBucketFamilyNumber`                  | Max allowed distribution bucket family number.                                |
+| `MaxDistributionBucketNumberPerFamily`               | Max allowed distribution bucket number per family.                            |
+| `MaxNumberOfPendingInvitationsPerDistributionBucket` | Max number of pending invitations per distribution bucket.                    |
+| `MaxDataObjectSize`                                  | Max data object size in bytes.                                                |
 
 ## Extrinsics
 
